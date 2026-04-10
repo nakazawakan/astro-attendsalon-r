@@ -1,0 +1,22 @@
+---
+const footerLinks = [
+  { href: '/', label: 'トップ' },
+  { href: '/kanjorodou/', label: '感情労働とは' },
+  { href: '/instructor/', label: '講師紹介' },
+  { href: '/faq/', label: 'よくある質問' },
+  { href: '/about/', label: '運営者情報' },
+  { href: '/contact/', label: 'お問い合わせ' },
+];
+---
+<footer class="bg-black text-white py-10 md:py-12">
+  <div class="max-w-[960px] mx-auto px-4 md:px-6 text-center">
+    <nav aria-label="フッターナビ" class="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm md:text-base font-zen">
+      {footerLinks.map(({ href, label }) => (
+        <a href={href} class="text-white/90 hover:text-white underline-offset-4 hover:underline">
+          {label}
+        </a>
+      ))}
+    </nav>
+    <p class="mt-8 text-xs text-white/50 font-noto">© {new Date().getFullYear()} アテンドサロンR. All rights reserved.</p>
+  </div>
+</footer>

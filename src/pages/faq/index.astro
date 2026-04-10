@@ -1,0 +1,36 @@
+---
+import SiteChrome from '../../layouts/SiteChrome.astro';
+
+const faqs = [
+  {
+    q: '研修はオンラインでも受けられますか？',
+    a: 'はい。集合研修、オンライン、ハイブリッド形式など、貴社の体制に合わせてご提案可能です。',
+  },
+  {
+    q: '参加人数に制限はありますか？',
+    a: 'プログラムにより異なりますが、ワークを含む場合はおおむね10〜40名程度を目安に設計しています。大人数向けには複数回開催やeラーニング併用もご相談ください。',
+  },
+  {
+    q: '見積もりは無料ですか？',
+    a: '初回ヒアリングおよび概算お見積もりは無料です。詳細設計後に正式お見積りをご提示します。',
+  },
+];
+---
+<SiteChrome title="よくある質問｜アテンドサロンR">
+  <div class="max-w-[960px] mx-auto px-4 md:px-6 py-12 md:py-16">
+    <h1 class="text-2xl md:text-3xl font-zen font-bold text-black-03 mb-10 text-center">よくある質問</h1>
+    <dl class="space-y-6 font-noto">
+      {faqs.map(({ q, a }) => (
+        <div class="border border-[#e0e0e0] rounded-lg p-5 bg-white">
+          <dt class="font-bold text-black-03 mb-2">{q}</dt>
+          <dd class="text-sm md:text-base text-black-05 leading-relaxed">{a}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="mt-10 text-center">
+      <a href="/contact/" class="inline-flex items-center rounded-full bg-pink-01 text-white font-zen font-bold px-6 py-3 text-sm hover:opacity-90">
+        その他のご質問はお問い合わせへ
+      </a>
+    </p>
+  </div>
+</SiteChrome>

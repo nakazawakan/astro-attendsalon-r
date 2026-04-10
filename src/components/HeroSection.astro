@@ -1,0 +1,56 @@
+---
+const tags = ['ストレスケア', '接客対応', 'ハラスメント対応'];
+const blobs = [
+  { char: '感', src: '/images/blob-kan.svg' },
+  { char: '情', src: '/images/blob-jo.svg' },
+  { char: '労', src: '/images/blob-ro.svg' },
+  { char: '働', src: '/images/blob-do.svg' },
+];
+const heroImages = ['/images/hero-01.jpg', '/images/hero-02.jpg', '/images/hero-03.jpg', '/images/hero-04.jpg'];
+---
+<section class="relative overflow-hidden bg-bg-warm min-h-[520px] md:h-[797px] md:min-h-[797px]">
+  <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 pointer-events-none select-none text-[280px] md:text-[420px] font-zen font-bold text-pink-01/10 leading-none" aria-hidden="true">
+    R
+  </div>
+
+  <div class="relative max-w-[960px] mx-auto px-4 md:px-6 py-10 md:py-16 md:flex md:items-center md:justify-between md:gap-8 md:h-full">
+    <div class="md:w-[min(100%,480px)] z-10">
+      <div class="flex flex-wrap gap-2 mb-6">
+        {tags.map((t) => (
+          <span class="inline-block bg-white border border-blue-01 text-blue-01 text-base px-2 py-1 rounded-sm font-zen">
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <div class="flex flex-wrap items-end gap-1 md:gap-2 mb-2">
+        {blobs.map(({ char, src }) => (
+          <span class="relative inline-flex items-center justify-center w-[3.2rem] h-[3.2rem] sm:w-16 sm:h-16 md:w-[4.5rem] md:h-[4.5rem]">
+            <img src={src} alt="" class="absolute inset-0 w-full h-full object-contain" aria-hidden="true" />
+            <span class="relative text-pink-01 text-[2rem] sm:text-[2.5rem] md:text-[54px] font-zen font-bold leading-none">{char}</span>
+          </span>
+        ))}
+      </div>
+
+      <p class="text-black-03 text-[1.5rem] md:text-[40px] font-zen font-bold leading-tight mb-4">の職場向け研修支援</p>
+
+      <p class="text-black-03 text-xl md:text-[30px] font-zen font-bold leading-[1.5]">
+        現場の声に寄り添い、<br class="hidden sm:block" />
+        組織と人を支える研修をご提供します。
+      </p>
+    </div>
+
+    <div class="mt-10 md:mt-0 grid grid-cols-2 gap-3 md:gap-4 w-full max-w-[420px] md:max-w-none md:w-auto mx-auto md:mx-0 shrink-0 z-10">
+      {heroImages.map((src, i) => (
+        <img
+          src={src}
+          alt=""
+          width="193"
+          height="147"
+          class="w-full max-w-[193px] h-[120px] sm:h-[147px] object-cover rounded-[5px] mx-auto"
+          loading={i < 2 ? 'eager' : 'lazy'}
+        />
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+---
+const steps = [
+  {
+    title: '現状把握',
+    body: '貴社の業種・組織規模・課題感をヒアリングし、研修の目的と期待する成果をすり合わせます。必要に応じて簡易アンケートのご提案も可能です。',
+  },
+  {
+    title: '研修設計',
+    body: 'ヒアリング内容をもとに、対象者・時間・形式（集合・オンライン・ハイブリッド）に合わせてプログラムをカスタマイズします。',
+  },
+  {
+    title: '研修実施',
+    body: '座学に加え、ロールプレイやグループワークなど双方向型の演習を取り入れ、現場で使えるスキルの定着を図ります。',
+  },
+  {
+    title: '効果測定',
+    body: '実施後アンケートや簡易レポートで振り返りを行い、必要に応じてフォロー研修・相談窓口の継続支援もご提案します。',
+  },
+];
+---
+<section class="bg-white border-t border-[#e9e9e9] py-12 md:py-16">
+  <div class="max-w-[960px] mx-auto px-4 md:px-6">
+    <h2 class="text-xl md:text-2xl font-noto font-bold text-black-03 text-center mb-10">研修の導入までの流れ</h2>
+    <div class="flex flex-col items-center gap-4 md:gap-5">
+      {steps.map(({ title, body }, i) => (
+        <div class="w-full max-w-[740px] bg-[#f9f9f9] p-4 md:p-6 rounded">
+          <div class="flex items-start gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-01 text-white text-sm font-noto font-bold shrink-0">
+              {i + 1}
+            </span>
+            <div>
+              <h3 class="text-lg font-noto font-bold text-black-03 mb-2">{title}</h3>
+              <p class="text-sm md:text-base text-black-03 leading-relaxed font-noto">{body}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

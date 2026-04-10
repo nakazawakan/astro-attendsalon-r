@@ -1,0 +1,65 @@
+---
+import IconArrowLeft from './IconArrowLeft.astro';
+---
+<header class="sticky top-0 z-50 border-b border-black/5 bg-white shadow-sm">
+  <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-wrap items-center justify-between gap-3 py-3 md:py-4">
+    <a href="/" class="flex items-center gap-3 min-w-0">
+      <img src="/images/logo.png" alt="アテンドサロンR" width="60" height="60" class="shrink-0 rounded-sm object-contain" />
+      <div class="text-[10px] md:text-[12px] leading-tight font-zen text-black-03">
+        <span class="block">イキイキと自分らしく働くための</span>
+        <span class="block font-medium">ウェルビーイング経営支援</span>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 flex-1 justify-end mr-4" aria-label="メインナビゲーション">
+      <a href="/#about" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors">選ばれる理由</a>
+      <a href="/kanjorodou/" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors">感情労働とは</a>
+      <a href="/#services" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors">研修サービス</a>
+    </nav>
+
+    <div class="hidden md:flex items-center gap-3 shrink-0">
+      <a
+        href="/contact/"
+        class="inline-flex items-center gap-2 rounded-full border border-pink-03 bg-white px-6 py-[10px] text-sm font-zen font-bold text-pink-01 hover:bg-bg-warm transition-colors"
+      >
+        <IconArrowLeft />
+        無料相談
+      </a>
+      <a
+        href="/contact/#request"
+        class="inline-flex items-center gap-2 rounded-full bg-pink-01 px-6 py-[10px] text-sm font-zen font-bold text-white hover:opacity-90 transition-opacity"
+      >
+        <IconArrowLeft class="w-4 h-4 shrink-0 text-white" />
+        資料請求
+      </a>
+    </div>
+
+    <details class="md:hidden relative group">
+      <summary class="list-none cursor-pointer p-2 -mr-2 rounded-md hover:bg-black/5 [&::-webkit-details-marker]:hidden flex items-center justify-center w-10 h-10" aria-label="メニューを開く">
+        <span class="sr-only">メニュー</span>
+        <span class="flex flex-col gap-1.5 w-5">
+          <span class="block h-0.5 w-full bg-black-03 rounded"></span>
+          <span class="block h-0.5 w-full bg-black-03 rounded"></span>
+          <span class="block h-0.5 w-full bg-black-03 rounded"></span>
+        </span>
+      </summary>
+      <div class="absolute right-0 top-full mt-2 w-[min(100vw-2rem,280px)] rounded-lg border border-black/10 bg-white shadow-lg p-4 z-50">
+        <nav class="flex flex-col gap-3 font-zen font-bold text-[15px]" aria-label="モバイルナビ">
+          <a href="/#about" class="text-black-03 py-2 border-b border-black/5">選ばれる理由</a>
+          <a href="/kanjorodou/" class="text-black-03 py-2 border-b border-black/5">感情労働とは</a>
+          <a href="/#services" class="text-black-03 py-2 border-b border-black/5">研修サービス</a>
+        </nav>
+        <div class="flex flex-col gap-2 mt-4">
+          <a href="/contact/" class="inline-flex items-center justify-center gap-2 rounded-full border border-pink-03 bg-white px-6 py-[10px] text-sm font-bold text-pink-01">
+            <IconArrowLeft />
+            無料相談
+          </a>
+          <a href="/contact/#request" class="inline-flex items-center justify-center gap-2 rounded-full bg-pink-01 px-6 py-[10px] text-sm font-bold text-white">
+            <IconArrowLeft class="w-4 h-4 text-white" />
+            資料請求
+          </a>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>

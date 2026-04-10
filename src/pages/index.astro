@@ -1,9 +1,21 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteChrome from '../layouts/SiteChrome.astro';
+import HeroSection from '../components/HeroSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ServiceSection from '../components/ServiceSection.astro';
+import FeatureSection from '../components/FeatureSection.astro';
+import VoiceSection from '../components/VoiceSection.astro';
+import InstructorSection from '../components/InstructorSection.astro';
+import FlowSection from '../components/FlowSection.astro';
+import SiteLinksSection from '../components/SiteLinksSection.astro';
 ---
-<BaseLayout title="アテンドサロンR | 感情労働の職場向け研修支援">
-  <!-- TODO: Cursor が各セクションコンポーネントを実装する -->
-  <main>
-    <p class="p-8 text-center text-[#fb6b6a] font-bold">アテンドサロンR — 実装中</p>
-  </main>
-</BaseLayout>
+<SiteChrome title="アテンドサロンR | 感情労働の職場向け研修支援">
+  <HeroSection />
+  <AboutSection />
+  <ServiceSection />
+  <FeatureSection />
+  <VoiceSection />
+  <InstructorSection />
+  <FlowSection />
+  <SiteLinksSection />
+</SiteChrome>

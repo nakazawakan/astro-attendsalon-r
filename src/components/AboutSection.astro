@@ -1,0 +1,76 @@
+---
+const gridImages = ['/images/hero-01.jpg', '/images/hero-02.jpg', '/images/hero-03.jpg', '/images/hero-04.jpg'];
+const industries = [
+  { label: '医療・介護', icon: '🏥' },
+  { label: 'お客様窓口', icon: '🪟' },
+  { label: 'ホテル・飲食', icon: '🏨' },
+  { label: '教育・保育', icon: '📚' },
+  { label: '官公庁・自治体', icon: '🏛' },
+  { label: '営業', icon: '🤝' },
+];
+---
+<section id="about" class="bg-bg-warm py-12 md:py-20 border-t border-black/5">
+  <div class="max-w-[960px] mx-auto px-4 md:px-6">
+    <div class="flex flex-col md:flex-row md:items-start gap-10 md:gap-12">
+      <div class="grid grid-cols-2 gap-3 md:gap-4 w-full max-w-[420px] md:max-w-none md:w-[min(100%,420px)] shrink-0 mx-auto md:mx-0">
+        {gridImages.map((src, i) => (
+          <img
+            src={src}
+            alt=""
+            width="193"
+            height="147"
+            class="w-full max-w-[193px] h-[120px] sm:h-[147px] object-cover rounded-[5px] mx-auto"
+            loading="lazy"
+          />
+        ))}
+      </div>
+
+      <div class="flex-1 min-w-0">
+        <h2 class="font-zen text-black-03 mb-2">
+          <span class="relative inline-block text-[1.75rem] md:text-[34px] font-bold">
+            アテンドサロンR
+            <span class="absolute left-0 bottom-0 w-full h-1 bg-yellow-300 rounded-sm -z-0 opacity-90" aria-hidden="true"></span>
+          </span>
+          <span class="text-lg md:text-[22px] font-medium ml-1">は</span>
+        </h2>
+        <p class="text-base md:text-xl font-zen font-bold text-black-03 leading-snug mb-4">
+          感情労働の現場で働く方々の<br />
+          メンタルヘルスと組織づくりを支援します。
+        </p>
+        <p class="text-base text-black-03 font-medium leading-[1.8] mb-6">
+          接客・ケア・対人業務に携わる職場では、心の負担や対人ストレスが積み重なりやすい環境です。アテンドサロンRは、現場の実情を踏まえた研修と伴走で、従業員が自分らしく働ける職場づくりをサポートします。
+        </p>
+        <a
+          href="/#features"
+          class="inline-flex items-center justify-center rounded-full bg-pink-01 text-white font-zen font-bold px-8 py-3 text-sm md:text-base hover:opacity-90 transition-opacity"
+        >
+          アテンドサロンRが選ばれる理由
+        </a>
+
+        <div class="mt-10 bg-white border border-[#e0e0e0] rounded-lg p-5 md:p-6 shadow-sm">
+          <div class="flex flex-col lg:flex-row lg:items-stretch gap-6">
+            <div class="flex gap-4 flex-1 min-w-0">
+              <div class="w-[6px] h-8 shrink-0 rounded-sm bg-blue-01 self-start mt-1" aria-hidden="true"></div>
+              <div>
+                <p class="text-[15px] text-black-03 leading-relaxed mb-3">
+                  感情労働とは、相手の感情に配慮しながら適切な態度や言葉を使って仕事を遂行することです。医療・サービス・教育など、多くの業種で求められる重要なスキルです。
+                </p>
+                <a href="/kanjorodou/" class="text-link text-[15px] font-zen font-bold border-b border-link inline-block hover:opacity-80">
+                  感情労働とは
+                </a>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 lg:w-[min(100%,320px)] shrink-0">
+              {industries.map(({ label, icon }) => (
+                <div class="border border-[#e8e8e8] rounded-md p-2 text-center bg-bg-warm/50">
+                  <span class="text-xl block mb-1" aria-hidden="true">{icon}</span>
+                  <span class="text-[11px] md:text-xs font-zen font-medium text-black-03 leading-tight block">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

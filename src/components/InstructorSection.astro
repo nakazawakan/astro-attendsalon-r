@@ -1,0 +1,53 @@
+---
+interface Props {
+  /** サブページで見出しを省略し、上罫線を付けない */
+  embedded?: boolean;
+}
+const { embedded = false } = Astro.props;
+
+const instructors = [
+  {
+    nameJa: '舘野 理香',
+    nameEn: 'Tateno Rika',
+    tags: ['公認心理師', '客室乗務員経験'],
+    bio: '長年の客室乗務員経験を基に、感情労働の現場で働く方々のメンタルヘルス支援に従事。組織開発と個人のセルフケアの両面からアプローチします。',
+    image: '/images/instructor-tateno.jpg',
+  },
+  {
+    nameJa: '佐藤 亮子',
+    nameEn: 'Sato Ryoko',
+    tags: ['産業カウンセラー', '研修設計'],
+    bio: '企業向け研修の設計・実施を多数担当。職場の心理的安全性の醸成と、管理職向けラインケア研修を得意としています。',
+    image: '/images/instructor-sato.jpg',
+  },
+];
+---
+<section id="instructors" class:list={['bg-white py-12 md:py-16', !embedded && 'border-t border-[#ddd]']}>
+  <div class="max-w-[960px] mx-auto px-4 md:px-6">
+    {!embedded && (
+      <h2 class="text-xl md:text-2xl font-noto font-bold text-black-03 text-center md:text-left mb-10">講師紹介</h2>
+    )}
+    <div class="flex flex-col md:flex-row md:flex-wrap justify-center gap-8 md:gap-5">
+      {instructors.map(({ nameJa, nameEn, tags, bio, image }) => (
+        <article class="w-full md:w-[460px] max-w-[480px] mx-auto">
+          <img
+            src={image}
+            alt=""
+            class="w-full bg-[#efefef] h-[186px] rounded-lg object-cover mb-4"
+            width="460"
+            height="186"
+            loading="lazy"
+          />
+          <h3 class="text-lg font-noto font-bold text-black-03">{nameJa}</h3>
+          <p class="text-sm text-black-05 font-noto mb-3">{nameEn}</p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            {tags.map((t) => (
+              <span class="inline-block bg-bg-warm px-2 py-1 rounded-sm text-xs font-noto text-black-03">{t}</span>
+            ))}
+          </div>
+          <p class="text-sm text-black-03 leading-[1.4] font-noto">{bio}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

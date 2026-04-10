@@ -1,0 +1,37 @@
+---
+import SiteChrome from '../../layouts/SiteChrome.astro';
+---
+<SiteChrome title="無料相談・資料請求｜アテンドサロンR">
+  <div class="max-w-[960px] mx-auto px-4 md:px-6 py-12 md:py-16">
+    <h1 class="text-2xl md:text-3xl font-zen font-bold text-black-03 mb-4 text-center">無料相談・資料請求</h1>
+    <p class="text-center text-black-05 font-noto text-sm md:text-base mb-12 max-w-xl mx-auto">
+      研修内容のご相談や資料のご請求は、下記よりお問い合わせください。（フォーム連携は別途実装予定のため、現時点ではメール等の案内文のみです）
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+      <section class="border border-pink-03 rounded-2xl p-6 md:p-8 bg-bg-warm/30" aria-labelledby="consult-heading">
+        <h2 id="consult-heading" class="text-lg font-zen font-bold text-black-03 mb-3">無料相談</h2>
+        <p class="text-sm text-black-05 leading-relaxed font-noto mb-4">
+          現状の課題や研修のご希望をお聞きし、最適なプログラムをご提案します。お気軽にご連絡ください。
+        </p>
+        <p class="text-sm font-noto text-black-03">
+          準備中：お問い合わせは <a href="mailto:info@example.com" class="text-link underline">info@example.com</a>（ダミー）まで。
+        </p>
+      </section>
+
+      <section id="request" class="border border-[#e0e0e0] rounded-2xl p-6 md:p-8 bg-white" aria-labelledby="request-heading">
+        <h2 id="request-heading" class="text-lg font-zen font-bold text-black-03 mb-3">資料請求</h2>
+        <p class="text-sm text-black-05 leading-relaxed font-noto mb-4">
+          研修概要資料や料金の目安について、メールにてお送りいたします。会社名・お名前・ご連絡先を明記のうえお問い合わせください。
+        </p>
+        <p class="text-sm font-noto text-black-03">
+          準備中：同上メールアドレスより「資料請求」と件名にご記載ください。
+        </p>
+      </section>
+    </div>
+
+    <p class="mt-10 text-center">
+      <a href="/" class="text-link text-sm font-noto underline">トップページへ戻る</a>
+    </p>
+  </div>
+</SiteChrome>
