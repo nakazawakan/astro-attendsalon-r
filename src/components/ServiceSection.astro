@@ -1,5 +1,6 @@
 ---
 import SectionHeading from './SectionHeading.astro';
+import ServiceCard from './ServiceCard.astro';
 
 const services = [
   {
@@ -29,113 +30,139 @@ const services = [
 ];
 ---
 <section id="services" class="bg-white pt-[130px] pb-[80px]" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-page px-6 md:px-0">
-      <SectionHeading label="SERVICE" title="研修サービス一覧" decoLoading="eager">
-        <div
-          slot="after"
-          class="mt-2 text-base font-zen font-medium text-black-03 leading-[1.5] max-w-[720px]"
-        >
-          <p class="mb-0">感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
-          <p>課題に合わせて、研修内容はカスタマイズいたします</p>
-        </div>
-      </SectionHeading>
-
-      <!-- SP: カルーセル（横スクロール＋スナップ、中央カード拡大）。md+: 3カラムグリッド -->
+  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
+    <SectionHeading label="SERVICE" title="研修サービス一覧" decoLoading="eager">
       <div
-        id="service-carousel"
-        class="relative flex w-full min-w-0 flex-nowrap gap-4 overflow-x-auto overscroll-x-contain py-4 pb-5 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-x-[27px] md:gap-y-0 md:items-stretch md:overflow-visible md:py-0 md:pb-0 md:snap-none"
-        aria-label="研修サービス（横スクロールで全件を表示できます）"
+        slot="after"
+        class="mt-2 max-w-[720px] text-base font-zen font-medium leading-[1.5] text-black-03"
       >
-        {services.map(({ id, title, body, bodyTone, icon, ctaLabel }) => (
-          <article
-            id={id}
-            data-carousel-item
-            class="mx-0 flex w-[min(300px,100%)] min-w-0 shrink-0 snap-center flex-col items-center gap-[18px] self-stretch rounded-2xl border border-black/[0.06] bg-bg-warm p-6 text-center shadow-sm max-md:relative max-md:z-0 max-md:origin-center max-md:scale-[0.94] max-md:opacity-[0.9] max-md:transition-[transform,opacity,box-shadow] max-md:duration-300 max-md:ease-out max-md:data-[center]:z-10 max-md:data-[center]:scale-105 max-md:data-[center]:opacity-100 max-md:data-[center]:shadow-lg md:w-auto md:max-w-none md:snap-none"
-          >
-            <h3 class="w-full text-xl font-zen font-bold text-black-03 leading-[1.3]">{title}</h3>
-            <div class="w-[79px] h-[79px] rounded-full bg-white overflow-hidden flex items-center justify-center shrink-0">
-              <img src={icon} alt="" width="32" height="32" class="w-8 h-8 object-contain" aria-hidden="true" loading="lazy" decoding="async" />
-            </div>
-            <p
-              class:list={[
-                'w-full text-sm font-zen font-medium leading-[1.6] min-h-[70px] flex-1 flex items-start justify-start text-left',
-                bodyTone === 'muted' ? 'text-black-05' : 'text-black-03',
-              ]}
-            >
-              {body}
-            </p>
-            <a
-              href="/contact/"
-              class="w-full max-w-[240px] mt-auto inline-flex items-center justify-center gap-2.5 rounded-full bg-pink-01 text-white font-zen font-bold text-base px-4 py-4 leading-[1.1] hover:opacity-90 transition-opacity"
-            >
-              <img
-                src="/images/about-chevron-cta.svg"
-                alt=""
-                width="10"
-                height="10"
-                class="w-2.5 h-2.5 shrink-0 rotate-180"
-                aria-hidden="true"
-                decoding="async"
-              />
-              {ctaLabel}
-            </a>
-          </article>
-        ))}
+        <p class="mb-0">感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
+        <p>課題に合わせて、研修内容はカスタマイズいたします</p>
       </div>
+    </SectionHeading>
+
+    <!-- SP: Embla 無限ループ＋スナップ（[富士すばるランド](https://www.subaruland.jp/) のトピック帯に近い挙動。ページネーションなし） -->
+    <div class="-mx-6 mt-4 min-w-0 py-4 pb-5 md:hidden">
+      <div
+        id="service-embla-viewport"
+        class="service-embla__viewport min-w-0 overflow-hidden"
+        role="region"
+        aria-roledescription="カルーセル"
+        aria-label="研修サービス一覧。横にスワイプして全件を表示できます"
+        tabindex="0"
+      >
+        <div id="service-embla-container" class="service-embla__container flex">
+          {
+            services.map((s) => (
+              <div class="service-embla__slide flex shrink-0 grow-0 pl-4 first:pl-6 last:pr-6">
+                <ServiceCard {...s} />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- md+: 3 カラムグリッド（アンカー id はこちらのみ） -->
+    <div
+      id="service-carousel"
+      class="relative mt-10 hidden min-w-0 w-full grid-cols-3 gap-x-[27px] gap-y-0 items-stretch md:grid"
+      aria-label="研修サービス一覧"
+    >
+      {
+        services.map((s) => (
+          <div class="min-w-0">
+            <ServiceCard {...s} anchorId={s.id} />
+          </div>
+        ))
+      }
+    </div>
   </div>
 </section>
 
+<style is:global>
+  .service-embla__viewport {
+    touch-action: pan-y;
+  }
+  .service-embla__container {
+    backface-visibility: hidden;
+    touch-action: pan-y pinch-zoom;
+  }
+  .service-embla__slide {
+    flex: 0 0 min(300px, calc(100vw - 3rem));
+    min-width: 0;
+  }
+</style>
+
 <script>
-  function initServiceCarousel() {
-    const root = document.getElementById('service-carousel');
-    if (!root || root.dataset.carouselBound === '1') return;
-    root.dataset.carouselBound = '1';
+  // @ts-nocheck — Embla は動的 import、IDE は .astro 内 script を TS として解釈しないことがある
+  const MQ = '(min-width: 768px)';
+  let emblaApi = null;
 
-    const mq = window.matchMedia('(min-width: 768px)');
-    const getItems = () => Array.from(root.querySelectorAll('[data-carousel-item]'));
-
-    function update() {
-      if (!root) return;
-      if (mq.matches) {
-        getItems().forEach((el) => el.removeAttribute('data-center'));
-        return;
-      }
-      const rootRect = root.getBoundingClientRect();
-      if (rootRect.width < 8) return;
-      const cx = rootRect.left + rootRect.width / 2;
-      let best = null;
-      let bestD = Infinity;
-      for (const el of getItems()) {
-        const r = el.getBoundingClientRect();
-        const ex = r.left + r.width / 2;
-        const d = Math.abs(ex - cx);
-        if (d < bestD) {
-          bestD = d;
-          best = el;
-        }
-      }
-      for (const el of getItems()) {
-        if (el === best) el.setAttribute('data-center', '');
-        else el.removeAttribute('data-center');
-      }
-    }
-
-    let raf = 0;
-    function schedule() {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
-    }
-
-    root.addEventListener('scroll', schedule, { passive: true });
-    mq.addEventListener('change', schedule);
-    window.addEventListener('resize', schedule);
-    schedule();
-    requestAnimationFrame(schedule);
+  function syncCenter() {
+    if (!emblaApi) return;
+    const slides = emblaApi.slideNodes();
+    const idx = emblaApi.selectedScrollSnap();
+    slides.forEach((slide, i) => {
+      const art = slide.querySelector('[data-service-card]');
+      if (!art) return;
+      if (i === idx) art.setAttribute('data-center', '');
+      else art.removeAttribute('data-center');
+    });
   }
 
+  function destroyEmbla() {
+    const vp = document.getElementById('service-embla-viewport');
+    if (emblaApi) {
+      emblaApi.off('select', syncCenter);
+      emblaApi.off('reInit', syncCenter);
+      emblaApi.destroy();
+      emblaApi = null;
+    }
+    if (vp) delete vp.dataset.emblaInit;
+    document.querySelectorAll('#service-embla-container [data-service-card]').forEach((el) => {
+      el.removeAttribute('data-center');
+    });
+  }
+
+  async function initEmbla() {
+    const vp = document.getElementById('service-embla-viewport');
+    if (!vp || vp.dataset.emblaInit === '1') return;
+    if (window.matchMedia(MQ).matches) return;
+
+    const { default: EmblaCarousel } = await import('embla-carousel');
+    if (window.matchMedia(MQ).matches) return;
+    if (vp.dataset.emblaInit === '1') return;
+
+    vp.dataset.emblaInit = '1';
+
+    emblaApi = EmblaCarousel(vp, {
+      loop: true,
+      align: 'center',
+      dragFree: false,
+      skipSnaps: false,
+      watchDrag: true,
+      watchResize: true,
+    });
+    emblaApi.on('select', syncCenter);
+    emblaApi.on('reInit', syncCenter);
+    syncCenter();
+  }
+
+  function apply() {
+    if (window.matchMedia(MQ).matches) {
+      destroyEmbla();
+    } else {
+      void initEmbla();
+    }
+  }
+
+  const mq = window.matchMedia(MQ);
+  mq.addEventListener('change', apply);
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initServiceCarousel, { once: true });
+    document.addEventListener('DOMContentLoaded', apply, { once: true });
   } else {
-    initServiceCarousel();
+    apply();
   }
 </script>
