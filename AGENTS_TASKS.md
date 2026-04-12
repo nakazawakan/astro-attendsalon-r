@@ -214,7 +214,16 @@ npm run preview
 
 ## 完了後
 
-タスク完了後、以下を実行:
+タスク完了後は、**ビルド検証・コミット規約・push・Actions 成功待ち・本番の軽確認・キャッシュの見方**まで含め、**[AGENTS.md](AGENTS.md) の「作業完了時にまとめて実行する手順（ビルド〜本番確認・キャッシュ含む）」**に従って一括実行する。
+
+要点のみ（詳細・コピペ用コマンドは AGENTS.md 側）:
+
+- `npm run build` → `git status` → 問題なければ `git add` / **`git commit -m "..."` は 1 行 ASCII** → `git push origin main`
+- **`gh run list`** で直近の run ID を確認し、**`gh run watch <RUN_ID> ... --exit-status`** で **Deploy Cloudflare Pages が success** になるまで待つ（`gh run watch` は非対話では run ID 必須。一括コマンド例は AGENTS.md のコピペ用ブロック参照）
+- **`public/_headers`**: HTML は再検証、`/_astro/*` は immutable、画像は短 TTL + SWR — 画像だけ同名上書きは**数分の遅れ**があり得る
+
+初期一括コミットの例（メッセージは状況に合わせて1行に変更）:
+
 ```bash
 git add -A
 git commit -m "feat: implement attendsalon-r HP from Figma design"

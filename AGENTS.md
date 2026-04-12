@@ -56,6 +56,32 @@ gh run list --repo nakazawakan/astro-attendsalon-r --limit=1
 curl -sS "https://astro-attendsalon-r.pages.dev/" | grep -oE "NO IMAGE|voice-01\\.png|bg-bg-warm" | sort -u
 ```
 
+### 作業完了時にまとめて実行する手順（ビルド〜本番確認・キャッシュ含む）
+
+セッションや PR の**最後に一度**まとめて行う想定のチェックリスト。`_headers` の方針は上記「キャッシュ（`public/_headers`）」と [public/_headers](public/_headers) を参照。
+
+1. **ビルド** — `npm run build` がエラーなく完了すること。
+2. **差分** — `git status` / `git diff` で意図しない変更が混ざっていないか。
+3. **コミット** — メッセージは **1 行・ASCII 主体**（下記「コミットメッセージ規約」。改行入りは Pages API で失敗することがある）。
+4. **push** — `git push origin main`（原則 CI 経由で Pages 更新）。
+5. **CI 成功まで待つ** — 直近のワークフロー run ID を取り `gh run watch`（非対話では **run ID 必須**）。例: `RID=$(gh run list --repo nakazawakan/astro-attendsalon-r --limit 1 --json databaseId -q '.[0].databaseId')` のあと `gh run watch "$RID" --repo nakazawakan/astro-attendsalon-r --exit-status`。**success になるまで本番 HTML は古いまま**のことがある。
+6. **本番の軽確認** — 上記「push 後の30秒確認手順」の `gh run list` + `curl` + `grep`。
+7. **キャッシュと見た目のズレ** — HTML は毎回検証されるため、**マークアップ・CSS・JS（`/_astro/*`）はデプロイ後すぐ新しい参照になりやすい**。`/images/*` は **最大約 10 分程度**エッジに古い応答が残る可能性がある（`max-age=600` + `stale-while-revalidate`）。**同一ファイル名で PNG だけ差し替え**で即時を必須にする場合は、**ファイル名を変える**か、**一時的にクエリ**（例: `?v=3`）を付けるなど運用で対処。
+
+**コピペ用（リポジトリルートで実行・リポジトリ名は環境に合わせて変更可）:**
+
+```bash
+npm run build
+git status
+# 問題なければ add / commit（メッセージは1行ASCII）
+git add -A
+git commit -m "type(scope): one line ascii message"
+git push origin main
+RID=$(gh run list --repo nakazawakan/astro-attendsalon-r --limit 1 --json databaseId -q '.[0].databaseId')
+gh run watch "$RID" --repo nakazawakan/astro-attendsalon-r --exit-status
+curl -sS "https://astro-attendsalon-r.pages.dev/" | grep -oE "NO IMAGE|voice-01\\.png|bg-bg-warm" | sort -u
+```
+
 ### コミットメッセージ規約
 
 - **1 行のみ**（本文に改行を入れない）— Cloudflare Pages API が改行入りを拒否することがある（`Invalid commit message` / code: 8000111）
