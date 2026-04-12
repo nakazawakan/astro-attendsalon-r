@@ -1,4 +1,6 @@
 ---
+import HeroEmotionalRipple from './HeroEmotionalRipple.astro';
+
 const tags = ['ストレスケア', '接客対応', 'ハラスメント対応'];
 const blobs = [
   { char: '感', src: '/images/blob-kan.svg' },
@@ -6,51 +8,80 @@ const blobs = [
   { char: '労', src: '/images/blob-ro.svg' },
   { char: '働', src: '/images/blob-do.svg' },
 ];
-const heroImages = ['/images/hero-01.jpg', '/images/hero-02.jpg', '/images/hero-03.jpg', '/images/hero-04.jpg'];
 ---
-<section class="relative overflow-hidden bg-bg-warm min-h-[520px] md:h-[797px] md:min-h-[797px]">
-  <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 pointer-events-none select-none text-[280px] md:text-[420px] font-zen font-bold text-pink-01/10 leading-none" aria-hidden="true">
-    R
+<section
+  class="hero-soft-enter relative overflow-x-clip bg-bg-warm pt-[130px] pb-[80px] min-h-[520px] md:min-h-0"
+>
+  <!-- 左上装飾「R」— 白・+45°（旧 -45° の逆回り）。Ruika → Rubik 900。影なし -->
+  <div
+    class="pointer-events-none select-none absolute left-0 top-0 z-0 origin-top-left scale-[1.3] md:scale-[0.85] rotate-45
+      translate-x-[3%] -translate-y-[34%]
+      w-[clamp(320px,86vw,1480px)]"
+    aria-hidden="true"
+  >
+    <svg class="block h-auto w-full text-white antialiased" viewBox="0 0 1440 1152"
+      xmlns="http://www.w3.org/2000/svg"
+      role="presentation"
+    >
+      <text
+        x="0"
+        y="1095"
+        fill="currentColor"
+        font-size="1296"
+        font-weight="900"
+        font-family="'Ruika 09', 'Ruika', 'Rubik', sans-serif"
+        letter-spacing="-0.04em"
+        dominant-baseline="alphabetic"
+        style="text-shadow: none"
+      >
+        R
+      </text>
+    </svg>
   </div>
 
-  <div class="relative max-w-[960px] mx-auto px-4 md:px-6 py-10 md:py-16 md:flex md:items-center md:justify-between md:gap-8 md:h-full">
-    <div class="md:w-[min(100%,480px)] z-10">
-      <div class="flex flex-wrap gap-2 mb-6">
+  <div
+    class="relative mx-auto block w-full min-w-0 max-w-page px-6 md:px-0 md:flex md:flex-row md:items-center md:justify-between md:gap-6 lg:gap-8"
+  >
+    <!-- md: flex 行で右イラストと並べ、translate による img のにじみを避ける（旧: absolute + pr 予約） -->
+    <div class="relative z-10 w-full min-w-0 md:flex-1 md:max-w-none">
+      <div class="flex flex-nowrap gap-2 mb-6">
         {tags.map((t) => (
-          <span class="inline-block bg-white border border-blue-01 text-blue-01 text-base px-2 py-1 rounded-sm font-zen">
+          <span class="shrink-0 whitespace-nowrap bg-white border border-blue-01 text-blue-01 text-base leading-none p-1 md:p-1.5 rounded-sm font-zen">
             {t}
           </span>
         ))}
       </div>
 
-      <div class="flex flex-wrap items-end gap-1 md:gap-2 mb-2">
+      <div
+        class="flex flex-nowrap items-end gap-0 sm:gap-0.5 md:gap-1.5 mb-1 md:mb-2 -ml-0.5 sm:-ml-1"
+      >
         {blobs.map(({ char, src }) => (
-          <span class="relative inline-flex items-center justify-center w-[3.2rem] h-[3.2rem] sm:w-16 sm:h-16 md:w-[4.5rem] md:h-[4.5rem]">
+          <span class="relative inline-flex shrink-0 items-center justify-center w-[5.175rem] h-[5.025rem] sm:w-[5.4rem] sm:h-[5.25rem] md:w-[4.75rem] md:h-[4.6rem] -mr-1.5 sm:-mr-2 md:-mr-2 last:mr-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.04)]">
             <img src={src} alt="" class="absolute inset-0 w-full h-full object-contain" aria-hidden="true" />
-            <span class="relative text-pink-01 text-[2rem] sm:text-[2.5rem] md:text-[54px] font-zen font-bold leading-none">{char}</span>
+            <span class="relative text-pink-01 text-[3.075rem] sm:text-[3.9rem] md:text-[54px] font-zen font-bold leading-none tracking-tight translate-y-[1px] md:translate-y-0.5">
+              {char}
+            </span>
           </span>
         ))}
       </div>
 
-      <p class="text-black-03 text-[1.5rem] md:text-[40px] font-zen font-bold leading-tight mb-4">の職場向け研修支援</p>
-
-      <p class="text-black-03 text-xl md:text-[30px] font-zen font-bold leading-[1.5]">
-        現場の声に寄り添い、<br class="hidden sm:block" />
-        組織と人を支える研修をご提供します。
+      <p class="text-black-03 text-[2.25rem] md:text-[40px] font-zen font-bold leading-tight mb-4 whitespace-nowrap">
+        の職場向け研修支援
       </p>
+
+      <div class="text-black-03 text-xl md:text-[30px] font-zen font-bold leading-[1.5]">
+        <p class="mb-0 whitespace-nowrap">アテンドサロンRは、</p>
+        <p class="mb-0 whitespace-nowrap">感情労働のフィールドで</p>
+        <p class="mb-0 whitespace-nowrap">イキイキ働く組織づくりを支援します</p>
+      </div>
     </div>
 
-    <div class="mt-10 md:mt-0 grid grid-cols-2 gap-3 md:gap-4 w-full max-w-[420px] md:max-w-none md:w-auto mx-auto md:mx-0 shrink-0 z-10">
-      {heroImages.map((src, i) => (
-        <img
-          src={src}
-          alt=""
-          width="193"
-          height="147"
-          class="w-full max-w-[193px] h-[120px] sm:h-[147px] object-cover rounded-[5px] mx-auto"
-          loading={i < 2 ? 'eager' : 'lazy'}
-        />
-      ))}
-    </div>
+    <!-- ヒーロー右：仮は `HeroEmotionalRipple` の NO IMAGE（本番ビジュアルは後から差し替え） -->
+    <figure
+      class="mt-10 w-full max-w-[min(100%,420px)] mx-auto shrink-0 md:mx-0 md:mt-0 md:w-[min(380px,40vw)] lg:w-[min(420px,38vw)] md:max-w-[440px] z-[5]"
+      aria-hidden="true"
+    >
+      <HeroEmotionalRipple />
+    </figure>
   </div>
 </section>

@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler pages deploy dist"
+    "deploy": "astro build && wrangler pages deploy dist --project-name=astro-attendsalon-r",
+    "figma:export:sato": "node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 294-732 public/images/instructor-sato.png",
+    "figma:export:voice": "node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 279-1696 public/images/voice-01.png png && node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 279-1695 public/images/voice-02.png png"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.0.0",

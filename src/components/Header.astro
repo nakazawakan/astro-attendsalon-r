@@ -1,20 +1,67 @@
 ---
-import IconArrowLeft from './IconArrowLeft.astro';
+import IconChatConsult from './IconChatConsult.astro';
+import IconDocumentRequest from './IconDocumentRequest.astro';
 ---
-<header class="sticky top-0 z-50 border-b border-black/5 bg-white shadow-sm">
-  <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-wrap items-center justify-between gap-3 py-3 md:py-4">
+<header
+  id="site-header"
+  class="sticky top-0 z-50 border-b border-transparent bg-transparent shadow-none transition-[background-color,box-shadow,border-color] duration-200 ease-out"
+>
+  <div class="mx-auto flex w-full min-w-0 max-w-page flex-wrap items-center justify-between gap-3 px-6 py-3 md:px-0 md:py-4">
     <a href="/" class="flex items-center gap-3 min-w-0">
-      <img src="/images/logo.png" alt="アテンドサロンR" width="60" height="60" class="shrink-0 rounded-sm object-contain" />
+      <img
+        src="/images/logo.png"
+        alt="アテンドサロンR"
+        width="60"
+        height="60"
+        class="shrink-0 size-[60px] object-contain"
+        decoding="async"
+      />
       <div class="text-[10px] md:text-[12px] leading-tight font-zen text-black-03">
         <span class="block">イキイキと自分らしく働くための</span>
         <span class="block font-medium">ウェルビーイング経営支援</span>
       </div>
     </a>
 
-    <nav class="hidden md:flex items-center gap-8 flex-1 justify-end mr-4" aria-label="メインナビゲーション">
-      <a href="/#about" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors">選ばれる理由</a>
-      <a href="/kanjorodou/" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors">感情労働とは</a>
-      <a href="/#services" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors">研修サービス</a>
+    <nav
+      class="hidden md:flex md:flex-1 md:flex-nowrap md:items-center md:justify-end md:gap-x-6"
+      aria-label="メインナビゲーション"
+    >
+      <a href="/#about" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors shrink-0">選ばれる理由</a>
+      <a href="/kanjorodou/" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors shrink-0">感情労働とは</a>
+      <div id="mega-services-wrap" class="relative shrink-0 group/mega">
+        <button
+          type="button"
+          class="inline-flex items-center gap-1 text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors py-1"
+          id="mega-services-trigger"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="mega-services-panel"
+        >
+          研修サービス
+          <span class="inline-block text-[10px] leading-none opacity-70" aria-hidden="true">▼</span>
+        </button>
+        <div
+          id="mega-services-panel"
+          class="mega-services-panel pointer-events-none invisible absolute left-1/2 top-full z-[70] min-w-[min(100vw-3rem,280px)] w-max -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-150 ease-out group-hover/mega:pointer-events-auto group-hover/mega:visible group-hover/mega:opacity-100 group-focus-within/mega:pointer-events-auto group-focus-within/mega:visible group-focus-within/mega:opacity-100"
+          role="region"
+          aria-label="研修サービス"
+        >
+          <div class="rounded-lg border border-black/10 bg-white py-2 shadow-lg">
+            <a
+              href="/#service-mental-health"
+              class="block whitespace-nowrap px-4 py-2.5 text-left text-[15px] font-zen font-bold text-black-03 hover:bg-bg-warm hover:text-pink-01 transition-colors"
+              >メンタルヘルス研修</a>
+            <a
+              href="/#service-anger-management"
+              class="block whitespace-nowrap px-4 py-2.5 text-left text-[15px] font-zen font-bold text-black-03 hover:bg-bg-warm hover:text-pink-01 transition-colors"
+              >アンガーマネジメント研修</a>
+            <a
+              href="/#service-harassment"
+              class="block whitespace-nowrap px-4 py-2.5 text-left text-[15px] font-zen font-bold text-black-03 hover:bg-bg-warm hover:text-pink-01 transition-colors"
+              >ハラスメント研修</a>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <div class="hidden md:flex items-center gap-3 shrink-0">
@@ -22,40 +69,57 @@ import IconArrowLeft from './IconArrowLeft.astro';
         href="/contact/"
         class="inline-flex items-center gap-2 rounded-full border border-pink-03 bg-white px-6 py-[10px] text-sm font-zen font-bold text-pink-01 hover:bg-bg-warm transition-colors"
       >
-        <IconArrowLeft />
+        <IconChatConsult />
         無料相談
       </a>
       <a
         href="/contact/#request"
         class="inline-flex items-center gap-2 rounded-full bg-pink-01 px-6 py-[10px] text-sm font-zen font-bold text-white hover:opacity-90 transition-opacity"
       >
-        <IconArrowLeft class="w-4 h-4 shrink-0 text-white" />
+        <IconDocumentRequest class="w-4 h-4 shrink-0 text-white" />
         資料請求
       </a>
     </div>
 
-    <details class="md:hidden relative group">
-      <summary class="list-none cursor-pointer p-2 -mr-2 rounded-md hover:bg-black/5 [&::-webkit-details-marker]:hidden flex items-center justify-center w-10 h-10" aria-label="メニューを開く">
+    <details id="mobile-nav-details" class="md:hidden relative group">
+      <summary
+        class="list-none cursor-pointer p-2 -mr-2 rounded-md hover:bg-black/5 [&::-webkit-details-marker]:hidden flex items-center justify-center w-10 h-10"
+        aria-label="メニューを開く"
+        aria-controls="mobile-nav-panel"
+      >
         <span class="sr-only">メニュー</span>
-        <span class="flex flex-col gap-1.5 w-5">
-          <span class="block h-0.5 w-full bg-black-03 rounded"></span>
-          <span class="block h-0.5 w-full bg-black-03 rounded"></span>
-          <span class="block h-0.5 w-full bg-black-03 rounded"></span>
+        <span class="relative flex h-3.5 w-5 flex-col justify-between" aria-hidden="true">
+          <span
+            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-black-03 transition duration-200 ease-out group-open:translate-y-[6px] group-open:rotate-45"
+          ></span>
+          <span
+            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-black-03 transition duration-200 ease-out group-open:scale-x-0 group-open:opacity-0"
+          ></span>
+          <span
+            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-black-03 transition duration-200 ease-out group-open:-translate-y-[6px] group-open:-rotate-45"
+          ></span>
         </span>
       </summary>
-      <div class="absolute right-0 top-full mt-2 w-[min(100vw-2rem,280px)] rounded-lg border border-black/10 bg-white shadow-lg p-4 z-50">
-        <nav class="flex flex-col gap-3 font-zen font-bold text-[15px]" aria-label="モバイルナビ">
-          <a href="/#about" class="text-black-03 py-2 border-b border-black/5">選ばれる理由</a>
-          <a href="/kanjorodou/" class="text-black-03 py-2 border-b border-black/5">感情労働とは</a>
-          <a href="/#services" class="text-black-03 py-2 border-b border-black/5">研修サービス</a>
+      <div
+        id="mobile-nav-panel"
+        class="mobile-nav-panel fixed left-1/2 top-[calc(var(--site-header-bottom,84px)+0.5rem)] z-[60] w-[calc(100vw-3rem)] max-w-none -translate-x-1/2 origin-top rounded-lg border border-black/10 bg-white p-4 shadow-lg"
+      >
+        <nav class="flex flex-col gap-0 font-zen font-bold text-[15px]" aria-label="モバイルナビ">
+          <a href="/#about" class="text-black-03 py-2.5 border-b border-black/5 hover:text-pink-01 transition-colors">選ばれる理由</a>
+          <a href="/kanjorodou/" class="text-black-03 py-2.5 border-b border-black/5 hover:text-pink-01 transition-colors">感情労働とは</a>
+          <a href="/#service-mental-health" class="text-black-03 py-2.5 border-b border-black/5 hover:text-pink-01 transition-colors">メンタルヘルス研修</a>
+          <a href="/#service-anger-management" class="text-black-03 py-2.5 border-b border-black/5 hover:text-pink-01 transition-colors">アンガーマネジメント研修</a>
+          <a href="/#service-harassment" class="text-black-03 py-2.5 border-b border-black/5 hover:text-pink-01 transition-colors">ハラスメント研修</a>
+          <a href="/about/" class="text-black-03 py-2.5 border-b border-black/5 hover:text-pink-01 transition-colors">運営者情報</a>
+          <a href="/instructor/" class="text-black-03 py-2.5 border-b border-black/5 hover:text-pink-01 transition-colors">講師紹介</a>
         </nav>
-        <div class="flex flex-col gap-2 mt-4">
+        <div class="mobile-nav-ctas flex flex-col gap-2 mt-4">
           <a href="/contact/" class="inline-flex items-center justify-center gap-2 rounded-full border border-pink-03 bg-white px-6 py-[10px] text-sm font-bold text-pink-01">
-            <IconArrowLeft />
+            <IconChatConsult />
             無料相談
           </a>
           <a href="/contact/#request" class="inline-flex items-center justify-center gap-2 rounded-full bg-pink-01 px-6 py-[10px] text-sm font-bold text-white">
-            <IconArrowLeft class="w-4 h-4 text-white" />
+            <IconDocumentRequest class="w-4 h-4 shrink-0 text-white" />
             資料請求
           </a>
         </div>
@@ -63,3 +127,123 @@ import IconArrowLeft from './IconArrowLeft.astro';
     </details>
   </div>
 </header>
+
+<style is:global>
+  @media (prefers-reduced-motion: no-preference) {
+    #mobile-nav-details[open] .mobile-nav-panel {
+      animation: mobile-nav-panel-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    #mobile-nav-details[open] .mobile-nav-panel nav > a {
+      animation: mobile-nav-item-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(1) {
+      animation-delay: 0.04s;
+    }
+    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(2) {
+      animation-delay: 0.07s;
+    }
+    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(3) {
+      animation-delay: 0.1s;
+    }
+    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(4) {
+      animation-delay: 0.13s;
+    }
+    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(5) {
+      animation-delay: 0.16s;
+    }
+    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(6) {
+      animation-delay: 0.19s;
+    }
+    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(7) {
+      animation-delay: 0.22s;
+    }
+
+    #mobile-nav-details[open] .mobile-nav-ctas > a {
+      animation: mobile-nav-item-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    #mobile-nav-details[open] .mobile-nav-ctas > a:nth-child(1) {
+      animation-delay: 0.26s;
+    }
+    #mobile-nav-details[open] .mobile-nav-ctas > a:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+  }
+
+  @keyframes mobile-nav-panel-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -0.5rem) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+  }
+
+  @keyframes mobile-nav-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.4rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var el = document.getElementById('site-header');
+    if (!el) return;
+    function sync() {
+      var on = (window.scrollY || window.pageYOffset) > 4;
+      el.classList.toggle('bg-white', on);
+      el.classList.toggle('bg-transparent', !on);
+      el.classList.toggle('border-black/5', on);
+      el.classList.toggle('border-transparent', !on);
+      el.classList.toggle('shadow-sm', on);
+      el.classList.toggle('shadow-none', !on);
+      el.style.setProperty('--site-header-bottom', el.offsetHeight + 'px');
+    }
+    sync();
+    document.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    window.addEventListener('pageshow', sync);
+
+    var details = document.getElementById('mobile-nav-details');
+    var sum = details && details.querySelector('summary');
+    if (details && sum) {
+      details.addEventListener('toggle', function () {
+        sum.setAttribute('aria-label', details.open ? 'メニューを閉じる' : 'メニューを開く');
+      });
+    }
+    var panel = document.getElementById('mobile-nav-panel');
+    if (details && panel) {
+      panel.addEventListener('click', function (e) {
+        if (e.target.closest('a')) details.removeAttribute('open');
+      });
+    }
+
+    var megaWrap = document.getElementById('mega-services-wrap');
+    var megaBtn = document.getElementById('mega-services-trigger');
+    if (megaWrap && megaBtn) {
+      function setMegaExpanded(on) {
+        megaBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      }
+      megaWrap.addEventListener('focusin', function () {
+        setMegaExpanded(true);
+      });
+      megaWrap.addEventListener('focusout', function (e) {
+        if (!megaWrap.contains(e.relatedTarget)) setMegaExpanded(false);
+      });
+      megaWrap.addEventListener('mouseenter', function () {
+        setMegaExpanded(true);
+      });
+      megaWrap.addEventListener('mouseleave', function () {
+        if (!megaWrap.contains(document.activeElement)) setMegaExpanded(false);
+      });
+    }
+  })();
+</script>

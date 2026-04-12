@@ -1,60 +1,141 @@
 ---
+import SectionHeading from './SectionHeading.astro';
+
 const services = [
   {
+    id: 'service-mental-health',
     title: 'メンタルヘルス研修',
-    body: 'ストレスや心の不調に関する基礎知識から、職場でのセルフケアや相談体制の整え方まで、実務に直結する内容を学びます。',
-    icon: 'heart',
+    body: '不調の早期発見とセルフケア、相談しやすい職場づくりを支援します',
+    bodyTone: 'dark' as const,
+    icon: '/images/service-icon-heart.svg',
+    ctaLabel: 'メンタルヘルス研修',
   },
   {
+    id: 'service-anger-management',
     title: 'アンガーマネジメント研修',
-    body: '怒りのメカニズムを理解し、冷静に対応するスキルを身につけます。接客・チーム内コミュニケーションの質向上につながります。',
-    icon: 'fire',
+    body: '怒りを抑えるのではなく、上手に扱い、冷静に対処できる力を身につけます',
+    bodyTone: 'muted' as const,
+    icon: '/images/service-icon-fire.svg',
+    ctaLabel: 'アンガーマネジメント研修',
   },
   {
+    id: 'service-harassment',
     title: 'ハラスメント研修',
-    body: 'パワハラ・セクハラ等の防止と、早期発見・適切な対応のための知識を習得。コンプライアンスと心理的安全性の両立を支援します。',
-    icon: 'prohibited',
+    body: 'ハラスメントによるトラブルに対して、ひとりで抱え込まない対応と組織としての線引きを学びます',
+    bodyTone: 'muted' as const,
+    icon: '/images/service-icon-prohibited.svg',
+    ctaLabel: 'ハラスメント研修',
   },
 ];
 ---
-<section id="services" class="bg-white py-12 md:py-20">
-  <div class="max-w-[960px] mx-auto px-4 md:px-6">
-    <div class="text-center mb-4">
-      <h2 class="inline-block relative text-[1.75rem] md:text-[32px] font-zen font-bold text-black-03">
-        <span class="relative z-10">研修サービス一覧</span>
-        <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-24 h-2 bg-pink-01/20 rounded-full" aria-hidden="true"></span>
-      </h2>
-    </div>
-    <p class="text-center text-base text-black-03 max-w-2xl mx-auto mb-10 md:mb-14 leading-relaxed">
-      職場の課題に合わせてカスタマイズ可能な研修プログラムをご用意しています。<br class="hidden md:block" />
-      まずはお気軽にご相談ください。
-    </p>
+<section id="services" class="bg-white pt-[130px] pb-[80px]" data-reveal>
+  <div class="mx-auto w-full min-w-0 max-w-page px-6 md:px-0">
+      <SectionHeading label="SERVICE" title="研修サービス一覧" decoLoading="eager">
+        <div
+          slot="after"
+          class="mt-2 text-base font-zen font-medium text-black-03 leading-[1.5] max-w-[720px]"
+        >
+          <p class="mb-0">感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
+          <p>課題に合わせて、研修内容はカスタマイズいたします</p>
+        </div>
+      </SectionHeading>
 
-    <div class="flex flex-col md:flex-row md:flex-wrap justify-center gap-8 md:gap-6">
-      {services.map(({ title, body, icon }) => (
-        <article class="w-full md:w-[300px] max-w-[340px] mx-auto bg-bg-warm rounded-2xl p-6 flex flex-col items-center text-center shadow-sm border border-black/5">
-          <h3 class="text-xl font-zen font-bold text-black-03 mb-4 order-1">{title}</h3>
-          <div class="w-[79px] h-[79px] rounded-full bg-white flex items-center justify-center mb-4 order-2 shadow-sm">
-            {icon === 'heart' && (
-              <svg class="w-9 h-9 text-pink-01" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-            )}
-            {icon === 'fire' && (
-              <svg class="w-9 h-9 text-orange-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 23c-3.97-4.21-6-7.38-6-10.5 0-2.24 1.21-4.2 3-5.25.45 2.52 2.01 4.5 3.5 6.5.5-1.5 1-3 1-4.5 2.5 2 4 4.45 4 6.75 0 3.12-2.02 6.29-6 10.5z" />
-              </svg>
-            )}
-            {icon === 'prohibited' && (
-              <svg class="w-9 h-9 text-blue-01" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M5 5l14 14" stroke-linecap="round" />
-              </svg>
-            )}
-          </div>
-          <p class="text-sm text-black-03 leading-[1.6] order-3">{body}</p>
-        </article>
-      ))}
-    </div>
+      <!-- SP: カルーセル（横スクロール＋スナップ、中央カード拡大）。md+: 3カラムグリッド -->
+      <div
+        id="service-carousel"
+        class="relative flex w-full min-w-0 flex-nowrap gap-4 overflow-x-auto overscroll-x-contain py-4 pb-5 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-x-[27px] md:gap-y-0 md:items-stretch md:overflow-visible md:py-0 md:pb-0 md:snap-none"
+        aria-label="研修サービス（横スクロールで全件を表示できます）"
+      >
+        {services.map(({ id, title, body, bodyTone, icon, ctaLabel }) => (
+          <article
+            id={id}
+            data-carousel-item
+            class="mx-0 flex w-[min(300px,100%)] min-w-0 shrink-0 snap-center flex-col items-center gap-[18px] self-stretch rounded-2xl border border-black/[0.06] bg-bg-warm p-6 text-center shadow-sm max-md:relative max-md:z-0 max-md:origin-center max-md:scale-[0.94] max-md:opacity-[0.9] max-md:transition-[transform,opacity,box-shadow] max-md:duration-300 max-md:ease-out max-md:data-[center]:z-10 max-md:data-[center]:scale-105 max-md:data-[center]:opacity-100 max-md:data-[center]:shadow-lg md:w-auto md:max-w-none md:snap-none"
+          >
+            <h3 class="w-full text-xl font-zen font-bold text-black-03 leading-[1.3]">{title}</h3>
+            <div class="w-[79px] h-[79px] rounded-full bg-white overflow-hidden flex items-center justify-center shrink-0">
+              <img src={icon} alt="" width="32" height="32" class="w-8 h-8 object-contain" aria-hidden="true" loading="lazy" decoding="async" />
+            </div>
+            <p
+              class:list={[
+                'w-full text-sm font-zen font-medium leading-[1.6] min-h-[70px] flex-1 flex items-start justify-start text-left',
+                bodyTone === 'muted' ? 'text-black-05' : 'text-black-03',
+              ]}
+            >
+              {body}
+            </p>
+            <a
+              href="/contact/"
+              class="w-full max-w-[240px] mt-auto inline-flex items-center justify-center gap-2.5 rounded-full bg-pink-01 text-white font-zen font-bold text-base px-4 py-4 leading-[1.1] hover:opacity-90 transition-opacity"
+            >
+              <img
+                src="/images/about-chevron-cta.svg"
+                alt=""
+                width="10"
+                height="10"
+                class="w-2.5 h-2.5 shrink-0 rotate-180"
+                aria-hidden="true"
+                decoding="async"
+              />
+              {ctaLabel}
+            </a>
+          </article>
+        ))}
+      </div>
   </div>
 </section>
+
+<script>
+  function initServiceCarousel() {
+    const root = document.getElementById('service-carousel');
+    if (!root || root.dataset.carouselBound === '1') return;
+    root.dataset.carouselBound = '1';
+
+    const mq = window.matchMedia('(min-width: 768px)');
+    const getItems = () => Array.from(root.querySelectorAll('[data-carousel-item]'));
+
+    function update() {
+      if (!root) return;
+      if (mq.matches) {
+        getItems().forEach((el) => el.removeAttribute('data-center'));
+        return;
+      }
+      const rootRect = root.getBoundingClientRect();
+      if (rootRect.width < 8) return;
+      const cx = rootRect.left + rootRect.width / 2;
+      let best = null;
+      let bestD = Infinity;
+      for (const el of getItems()) {
+        const r = el.getBoundingClientRect();
+        const ex = r.left + r.width / 2;
+        const d = Math.abs(ex - cx);
+        if (d < bestD) {
+          bestD = d;
+          best = el;
+        }
+      }
+      for (const el of getItems()) {
+        if (el === best) el.setAttribute('data-center', '');
+        else el.removeAttribute('data-center');
+      }
+    }
+
+    let raf = 0;
+    function schedule() {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    }
+
+    root.addEventListener('scroll', schedule, { passive: true });
+    mq.addEventListener('change', schedule);
+    window.addEventListener('resize', schedule);
+    schedule();
+    requestAnimationFrame(schedule);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initServiceCarousel, { once: true });
+  } else {
+    initServiceCarousel();
+  }
+</script>

@@ -1,51 +1,80 @@
 ---
+import SectionHeading from './SectionHeading.astro';
+
 interface Props {
-  /** サブページで見出しを省略し、上罫線を付けない */
+  /** サブページでは見出し・リード・装飾を出さず、カード行のみ */
   embedded?: boolean;
 }
 const { embedded = false } = Astro.props;
 
+/** Figma `294:719` 左→右: 佐藤、舘野。佐藤写真ノード `294:732` */
 const instructors = [
-  {
-    nameJa: '舘野 理香',
-    nameEn: 'Tateno Rika',
-    tags: ['公認心理師', '客室乗務員経験'],
-    bio: '長年の客室乗務員経験を基に、感情労働の現場で働く方々のメンタルヘルス支援に従事。組織開発と個人のセルフケアの両面からアプローチします。',
-    image: '/images/instructor-tateno.jpg',
-  },
   {
     nameJa: '佐藤 亮子',
     nameEn: 'Sato Ryoko',
-    tags: ['産業カウンセラー', '研修設計'],
-    bio: '企業向け研修の設計・実施を多数担当。職場の心理的安全性の醸成と、管理職向けラインケア研修を得意としています。',
-    image: '/images/instructor-sato.jpg',
+    tags: ['元客室乗務員', '一級キャリアコンサルティング'],
+    image: '/images/instructor-sato.png',
+    imageAlt: '佐藤亮子のポートレート',
+    imgWidth: 933,
+    imgHeight: 1400,
+    objectPosition: 'object-[50%_13%]',
+  },
+  {
+    nameJa: '舘野 理香',
+    nameEn: 'Tateno Rika',
+    tags: ['元客室乗務員'],
+    image: '/images/instructor-tateno.png',
+    imageAlt: '舘野理香のポートレート',
+    imgWidth: 920,
+    imgHeight: 1380,
+    objectPosition: 'object-[50%_19%]',
   },
 ];
 ---
-<section id="instructors" class:list={['bg-white py-12 md:py-16', !embedded && 'border-t border-[#ddd]']}>
-  <div class="max-w-[960px] mx-auto px-4 md:px-6">
-    {!embedded && (
-      <h2 class="text-xl md:text-2xl font-noto font-bold text-black-03 text-center md:text-left mb-10">講師紹介</h2>
-    )}
-    <div class="flex flex-col md:flex-row md:flex-wrap justify-center gap-8 md:gap-5">
-      {instructors.map(({ nameJa, nameEn, tags, bio, image }) => (
-        <article class="w-full md:w-[460px] max-w-[480px] mx-auto">
-          <img
-            src={image}
-            alt=""
-            class="w-full bg-[#efefef] h-[186px] rounded-lg object-cover mb-4"
-            width="460"
-            height="186"
-            loading="lazy"
-          />
-          <h3 class="text-lg font-noto font-bold text-black-03">{nameJa}</h3>
-          <p class="text-sm text-black-05 font-noto mb-3">{nameEn}</p>
-          <div class="flex flex-wrap gap-2 mb-3">
+<section
+  id="instructors"
+  class:list={[embedded ? 'pt-0 pb-0' : 'pt-[130px] pb-[80px]']}
+  {...(!embedded ? { 'data-reveal': true } : {})}
+>
+  <div class="mx-auto w-full min-w-0 max-w-page px-6 md:px-0">
+    {
+      !embedded && (
+        <>
+          <SectionHeading label="FACILITATOR" title="講師紹介" />
+          <div class="mb-10 md:mb-12 text-base font-zen font-medium text-black-03 leading-[1.5]">
+            <p class="mb-0">客室乗務員として40年、管理職として10年以上、</p>
+            <p class="mb-0">感情を扱う現場に携わってきた実務経験をもとに、</p>
+            <p class="mb-0">私たちが、感情に振り回されない働き方、イキイキ働くチーム作りを支援します</p>
+          </div>
+        </>
+      )
+    }
+
+    <div class="flex flex-row flex-nowrap justify-center items-stretch gap-3 md:gap-[39px] w-full min-w-0">
+      {instructors.map(({ nameJa, nameEn, tags, image, imageAlt, imgWidth, imgHeight, objectPosition }) => (
+        <article class="flex min-w-0 flex-1 basis-0 flex-col gap-[14px] max-w-[480px] md:flex-none md:w-[460px] md:shrink-0">
+          <div class="relative w-full h-[200px] md:h-[300px] rounded-lg overflow-hidden bg-surface-01">
+            <img
+              src={image}
+              alt={imageAlt}
+              width={imgWidth}
+              height={imgHeight}
+              class:list={['absolute inset-0 w-full h-full object-cover', objectPosition]}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="flex flex-col gap-[7px] font-zen font-bold text-black-03">
+            <h3 class="text-lg leading-none">{nameJa}</h3>
+            <p class="text-sm leading-none text-black-03">{nameEn}</p>
+          </div>
+          <div class="flex flex-wrap gap-1">
             {tags.map((t) => (
-              <span class="inline-block bg-bg-warm px-2 py-1 rounded-sm text-xs font-noto text-black-03">{t}</span>
+              <span class="inline-flex items-center justify-center bg-white px-2 py-1 rounded-sm text-sm font-zen font-bold text-black-03 whitespace-nowrap shadow-sm border border-black/[0.06]">
+                {t}
+              </span>
             ))}
           </div>
-          <p class="text-sm text-black-03 leading-[1.4] font-noto">{bio}</p>
         </article>
       ))}
     </div>

@@ -55,9 +55,9 @@ border-soft / surface-*  // tailwind.config 参照（枠・区画のニュート
 1. **デザイン変更は必ず DESIGN.md（正本）を先に更新**してから実装する
 2. コンポーネントファイルは `src/components/` に置く（例: `HeroSection.astro`）。**セクション見出し**（英字ラベル＋装飾＋32px Zen）は `SectionHeading.astro` と `public/images/section-heading-deco.svg` で統一（Figma `294:720` 系）
 3. Tailwind のカラートークンを優先使用（`text-pink-01` 等）、任意値は最小限に
-4. フォントは `font-zen`（Zen Kaku Gothic New）/ `font-noto`（Noto Sans JP）を使う
+4. フォントは **Zen Kaku Gothic New をベース**（`font-zen` または `font-sans`）。特別な数字装飾のみ `font-['Lato',sans-serif]` 等（例: `FeatureSection` の番号、`FlowSection` のステップ番号）。Noto は読み込みのみ残し、本文では原則使わない
 5. 画像は `public/images/` に配置、alt 属性は日本語で記述。**描画イラスト・装飾画像**のトーン・線・色だまり・透過ルールは `docs/ILLUSTRATION_MEDIA_SPEC.md`（厚労省こころ系イメージに準拠）に従う
-6. モバイル対応: `md:` breakpoint を基準に設計（デスクトップは 1440px 基準）。**本文シェル**は `mx-auto w-full min-w-0 max-w-[min(100%,992px)] md:max-w-[min(100%,1008px)] px-6`（SP 含め左右 24px のガター＝`px-6`。border-box 内で完結。`box-content`+`w-full`+横paddingは親より広がり横スクロールの原因になるため使わない）。`BaseLayout` の `body` に `overflow-x-clip` あり
+6. モバイル対応: `md:` breakpoint を基準に設計（デスクトップは 1440px 基準）。**本文シェル**は `mx-auto w-full min-w-0 max-w-page px-6 md:px-0`（`max-w-page`＝960px。SP は `px-6` で左右 24px、PC は `md:px-0` で 960px カラム内いっぱい。`box-content`+`w-full`+横paddingは親より広がり横スクロールの原因になるため使わない）。`BaseLayout` の `body` に `overflow-x-clip` あり
 
 ## 禁止事項
 

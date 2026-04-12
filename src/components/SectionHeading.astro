@@ -1,0 +1,42 @@
+---
+/**
+ * Figma セクション見出し（例: `294:720`）— 英字ラベル + 左装飾 + Zen 32px 見出しで統一
+ */
+interface Props {
+  label: string;
+  title: string;
+  /** h2 の id（アンカー・アクセシビリティ用） */
+  id?: string;
+  /** 見出しブロック下の余白（デフォルト: セクション標準） */
+  withBottomMargin?: boolean;
+  /** ファーストビュー付近なら eager */
+  decoLoading?: 'eager' | 'lazy';
+}
+const { label, title, id, withBottomMargin = true, decoLoading = 'lazy' } = Astro.props;
+const mbClass = withBottomMargin ? 'mb-10 md:mb-[54px]' : '';
+---
+<div class:list={['text-left', mbClass]}>
+  <!-- 装飾の基準は英字ラベル＋h2のみ（Figma 294:425 系・リードは下段に分離） -->
+  <div class="relative text-left">
+    <img
+      src="/images/section-heading-deco.svg"
+      alt=""
+      width="114"
+      height="111"
+      class="pointer-events-none select-none absolute left-[8px] md:left-0 top-0 z-0 h-auto w-[57px] md:w-[114px] -translate-x-[47%] -translate-y-[61%]"
+      aria-hidden="true"
+      loading={decoLoading}
+      decoding="async"
+    />
+    <div class="relative z-10">
+      <p class="text-xs font-zen font-bold text-pink-01 tracking-[0.08em] uppercase mb-1">{label}</p>
+      <h2
+        id={id}
+        class="text-[1.75rem] md:text-[32px] font-zen font-bold text-black-03 leading-[1.3]"
+      >
+        {title}
+      </h2>
+    </div>
+  </div>
+  <slot name="after" />
+</div>

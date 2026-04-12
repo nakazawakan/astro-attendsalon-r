@@ -1,0 +1,21 @@
+---
+/**
+ * 仮ビジュアル枠（実画像・イラスト差し替え前）。ヒーロー右・特徴バナー等で共通利用。
+ */
+interface Props {
+  /** 幅・min-height、アスペクト比などレイアウト用クラス */
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+<div
+  class:list={[
+    'no-image-placeholder pointer-events-none relative isolate flex w-full items-center justify-center rounded-lg border border-dashed border-border-soft bg-stone-300',
+    className,
+  ]}
+  aria-hidden="true"
+>
+  <span class="select-none font-zen text-sm font-bold uppercase tracking-[0.22em] text-black-05">
+    NO IMAGE
+  </span>
+</div>
