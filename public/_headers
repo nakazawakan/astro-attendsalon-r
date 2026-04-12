@@ -1,0 +1,12 @@
+# 古い index.html がキャッシュされ、ハッシュ違いの /_astro/*.css を読みに行くと「色が抜けた」ように見えることがある
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=86400
