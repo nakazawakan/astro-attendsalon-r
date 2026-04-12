@@ -1,4 +1,4 @@
-# 古い index.html がキャッシュされ、ハッシュ違いの /_astro/*.css を読みに行くと「色が抜けた」ように見えることがある
+# 方針: HTML は毎回検証（中身が新しい /_astro/* のハッシュを指す）／CSS・JS はファイル名ハッシュでデプロイごとに URL が変わるので長期 immutable／画像は同一 URL でも数分〜で更新が伝播する程度の TTL（毎回再検証はしない）
 /
   Cache-Control: public, max-age=0, must-revalidate
 
@@ -8,11 +8,5 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# 差し替えが続く写真は短キャッシュ（同一 URL の古いバイトが残らないように）
-/images/voice-01.png
-  Cache-Control: public, max-age=0, must-revalidate
-/images/voice-02.png
-  Cache-Control: public, max-age=0, must-revalidate
-
 /images/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=600, stale-while-revalidate=3600
