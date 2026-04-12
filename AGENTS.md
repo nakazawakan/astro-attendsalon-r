@@ -65,7 +65,7 @@ curl -sS "https://astro-attendsalon-r.pages.dev/" | grep -oE "NO IMAGE|voice-01\
 ## カラークイックリファレンス
 
 ```
-pink-01  = #BE7372  // CTAボタン・アクセント（柔らかいコーラル）
+pink-01  = #FB6B6A  // CTAボタン・アクセント（コーラル rgb(251,107,106)）
 blue-01  = #7F9AA8  // タグ・アクセントライン
 bg-warm  = #FAF6EF  // クリームベージュ背景
 black-03 = #45423E  // 本文（暖チャコール）

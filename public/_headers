@@ -8,5 +8,11 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
+# 差し替えが続く写真は短キャッシュ（同一 URL の古いバイトが残らないように）
+/images/voice-01.png
+  Cache-Control: public, max-age=0, must-revalidate
+/images/voice-02.png
+  Cache-Control: public, max-age=0, must-revalidate
+
 /images/*
   Cache-Control: public, max-age=86400
