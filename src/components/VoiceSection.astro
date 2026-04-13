@@ -2,16 +2,17 @@
 import SectionHeading from './SectionHeading.astro';
 ---
 <section class="bg-white pt-[130px] pb-[80px]" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-page px-6 md:px-0">
+  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
+    <div class="mx-auto w-full min-w-0 max-w-page">
     <SectionHeading label="VOICE" title="お客様の声" />
 
-    <article class="border border-border-soft bg-white p-4 md:p-6 rounded-sm shadow-sm">
+    <article class="overflow-x-clip border border-border-soft bg-white p-4 md:p-6 rounded-sm shadow-sm">
       <div class="flex flex-col lg:flex-row gap-6 md:gap-8 mb-6 lg:items-start">
         <div
-          class="flex flex-wrap items-start gap-4 md:gap-5 shrink-0 justify-center lg:justify-start w-full min-h-0 lg:w-auto lg:max-w-[min(100%,580px)]"
+          class="flex min-h-0 w-full shrink-0 flex-nowrap items-stretch justify-center gap-3 sm:gap-4 md:gap-5 lg:w-auto lg:max-w-[min(100%,580px)] lg:justify-start"
         >
           <div
-            class="aspect-[4/3] w-[min(46vw,200px)] sm:w-[220px] md:w-[248px] lg:w-[268px] min-h-0 overflow-hidden rounded-sm shrink-0"
+            class="aspect-[4/3] min-h-0 min-w-0 flex-1 basis-0 overflow-hidden rounded-sm lg:w-[268px] lg:flex-none lg:shrink-0"
           >
             <img
               src="/images/voice-01.png"
@@ -24,7 +25,7 @@ import SectionHeading from './SectionHeading.astro';
             />
           </div>
           <div
-            class="aspect-[4/3] w-[min(46vw,200px)] sm:w-[220px] md:w-[248px] lg:w-[268px] min-h-0 overflow-hidden rounded-sm shrink-0"
+            class="aspect-[4/3] min-h-0 min-w-0 flex-1 basis-0 overflow-hidden rounded-sm lg:w-[268px] lg:flex-none lg:shrink-0"
           >
             <img
               src="/images/voice-02.png"
@@ -94,5 +95,6 @@ import SectionHeading from './SectionHeading.astro';
         </div>
       </div>
     </article>
+    </div>
   </div>
 </section>

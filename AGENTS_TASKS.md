@@ -14,7 +14,7 @@
 - モバイル対応必須（`md:` ブレークポイントでデスクトップ幅切替）
 - Tailwind カラートークン使用（`tailwind.config.mjs` 参照）
 - フォントクラス: ベースは `font-zen`（Zen Kaku Gothic New）。数字の装飾のみ例外可
-- デスクトップ基準: **本文 960px** — `max-w-page` + `px-6 md:px-0` + `mx-auto`（SP は左右 24px、PC は 960px カラム内いっぱい。`box-content` は横スクロール原因のため禁止）
+- デスクトップ基準: **本文 960px 相当** — シェルは `max-w-pageShell`（1008px）+ **常時** `px-6`（左右 24px）+ `mx-auto`（中身の使える幅の最大は 960px。狭い PC 幅でも端まで張り付かない。`box-content` は横スクロール原因のため禁止）
 
 ---
 

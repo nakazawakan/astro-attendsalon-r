@@ -21,7 +21,8 @@ const steps = [
 ];
 ---
 <section class="bg-white pt-[130px] pb-[80px]" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-page px-6 md:px-0">
+  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
+    <div class="mx-auto w-full min-w-0 max-w-page">
     <SectionHeading label="FLOW" title="研修の導入までの流れ" />
     <div class="flex flex-col items-center gap-4 md:gap-5">
       {steps.map(({ title, body }, i) => (
@@ -39,6 +40,7 @@ const steps = [
           </div>
         </div>
       ))}
+    </div>
     </div>
   </div>
 </section>

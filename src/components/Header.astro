@@ -6,17 +6,18 @@ import IconDocumentRequest from './IconDocumentRequest.astro';
   id="site-header"
   class="sticky top-0 z-50 border-b border-transparent bg-transparent shadow-none transition-[background-color,box-shadow,border-color] duration-200 ease-out"
 >
-  <div class="mx-auto flex w-full min-w-0 max-w-page flex-wrap items-center justify-between gap-3 px-6 py-3 md:px-0 md:py-4">
+  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6 py-3 md:py-4">
+    <div class="mx-auto flex w-full min-w-0 max-w-page flex-wrap items-center justify-between gap-3">
     <a href="/" class="flex items-center gap-3 min-w-0">
       <img
         src="/images/logo.png"
         alt="アテンドサロンR"
         width="60"
         height="60"
-        class="shrink-0 size-[60px] object-contain"
+        class="shrink-0 size-10 md:size-[60px] object-contain"
         decoding="async"
       />
-      <div class="text-[10px] md:text-[12px] leading-tight font-zen text-black-03">
+      <div class="text-[12px] md:text-[13px] leading-tight font-zen text-black-03">
         <span class="block">イキイキと自分らしく働くための</span>
         <span class="block font-medium">ウェルビーイング経営支援</span>
       </div>
@@ -83,20 +84,20 @@ import IconDocumentRequest from './IconDocumentRequest.astro';
 
     <details id="mobile-nav-details" class="md:hidden relative group">
       <summary
-        class="list-none cursor-pointer p-2 -mr-2 rounded-md hover:bg-black/5 [&::-webkit-details-marker]:hidden flex items-center justify-center w-10 h-10"
+        class="list-none cursor-pointer p-2 -mr-2 rounded-md bg-pink-01 shadow-sm hover:opacity-90 transition-opacity [&::-webkit-details-marker]:hidden flex items-center justify-center w-10 h-10"
         aria-label="メニューを開く"
         aria-controls="mobile-nav-panel"
       >
         <span class="sr-only">メニュー</span>
         <span class="relative flex h-3.5 w-5 flex-col justify-between" aria-hidden="true">
           <span
-            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-black-03 transition duration-200 ease-out group-open:translate-y-[6px] group-open:rotate-45"
+            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-white transition duration-200 ease-out group-open:translate-y-[6px] group-open:rotate-45"
           ></span>
           <span
-            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-black-03 transition duration-200 ease-out group-open:scale-x-0 group-open:opacity-0"
+            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-white transition duration-200 ease-out group-open:scale-x-0 group-open:opacity-0"
           ></span>
           <span
-            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-black-03 transition duration-200 ease-out group-open:-translate-y-[6px] group-open:-rotate-45"
+            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-white transition duration-200 ease-out group-open:-translate-y-[6px] group-open:-rotate-45"
           ></span>
         </span>
       </summary>
@@ -125,6 +126,7 @@ import IconDocumentRequest from './IconDocumentRequest.astro';
         </div>
       </div>
     </details>
+    </div>
   </div>
 </header>
 

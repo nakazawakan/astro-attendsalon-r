@@ -15,7 +15,7 @@ const { title, body, bodyTone, icon, ctaLabel, anchorId } = Astro.props;
 <article
   {...anchorId ? { id: anchorId } : {}}
   data-service-card
-  class="mx-0 flex w-full min-w-0 max-w-[300px] flex-col items-center gap-[18px] self-stretch rounded-2xl border border-black/[0.06] bg-bg-warm p-6 text-center shadow-sm max-md:relative max-md:z-0 max-md:origin-center max-md:scale-[0.94] max-md:opacity-[0.9] max-md:transition-[transform,opacity,box-shadow] max-md:duration-300 max-md:ease-out max-md:data-[center]:z-10 max-md:data-[center]:scale-105 max-md:data-[center]:opacity-100 max-md:data-[center]:shadow-lg md:max-w-none md:w-full"
+  class="mx-0 flex w-full min-w-0 max-w-[300px] flex-col items-center gap-[18px] self-stretch rounded-2xl border border-black/[0.06] bg-bg-warm p-6 text-center shadow-sm md:max-w-none md:w-full"
 >
   <h3 class="w-full text-xl font-zen font-bold text-black-03 leading-[1.3]">{title}</h3>
   <div class="flex h-[79px] w-[79px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
@@ -31,7 +31,7 @@ const { title, body, bodyTone, icon, ctaLabel, anchorId } = Astro.props;
   </p>
   <a
     href="/contact/"
-    class="mt-auto inline-flex w-full max-w-[240px] items-center justify-center gap-2.5 rounded-full bg-pink-01 px-4 py-4 font-zen text-base font-bold leading-[1.1] text-white transition-opacity hover:opacity-90"
+    class="mt-auto inline-flex w-full max-w-[240px] items-center justify-center gap-2.5 rounded-full bg-pink-01 px-0 py-[1.3rem] font-zen text-base font-bold leading-[1.1] text-white transition-opacity hover:opacity-90 md:px-4"
   >
     <img
       src="/images/about-chevron-cta.svg"

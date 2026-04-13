@@ -3,9 +3,13 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
-      /** 本文シェル: `max-w-page`（960px）+ `px-6`（SP 左右24px）+ `md:px-0`（PC は 960px カラム幅いっぱい）+ `mx-auto` */
+      /**
+       * 本文シェル: `max-w-pageShell`（1008px = 960 + 左右 24px）+ 常時 `px-6` + `mx-auto`。
+       * 数式・禁止パターン・例外は AGENTS.md「レイアウト仕様書（本文シェル）」を正とする。
+       */
       maxWidth: {
         page: '960px',
+        pageShell: '1008px',
       },
       colors: {
         // アテンドサロンR デザインシステム（柔らかい彩度・暖色ニュートラル寄り）

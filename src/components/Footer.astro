@@ -9,7 +9,8 @@ const footerLinks = [
 ];
 ---
 <footer class="bg-stone-700 text-white py-10 md:py-12" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-page px-6 md:px-0 text-center">
+  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6 text-center">
+    <div class="mx-auto w-full min-w-0 max-w-page">
     <nav aria-label="フッターナビ" class="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm md:text-base font-zen">
       {footerLinks.map(({ href, label }) => (
         <a href={href} class="text-white/90 hover:text-white underline-offset-4 hover:underline">
@@ -18,5 +19,6 @@ const footerLinks = [
       ))}
     </nav>
     <p class="mt-8 text-xs text-white/50 font-zen">© {new Date().getFullYear()} アテンドサロンR. All rights reserved.</p>
+    </div>
   </div>
 </footer>

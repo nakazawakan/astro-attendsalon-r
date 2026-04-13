@@ -31,6 +31,7 @@ const services = [
 ---
 <section id="services" class="bg-white pt-[130px] pb-[80px]" data-reveal>
   <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
+    <div class="mx-auto w-full min-w-0 max-w-page">
     <SectionHeading label="SERVICE" title="研修サービス一覧" decoLoading="eager">
       <div
         slot="after"
@@ -41,24 +42,28 @@ const services = [
       </div>
     </SectionHeading>
 
-    <!-- SP: Embla 無限ループ＋スナップ（[富士すばるランド](https://www.subaruland.jp/) のトピック帯に近い挙動。ページネーションなし） -->
-    <div class="-mx-6 mt-4 min-w-0 py-4 pb-5 md:hidden">
-      <div
-        id="service-embla-viewport"
-        class="service-embla__viewport min-w-0 overflow-hidden"
-        role="region"
-        aria-roledescription="カルーセル"
-        aria-label="研修サービス一覧。横にスワイプして全件を表示できます"
-        tabindex="0"
-      >
-        <div id="service-embla-container" class="service-embla__container flex">
-          {
-            services.map((s) => (
-              <div class="service-embla__slide flex shrink-0 grow-0 pl-4 first:pl-6 last:pr-6">
-                <ServiceCard {...s} />
-              </div>
-            ))
-          }
+    <!-- SP のみ（md:hidden）: カルーセル操作域のため親 px-6 を相殺。PCでは非表示のためレイアウト仕様書のフルブリード禁止に該当しない -->
+    <div
+      class="service-embla-sp mt-4 w-[calc(100%+3rem)] min-w-0 max-w-none shrink-0 -mx-6 py-4 pb-5 md:hidden"
+    >
+      <div class="min-w-0 w-full px-0">
+        <div
+          id="service-embla-viewport"
+          class="service-embla__viewport min-w-0 overflow-hidden py-2"
+          role="region"
+          aria-roledescription="カルーセル"
+          aria-label="研修サービス一覧。横にスワイプして全件を表示できます"
+          tabindex="0"
+        >
+          <div id="service-embla-container" class="service-embla__container flex">
+            {
+              services.map((s) => (
+                <div class="service-embla__slide flex shrink-0 grow-0 py-1">
+                  <ServiceCard {...s} />
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -77,20 +82,34 @@ const services = [
         ))
       }
     </div>
+    </div>
   </div>
 </section>
 
 <style is:global>
   .service-embla__viewport {
     touch-action: pan-y;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: service-embla;
+    /* loop + gap は「3枚目↔1枚目」に隙間が出ないため、公式の padding 方式（旧 gap-4 = 1rem） */
+    --service-slide-spacing: 1rem;
   }
   .service-embla__container {
     backface-visibility: hidden;
     touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--service-slide-spacing) * -1);
   }
+  /* cqi = ビューポートのコンテンツ幅。カードを少し細くして中央時に左右に覗きと余白を確保 */
   .service-embla__slide {
-    flex: 0 0 min(300px, calc(100vw - 3rem));
+    flex: 0 0 min(300px, calc(100vw - 10rem));
     min-width: 0;
+    padding-left: var(--service-slide-spacing);
+  }
+  @supports (width: 1cqi) {
+    .service-embla__slide {
+      flex: 0 0 min(300px, calc(100cqi - 4rem));
+    }
   }
 </style>
 
@@ -99,30 +118,13 @@ const services = [
   const MQ = '(min-width: 768px)';
   let emblaApi = null;
 
-  function syncCenter() {
-    if (!emblaApi) return;
-    const slides = emblaApi.slideNodes();
-    const idx = emblaApi.selectedScrollSnap();
-    slides.forEach((slide, i) => {
-      const art = slide.querySelector('[data-service-card]');
-      if (!art) return;
-      if (i === idx) art.setAttribute('data-center', '');
-      else art.removeAttribute('data-center');
-    });
-  }
-
   function destroyEmbla() {
     const vp = document.getElementById('service-embla-viewport');
     if (emblaApi) {
-      emblaApi.off('select', syncCenter);
-      emblaApi.off('reInit', syncCenter);
       emblaApi.destroy();
       emblaApi = null;
     }
     if (vp) delete vp.dataset.emblaInit;
-    document.querySelectorAll('#service-embla-container [data-service-card]').forEach((el) => {
-      el.removeAttribute('data-center');
-    });
   }
 
   async function initEmbla() {
@@ -136,7 +138,7 @@ const services = [
 
     vp.dataset.emblaInit = '1';
 
-    emblaApi = EmblaCarousel(vp, {
+    const api = EmblaCarousel(vp, {
       loop: true,
       align: 'center',
       dragFree: false,
@@ -144,9 +146,11 @@ const services = [
       watchDrag: true,
       watchResize: true,
     });
-    emblaApi.on('select', syncCenter);
-    emblaApi.on('reInit', syncCenter);
-    syncCenter();
+    emblaApi = api;
+    // 全幅化・フォント後の計測ずれで左が詰むことがあるため 1 フレーム後に再計測
+    requestAnimationFrame(() => {
+      if (emblaApi === api) api.reInit();
+    });
   }
 
   function apply() {
