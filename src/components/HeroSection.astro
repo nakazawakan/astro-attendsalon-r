@@ -10,13 +10,13 @@ const blobs = [
 ];
 ---
 <section
-  class="hero-soft-enter relative overflow-x-clip bg-bg-warm pt-10 pb-10 md:pt-[130px] md:pb-[80px] min-h-[520px] md:min-h-0"
+  class="hero-soft-enter relative overflow-x-clip bg-bg-warm pt-16 pb-10 md:pt-[130px] md:pb-[80px] min-h-[520px] md:min-h-0"
 >
   <!-- 左上装飾「R」— 白・+45°（旧 -45° の逆回り）。Ruika → Rubik 900。影なし -->
   <div
-    class="pointer-events-none select-none absolute left-0 top-0 z-0 origin-top-left scale-[1.3] md:scale-[0.85] rotate-45
-      translate-x-[3%] -translate-y-[calc(34%+10px)] md:-translate-y-[34%]
-      w-[clamp(320px,86vw,1480px)]"
+    class="pointer-events-none select-none absolute left-0 top-0 z-0 origin-top-left scale-[1.05] md:scale-[0.85] rotate-45
+      translate-x-[18%] md:translate-x-[3%] -translate-y-[calc(30%+6px)] md:-translate-y-[34%]
+      w-[clamp(300px,72vw,1480px)] md:w-[clamp(320px,86vw,1480px)]"
     aria-hidden="true"
   >
     <svg class="block h-auto w-full text-white antialiased" viewBox="0 0 1440 1152"
@@ -46,7 +46,7 @@ const blobs = [
     >
       <!-- md: flex 行で右イラストと並べ、translate による img のにじみを避ける（旧: absolute + pr 予約） -->
       <div class="relative z-10 w-full min-w-0 md:flex-1 md:min-w-0">
-        <div class="flex flex-nowrap gap-2 mb-6">
+        <div class="flex flex-nowrap gap-2 mb-[0.7rem] md:mb-6">
           {tags.map((t) => (
             <span class="shrink-0 whitespace-nowrap rounded-sm border border-blue-01 bg-white px-1 py-0.5 font-zen text-[13px] font-bold leading-none text-blue-01 md:px-1.5 md:py-1 md:text-base">
               {t}
