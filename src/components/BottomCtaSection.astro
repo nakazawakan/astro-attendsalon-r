@@ -1,0 +1,82 @@
+---
+import SectionHeading from './SectionHeading.astro';
+---
+<section
+  id="contact-cta"
+  class="relative overflow-x-clip bg-white pt-[130px] pb-[80px]"
+  data-reveal
+>
+  <!-- 背景装飾（感情労働ブロブを低不透明度で重ねる） -->
+  <div
+    class="pointer-events-none absolute -left-16 top-8 select-none opacity-[0.06] md:-left-8 md:top-12 md:opacity-[0.08]"
+    aria-hidden="true"
+  >
+    <img src="/images/blob-kan.svg" alt="" class="h-48 w-48 md:h-64 md:w-64" width="256" height="256" loading="lazy" decoding="async" />
+  </div>
+  <div
+    class="pointer-events-none absolute -right-12 bottom-4 select-none opacity-[0.06] md:-right-6 md:bottom-12 md:opacity-[0.08]"
+    aria-hidden="true"
+  >
+    <img src="/images/blob-do.svg" alt="" class="h-44 w-44 md:h-56 md:w-56" width="224" height="224" loading="lazy" decoding="async" />
+  </div>
+  <!-- 薄いアクセント帯（上端） -->
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-pink-01/25 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto w-full min-w-0 max-w-pageShell px-6">
+    <div class="relative mx-auto w-full min-w-0 max-w-page">
+      <SectionHeading label="CONTACT" title="研修のご相談はこちら" />
+
+      <div
+        class="relative mx-auto max-w-[720px] rounded-2xl border border-border-softer bg-bg-warm px-6 py-10 text-center shadow-[0_12px_40px_-12px_rgba(69,66,62,0.08)] md:px-12 md:py-14"
+      >
+        <!-- 内側のコーナー装飾（ブルーの細ライン） -->
+        <div
+          class="pointer-events-none absolute left-4 top-4 h-10 w-10 rounded-tl-lg border-l-2 border-t-2 border-blue-01/35 md:left-6 md:top-6"
+          aria-hidden="true"
+        >
+        </div>
+        <div
+          class="pointer-events-none absolute bottom-4 right-4 h-10 w-10 rounded-br-lg border-b-2 border-r-2 border-blue-01/35 md:bottom-6 md:right-6"
+          aria-hidden="true"
+        >
+        </div>
+
+        <p class="relative z-10 mx-auto max-w-[520px] font-zen text-sm leading-relaxed text-black-05 md:text-base">
+          課題や日程のイメージがまだ固まっていなくても大丈夫です。初回ヒアリングおよび概算お見積もりは無料です。
+        </p>
+
+        <div class="relative z-10 mt-8 flex flex-col items-center gap-4">
+          <a
+            href="/contact/"
+            class="inline-flex min-h-[3.25rem] w-full max-w-[320px] items-center justify-center gap-2.5 rounded-full bg-pink-01 px-8 py-4 font-zen text-base font-bold text-white shadow-sm transition-[opacity,transform] hover:opacity-90 active:scale-[0.99] md:text-lg"
+          >
+            <img
+              src="/images/about-chevron-cta.svg"
+              alt=""
+              width="10"
+              height="10"
+              class="h-2.5 w-2.5 shrink-0 rotate-180"
+              aria-hidden="true"
+              decoding="async"
+            />
+            お問い合わせ
+            <img
+              src="/images/about-chevron-cta.svg"
+              alt=""
+              width="10"
+              height="10"
+              class="h-2.5 w-2.5 shrink-0"
+              aria-hidden="true"
+              decoding="async"
+            />
+          </a>
+          <p class="font-zen text-xs text-black-05 md:text-sm">通常2営業日以内にご返信いたします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

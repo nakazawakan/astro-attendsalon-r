@@ -1,20 +1,6 @@
 ---
 import SiteChrome from '../../layouts/SiteChrome.astro';
-
-const faqs = [
-  {
-    q: '研修はオンラインでも受けられますか？',
-    a: 'はい。集合研修、オンライン、ハイブリッド形式など、貴社の体制に合わせてご提案可能です。',
-  },
-  {
-    q: '参加人数に制限はありますか？',
-    a: 'プログラムにより異なりますが、ワークを含む場合はおおむね10〜40名程度を目安に設計しています。大人数向けには複数回開催やeラーニング併用もご相談ください。',
-  },
-  {
-    q: '見積もりは無料ですか？',
-    a: '初回ヒアリングおよび概算お見積もりは無料です。詳細設計後に正式お見積りをご提示します。',
-  },
-];
+import { faqs } from '../../data/faqs';
 ---
 <SiteChrome title="よくある質問｜アテンドサロンR">
   <div
@@ -24,10 +10,22 @@ const faqs = [
     <div class="mx-auto w-full min-w-0 max-w-page">
     <h1 class="text-2xl md:text-3xl font-zen font-bold text-black-03 mb-10 text-center">よくある質問</h1>
     <dl class="space-y-6 font-zen">
-      {faqs.map(({ q, a }) => (
+      {faqs.map(({ q, a, cta }) => (
         <div class="border border-border-soft rounded-lg p-5 bg-white">
           <dt class="font-bold text-black-03 mb-2">{q}</dt>
-          <dd class="text-sm md:text-base text-black-05 leading-relaxed">{a}</dd>
+          <dd class="text-sm md:text-base text-black-05 leading-relaxed">
+            {a}
+            {cta && (
+              <span class="mt-2 block">
+                <a
+                  href={cta.href}
+                  class="font-bold text-pink-01 underline decoration-pink-01/40 underline-offset-4 hover:opacity-85"
+                >
+                  {cta.label}
+                </a>
+              </span>
+            )}
+          </dd>
         </div>
       ))}
     </dl>
