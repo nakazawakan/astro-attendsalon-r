@@ -46,7 +46,7 @@ const blobs = [
     >
       <!-- md: flex 行で右イラストと並べ、translate による img のにじみを避ける（旧: absolute + pr 予約） -->
       <div class="relative z-10 w-full min-w-0 md:flex-1 md:min-w-0">
-        <div class="flex flex-nowrap gap-2 mb-[0.7rem] md:mb-6">
+        <div class="flex flex-nowrap gap-2 mb-[0.4rem] md:mb-6">
           {tags.map((t) => (
             <span class="shrink-0 whitespace-nowrap rounded-sm border border-blue-01 bg-white px-1 py-0.5 font-zen text-[13px] font-bold leading-none text-blue-01 md:px-1.5 md:py-[4px] md:text-base">
               {t}
@@ -58,9 +58,9 @@ const blobs = [
           class="flex flex-nowrap items-end gap-0 sm:gap-0.5 md:gap-1.5 mb-1 md:mb-2 -ml-0.5 sm:-ml-1"
         >
           {blobs.map(({ char, src }) => (
-            <span class="relative inline-flex h-[50px] w-[50px] shrink-0 items-center justify-center md:h-[4.6rem] md:w-[4.75rem] -mr-1.5 sm:-mr-2 md:-mr-2 last:mr-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+            <span class="relative inline-flex h-[60px] w-[60px] shrink-0 items-center justify-center md:h-[4.6rem] md:w-[4.75rem] -mr-1.5 sm:-mr-2 md:-mr-2 last:mr-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.04)]">
               <img src={src} alt="" class="absolute inset-0 h-full w-full object-contain" aria-hidden="true" />
-              <span class="relative translate-y-[1px] font-zen text-[30px] font-bold leading-none tracking-tight text-pink-01 md:translate-y-0.5 md:text-[54px]">
+              <span class="relative translate-y-[1px] font-zen text-[42px] font-bold leading-none tracking-tight text-pink-01 md:translate-y-0.5 md:text-[54px]">
                 {char}
               </span>
             </span>
