@@ -1,22 +1,38 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 
-const steps = [
+/** 段落1つなら文字列、改行したいときは文字列の配列（各要素が1段落の `<p>`） */
+const steps: { title: string; body: string | string[] }[] = [
   {
     title: '現状把握',
-    body: '貴社の業種・組織規模・課題感をヒアリングし、研修の目的と期待する成果をすり合わせます。必要に応じて簡易アンケートのご提案も可能です。',
+    body: [
+      'まずは現場で起きている課題やお悩みを丁寧にヒアリングし、組織の現状を整理します。',
+      '顕在化している問題だけでなく、その背景にある感情の扱い方や組織風土、コミュニケーションの傾向まで確認します。',
+      '「何が起きているのか」「なぜ起きているのか」を明確にすることが出発点です。',
+    ],
   },
   {
     title: '研修設計',
-    body: 'ヒアリング内容をもとに、対象者・時間・形式（集合・オンライン・ハイブリッド）に合わせてプログラムをカスタマイズします。',
+    body: [
+      'ヒアリング内容をもとに、目的と対象（管理職・全社員・リーダー層など）に応じた研修プログラムを設計します。',
+      'メンタルヘルス・アンガーマネジメント・ハラスメントをどのような順序で組み合わせるかを検討し、組織にとって最適な形にカスタマイズします。',
+      '単発実施だけでなく、段階的なパッケージ設計も可能です。',
+    ],
   },
   {
     title: '研修実施',
-    body: '座学に加え、ロールプレイやグループワークなど双方向型の演習を取り入れ、現場で使えるスキルの定着を図ります。',
+    body: [
+      '対面形式を基本に、一方的な講義ではなく、双方向、参加型の構成で、実践的に進めます。',
+      '事例を交えながら、現場で使える判断や、具体的な対応力を身につけ、行動に落とし込むことを目指します。',
+    ],
   },
   {
     title: '効果測定',
-    body: '実施後アンケートや簡易レポートで振り返りを行い、必要に応じてフォロー研修・相談窓口の継続支援もご提案します。',
+    body: [
+      '受講アンケート等で振り返りを行い、参加者の気づきや現場の変化を確認します。',
+      '必要に応じて個別カウンセリングやフォローアップ研修のご提案など、学びを一過性で終わらせない仕組みづくりを支援します。',
+      '継続的な改善につなげることで、ウェルビーイング経営の実現を後押しします。',
+    ],
   },
 ];
 ---
@@ -25,21 +41,28 @@ const steps = [
     <div class="mx-auto w-full min-w-0 max-w-page">
     <SectionHeading label="FLOW" title="研修導入までの流れ" />
     <div class="flex flex-col items-center gap-4 md:gap-5">
-      {steps.map(({ title, body }, i) => (
-        <div class="w-full max-w-[740px] bg-white border border-black/[0.06] p-4 md:p-6 rounded shadow-sm">
-          <div class="flex items-start gap-3">
-            <span
-              class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-01 text-white text-sm font-bold tabular-nums shrink-0 font-['Lato',sans-serif]"
-            >
-              {i + 1}
-            </span>
-            <div>
-              <h3 class="text-lg font-zen font-bold text-black-03 mb-2">{title}</h3>
-              <p class="text-sm md:text-base text-black-03 leading-relaxed font-zen">{body}</p>
+      {steps.map(({ title, body }, i) => {
+        const paragraphs = Array.isArray(body) ? body : [body];
+        return (
+          <div class="w-full max-w-[740px] bg-white border border-black/[0.06] p-4 md:p-6 rounded shadow-sm">
+            <div class="flex items-start gap-3">
+              <span
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-01 text-white text-sm font-bold tabular-nums shrink-0 font-['Lato',sans-serif]"
+              >
+                {i + 1}
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-lg font-zen font-bold text-black-03 mb-2">{title}</h3>
+                <div class="space-y-3 text-[14px] text-black-03 leading-relaxed font-zen md:text-base">
+                  {paragraphs.map((text) => (
+                    <p class="m-0">{text}</p>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
     </div>
   </div>
