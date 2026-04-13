@@ -10,7 +10,7 @@ import { faqs } from '../data/faqs';
   <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
     <div class="mx-auto w-full min-w-0 max-w-page">
       <SectionHeading label="FAQ" title="よくある質問" />
-      <div class="flex flex-col gap-3 md:gap-4">
+      <div class="mx-auto flex w-full max-w-[740px] flex-col gap-3 md:gap-4">
         {
           faqs.map(({ q, a, cta }) => (
             <details class="group rounded-lg border border-border-softer bg-white shadow-sm">
