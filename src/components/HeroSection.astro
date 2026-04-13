@@ -58,9 +58,9 @@ const blobs = [
           class="flex flex-nowrap items-end gap-0 sm:gap-0.5 md:gap-1.5 mb-1 md:mb-2 -ml-0.5 sm:-ml-1"
         >
           {blobs.map(({ char, src }) => (
-            <span class="relative inline-flex shrink-0 items-center justify-center w-[5.175rem] h-[5.025rem] sm:w-[5.4rem] sm:h-[5.25rem] md:w-[4.75rem] md:h-[4.6rem] -mr-1.5 sm:-mr-2 md:-mr-2 last:mr-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+            <span class="relative inline-flex shrink-0 items-center justify-center w-[calc(5.175rem*0.85)] h-[calc(5.025rem*0.85)] sm:w-[calc(5.4rem*0.85)] sm:h-[calc(5.25rem*0.85)] md:w-[4.75rem] md:h-[4.6rem] -mr-1.5 sm:-mr-2 md:-mr-2 last:mr-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.04)]">
               <img src={src} alt="" class="absolute inset-0 w-full h-full object-contain" aria-hidden="true" />
-              <span class="relative text-pink-01 text-[3.075rem] sm:text-[3.9rem] md:text-[54px] font-zen font-bold leading-none tracking-tight translate-y-[1px] md:translate-y-0.5">
+              <span class="relative text-pink-01 text-[calc(3.075rem*0.85)] sm:text-[calc(3.9rem*0.85)] md:text-[54px] font-zen font-bold leading-none tracking-tight translate-y-[1px] md:translate-y-0.5">
                 {char}
               </span>
             </span>

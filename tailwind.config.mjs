@@ -22,6 +22,8 @@ export default {
         'bg-warm': '#FAF6EF',   // ページ地・クリームベージュ
         // 枠・区画（任意値の #e0e0e0 系を置き換え用）
         'border-soft': '#E0D8CE',
+        /** 枠: border-soft より一段薄い（About 感情労働カード等） */
+        'border-softer': '#E8E4DC',
         'surface-01': '#F5F0E8',
         'surface-02': '#EDE8DF',
         'surface-hover': '#E4DFD4',
