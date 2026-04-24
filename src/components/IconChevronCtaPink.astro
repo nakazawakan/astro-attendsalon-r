@@ -1,6 +1,6 @@
 ---
 /**
- * about-chevron-cta.svg と同形。img では --fill-0 が効かないため、ピンクは currentColor（text-pink-01）で表示。
+ * about-chevron-cta.svg と同形。img では --fill-0 が効かないため、ピンクは currentColor + --color-pink-01 で表示。
  */
 interface Props {
   class?: string;
@@ -8,7 +8,7 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 <svg
-  class:list={['inline-block h-2.5 w-2.5 shrink-0 text-pink-01', className]}
+  class:list={['c-icon-chevron-cta-pink', className]}
   viewBox="0 0 4.888 8.94401"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
@@ -20,3 +20,12 @@ const { class: className } = Astro.props;
     fill="currentColor"
   />
 </svg>
+<style>
+  .c-icon-chevron-cta-pink {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 0.625rem;
+    height: 0.625rem;
+    color: var(--color-pink-01);
+  }
+</style>

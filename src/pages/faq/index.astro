@@ -3,23 +3,21 @@ import SiteChrome from '../../layouts/SiteChrome.astro';
 import { faqs } from '../../data/faqs';
 ---
 <SiteChrome title="よくある質問｜アテンドサロンR">
-  <div
-    class="mx-auto w-full min-w-0 max-w-pageShell px-6 pb-[80px] pt-[130px]"
-    data-reveal
-  >
-    <div class="mx-auto w-full min-w-0 max-w-page">
-    <h1 class="text-2xl md:text-3xl font-zen font-bold text-black-03 mb-10 text-center">よくある質問</h1>
-    <dl class="space-y-6 font-zen">
+  <div class="p-faq-subpage" data-reveal>
+    <div class="l-page-shell">
+      <div class="l-page-inner">
+    <h1 class="p-faq-subpage__title">よくある質問</h1>
+    <dl class="p-faq-subpage__list">
       {faqs.map(({ q, a, cta }) => (
-        <div class="border border-border-soft rounded-lg p-5 bg-white">
-          <dt class="font-bold text-black-03 mb-2">{q}</dt>
-          <dd class="text-sm md:text-base text-black-05 leading-relaxed">
+        <div class="p-faq-subpage__item">
+          <dt class="p-faq-subpage__q">{q}</dt>
+          <dd class="p-faq-subpage__a">
             {a}
             {cta && (
-              <span class="mt-2 block">
+              <span class="p-faq-subpage__cta-line">
                 <a
                   href={cta.href}
-                  class="font-bold text-pink-01 underline decoration-pink-01/40 underline-offset-4 hover:opacity-85"
+                  class="p-faq-subpage__cta-link"
                 >
                   {cta.label}
                 </a>
@@ -29,11 +27,108 @@ import { faqs } from '../../data/faqs';
         </div>
       ))}
     </dl>
-    <p class="mt-10 text-center">
-      <a href="/contact/" class="inline-flex items-center rounded-full bg-pink-01 text-white font-zen font-bold px-6 py-3 text-sm hover:opacity-90">
+    <p class="p-faq-subpage__foot">
+      <a href="/contact/" class="p-faq-subpage__pill">
         その他のご質問はお問い合わせへ
       </a>
     </p>
+      </div>
     </div>
   </div>
 </SiteChrome>
+<style>
+  .p-faq-subpage {
+    padding-top: 130px;
+    padding-bottom: 80px;
+  }
+
+  .p-faq-subpage__title {
+    margin: 0 0 2.5rem;
+    text-align: center;
+    font-family: var(--font-family-base);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  @media (min-width: 768px) {
+    .p-faq-subpage__title {
+      font-size: 1.875rem;
+    }
+  }
+
+  .p-faq-subpage__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0;
+    font-family: var(--font-family-base);
+  }
+
+  .p-faq-subpage__item {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    background: #fff;
+  }
+
+  .p-faq-subpage__q {
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  .p-faq-subpage__a {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: var(--color-black-05);
+  }
+
+  @media (min-width: 768px) {
+    .p-faq-subpage__a {
+      font-size: 1rem;
+    }
+  }
+
+  .p-faq-subpage__cta-line {
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  .p-faq-subpage__cta-link {
+    font-weight: 700;
+    color: var(--color-pink-01);
+    text-decoration: underline;
+    text-decoration-color: rgb(251 107 106 / 0.4);
+    text-underline-offset: 4px;
+  }
+
+  .p-faq-subpage__cta-link:hover {
+    opacity: 0.85;
+  }
+
+  .p-faq-subpage__foot {
+    margin: 2.5rem 0 0;
+    text-align: center;
+  }
+
+  .p-faq-subpage__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background: var(--color-pink-01);
+    color: #fff;
+    font-weight: 700;
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .p-faq-subpage__pill:hover {
+    opacity: 0.9;
+  }
+</style>

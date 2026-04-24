@@ -13,30 +13,91 @@ interface Props {
   decoLoading?: 'eager' | 'lazy';
 }
 const { label, title, id, withBottomMargin = true, decoLoading = 'lazy' } = Astro.props;
-const mbClass = withBottomMargin ? 'mb-10 md:mb-[54px]' : '';
+const rootClass = withBottomMargin ? 'c-section-heading c-section-heading--with-margin' : 'c-section-heading';
 ---
-<div class:list={['text-left', mbClass]}>
+<div class={rootClass}>
   <!-- 装飾の基準は英字ラベル＋h2のみ（Figma 294:425 系・リードは下段に分離） -->
-  <div class="relative text-left">
+  <div class="c-section-heading__inner">
     <img
       src="/images/section-heading-deco.svg"
       alt=""
       width="114"
       height="111"
-      class="pointer-events-none select-none absolute left-[8px] md:left-0 top-0 z-0 h-auto w-[57px] md:w-[114px] -translate-x-[47%] -translate-y-[61%]"
+      class="c-section-heading__deco"
       aria-hidden="true"
       loading={decoLoading}
       decoding="async"
     />
-    <div class="relative z-10">
-      <p class="text-xs font-zen font-bold text-pink-01 tracking-[0.08em] uppercase mb-1">{label}</p>
-      <h2
-        id={id}
-        class="text-[1.75rem] md:text-[32px] font-zen font-bold text-black-03 leading-[1.3]"
-      >
+    <div class="c-section-heading__content">
+      <p class="c-section-heading__label">{label}</p>
+      <h2 id={id} class="c-section-heading__title">
         {title}
       </h2>
     </div>
   </div>
   <slot name="after" />
 </div>
+
+<style>
+  .c-section-heading {
+    text-align: left;
+  }
+
+  .c-section-heading--with-margin {
+    margin-bottom: 2.5rem;
+  }
+
+  .c-section-heading__inner {
+    position: relative;
+    text-align: left;
+  }
+
+  .c-section-heading__deco {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    z-index: 0;
+    width: 57px;
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+    transform: translate(-47%, -61%);
+  }
+
+  .c-section-heading__content {
+    position: relative;
+    z-index: 10;
+  }
+
+  .c-section-heading__label {
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-pink-01);
+  }
+
+  .c-section-heading__title {
+    margin: 0;
+    font-size: 1.75rem;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  @media (min-width: 768px) {
+    .c-section-heading--with-margin {
+      margin-bottom: 54px;
+    }
+
+    .c-section-heading__deco {
+      left: 0;
+      width: 114px;
+    }
+
+    .c-section-heading__title {
+      font-size: 32px;
+    }
+  }
+</style>

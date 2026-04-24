@@ -35,22 +35,22 @@ const instructors: InstructorCard[] = [
 ---
 <section
   id="instructors"
-  class:list={[embedded ? 'pt-0 pb-0' : 'pt-[130px] pb-[80px]']}
+  class:list={['p-instructor-section', embedded && 'p-instructor-section--embedded']}
   {...(!embedded ? { 'data-reveal': true } : {})}
 >
   {
     embedded ? (
-      <div class="w-full min-w-0">
+      <div class="p-instructor-section__embed">
         <InstructorCardsRow instructors={instructors} />
       </div>
     ) : (
-      <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
-        <div class="mx-auto w-full min-w-0 max-w-page">
+      <div class="l-page-shell">
+        <div class="l-page-inner">
           <SectionHeading label="FACILITATOR" title="講師紹介" />
-          <div class="mb-10 md:mb-12 text-base font-zen font-normal leading-[1.6] text-black-03">
-            <p class="mb-0">客室乗務員として40年、管理職として10年以上、</p>
-            <p class="mb-0">感情を扱う現場に携わってきた実務経験をもとに、</p>
-            <p class="mb-0">私たちが、感情に振り回されない働き方、イキイキ働くチーム作りを支援します</p>
+          <div class="p-instructor-section__intro">
+            <p>客室乗務員として40年、管理職として10年以上、</p>
+            <p>感情を扱う現場に携わってきた実務経験をもとに、</p>
+            <p>私たちが、感情に振り回されない働き方、イキイキ働くチーム作りを支援します</p>
           </div>
           <InstructorCardsRow instructors={instructors} />
         </div>
@@ -58,3 +58,39 @@ const instructors: InstructorCard[] = [
     )
   }
 </section>
+
+<style>
+  .p-instructor-section {
+    padding-top: 130px;
+    padding-bottom: 80px;
+  }
+
+  .p-instructor-section--embedded {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .p-instructor-section__embed {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .p-instructor-section__intro {
+    margin-bottom: 2.5rem;
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-black-03);
+  }
+
+  .p-instructor-section__intro p {
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .p-instructor-section__intro {
+      margin-bottom: 3rem;
+    }
+  }
+</style>

@@ -15,127 +15,121 @@ const mobileNavLinks: { href: string; label: string }[] = [
 ---
 <header
   id="site-header"
-  class="sticky top-0 z-50 border-b border-transparent bg-transparent shadow-none transition-[background-color,box-shadow,border-color] duration-200 ease-out"
+  class="c-site-header"
 >
-  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6 py-3 md:py-4">
-    <div class="mx-auto flex w-full min-w-0 max-w-page flex-wrap items-center justify-between gap-3">
-    <a href="/" class="flex min-w-0 items-center gap-[6px] md:gap-3">
+  <div class="l-page-shell c-site-header__shell">
+    <div class="l-page-inner c-site-header__inner">
+      <a href="/" class="c-site-header__brand">
       <img
         src="/images/logo.png"
         alt="アテンドサロンR"
         width="60"
         height="60"
-        class="shrink-0 size-10 md:size-[60px] object-contain"
+        class="c-site-header__logo"
         decoding="async"
       />
-      <div class="text-[12px] md:text-[13px] leading-tight font-zen text-black-03">
-        <span class="block">イキイキと自分らしく働くための</span>
-        <span class="block font-medium">ウェルビーイング経営支援</span>
+      <div class="c-site-header__brand-copy">
+        <span class="c-site-header__brand-line">イキイキと自分らしく働くための</span>
+        <span class="c-site-header__brand-line c-site-header__brand-line--medium">ウェルビーイング経営支援</span>
       </div>
-    </a>
+      </a>
 
     <nav
-      class="hidden md:flex md:flex-1 md:flex-nowrap md:items-center md:justify-end md:gap-x-6"
+      class="c-site-header__desktop-nav"
       aria-label="メインナビゲーション"
     >
-      <a href="/#about" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors shrink-0">選ばれる理由</a>
-      <a href="/kanjorodou/" class="text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors shrink-0">感情労働とは</a>
-      <div id="mega-services-wrap" class="relative shrink-0 group/mega">
+      <a href="/#about" class="c-site-header__desktop-link">選ばれる理由</a>
+      <a href="/kanjorodou/" class="c-site-header__desktop-link">感情労働とは</a>
+      <div id="mega-services-wrap" class="c-site-header__mega-wrap">
         <button
           type="button"
-          class="inline-flex items-center gap-1 text-[15px] font-zen font-bold text-black-03 hover:text-pink-01 transition-colors py-1"
+          class="c-site-header__mega-trigger"
           id="mega-services-trigger"
           aria-expanded="false"
           aria-haspopup="true"
           aria-controls="mega-services-panel"
         >
           研修サービス
-          <span class="inline-block text-[10px] leading-none opacity-70" aria-hidden="true">▼</span>
+          <span class="c-site-header__mega-caret" aria-hidden="true">▼</span>
         </button>
         <div
           id="mega-services-panel"
-          class="mega-services-panel pointer-events-none invisible absolute left-1/2 top-full z-[70] min-w-[min(100vw-3rem,280px)] w-max -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-150 ease-out group-hover/mega:pointer-events-auto group-hover/mega:visible group-hover/mega:opacity-100 group-focus-within/mega:pointer-events-auto group-focus-within/mega:visible group-focus-within/mega:opacity-100"
+          class="c-site-header__mega-panel"
           role="region"
           aria-label="研修サービス"
         >
-          <div class="rounded-lg border border-black/10 bg-white py-2 shadow-lg">
+          <div class="c-site-header__mega-menu">
             <a
               href="/#service-mental-health"
-              class="block whitespace-nowrap px-4 py-2.5 text-left text-[15px] font-zen font-bold text-black-03 hover:bg-bg-warm hover:text-pink-01 transition-colors"
+              class="c-site-header__mega-link"
               >メンタルヘルス研修</a>
             <a
               href="/#service-anger-management"
-              class="block whitespace-nowrap px-4 py-2.5 text-left text-[15px] font-zen font-bold text-black-03 hover:bg-bg-warm hover:text-pink-01 transition-colors"
+              class="c-site-header__mega-link"
               >アンガーマネジメント研修</a>
             <a
               href="/#service-harassment"
-              class="block whitespace-nowrap px-4 py-2.5 text-left text-[15px] font-zen font-bold text-black-03 hover:bg-bg-warm hover:text-pink-01 transition-colors"
+              class="c-site-header__mega-link"
               >ハラスメント研修</a>
           </div>
         </div>
       </div>
     </nav>
 
-    <div class="hidden md:flex items-center gap-3 shrink-0">
+    <div class="c-site-header__desktop-ctas">
       <a
         href="/contact/"
-        class="inline-flex items-center gap-2 rounded-full border border-pink-03 bg-white px-6 py-[10px] text-sm font-zen font-bold text-pink-01 hover:bg-bg-warm transition-colors"
+        class="c-button c-button--outline-pink"
       >
         <IconChatConsult />
         無料相談
       </a>
       <a
         href="/contact/#request"
-        class="inline-flex items-center gap-2 rounded-full bg-pink-01 px-6 py-[10px] text-sm font-zen font-bold text-white hover:opacity-90 transition-opacity"
+        class="c-button c-button--solid-pink"
       >
-        <IconDocumentRequest class="w-4 h-4 shrink-0 text-white" />
+        <IconDocumentRequest class="c-site-header__cta-icon" />
         資料請求
       </a>
     </div>
 
-    <details id="mobile-nav-details" class="md:hidden relative group">
+    <details id="mobile-nav-details" class="c-site-header__mobile-nav-details">
       <summary
-        class="list-none cursor-pointer p-2 -mr-2 rounded-md bg-pink-01 shadow-sm hover:opacity-90 transition-opacity [&::-webkit-details-marker]:hidden flex items-center justify-center w-10 h-10"
+        class="c-site-header__mobile-summary"
         aria-label="メニューを開く"
         aria-controls="mobile-nav-panel"
       >
-        <span class="sr-only">メニュー</span>
-        <span class="relative flex h-3.5 w-5 flex-col justify-between" aria-hidden="true">
-          <span
-            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-white transition duration-200 ease-out group-open:translate-y-[6px] group-open:rotate-45"
-          ></span>
-          <span
-            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-white transition duration-200 ease-out group-open:scale-x-0 group-open:opacity-0"
-          ></span>
-          <span
-            class="block h-[2px] min-h-[2px] w-full shrink-0 origin-center rounded-full bg-white transition duration-200 ease-out group-open:-translate-y-[6px] group-open:-rotate-45"
-          ></span>
+        <span class="u-visually-hidden">メニュー</span>
+        <span class="c-site-header__hamburger" aria-hidden="true">
+          <span class="c-site-header__hamburger-line"></span>
+          <span class="c-site-header__hamburger-line"></span>
+          <span class="c-site-header__hamburger-line"></span>
         </span>
       </summary>
       <div
         id="mobile-nav-panel"
-        class="mobile-nav-panel fixed left-1/2 top-[calc(var(--site-header-bottom,84px)+0.5rem)] z-[60] w-[calc(100vw-3rem)] max-w-none -translate-x-1/2 origin-top rounded-lg border border-black/10 bg-white p-4 shadow-lg"
+        class="mobile-nav-panel c-site-header__mobile-panel"
       >
-        <nav class="flex flex-col gap-0 font-zen font-bold text-[15px]" aria-label="モバイルナビ">
+        <nav class="c-site-header__mobile-links" aria-label="モバイルナビ">
           {
             mobileNavLinks.map(({ href, label }) => (
               <a
                 href={href}
-                class="inline-flex min-h-[2.75rem] items-center gap-2.5 border-b border-black/5 py-2.5 text-black-03 transition-colors hover:text-pink-01"
+                class="c-site-header__mobile-link"
               >
-                <IconChevronCtaPink class="translate-y-px" />
-                <span class="min-w-0">{label}</span>
+                <IconChevronCtaPink class="c-site-header__mobile-link-icon" />
+                <span>{label}</span>
               </a>
             ))
           }
         </nav>
-        <div class="mobile-nav-ctas flex flex-col gap-2 mt-4">
-          <a href="/contact/" class="inline-flex items-center justify-center gap-2 rounded-full border border-pink-03 bg-white px-6 py-[10px] text-sm font-bold text-pink-01">
+        <div class="mobile-nav-ctas c-site-header__mobile-ctas">
+          <a href="/contact/" class="c-button c-button--outline-pink">
             <IconChatConsult />
             無料相談
           </a>
-          <a href="/contact/#request" class="inline-flex items-center justify-center gap-2 rounded-full bg-pink-01 px-6 py-[10px] text-sm font-bold text-white">
-            <IconDocumentRequest class="w-4 h-4 shrink-0 text-white" />
+          <a href="/contact/#request" class="c-button c-button--solid-pink">
+            <IconDocumentRequest class="c-site-header__cta-icon" />
             資料請求
           </a>
         </div>
@@ -145,7 +139,302 @@ const mobileNavLinks: { href: string; label: string }[] = [
   </div>
 </header>
 
-<style is:global>
+<style>
+  .c-site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+  }
+
+  .c-site-header.is-scrolled {
+    background: #fff;
+    border-bottom-color: rgb(0 0 0 / 0.05);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+  }
+
+  .c-site-header__shell {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .c-site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .c-site-header__brand {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .c-site-header__logo {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+  }
+
+  .c-site-header__brand-copy {
+    font-size: 12px;
+    line-height: 1.25;
+    color: var(--color-black-03);
+  }
+
+  .c-site-header__brand-line {
+    display: block;
+  }
+
+  .c-site-header__brand-line--medium {
+    font-weight: 500;
+  }
+
+  .c-site-header__desktop-nav,
+  .c-site-header__desktop-ctas {
+    display: none;
+  }
+
+  .c-site-header__desktop-link,
+  .c-site-header__mega-trigger {
+    color: var(--color-black-03);
+    font-size: 15px;
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+
+  .c-site-header__mega-caret {
+    display: inline-block;
+    font-size: 10px;
+    line-height: 1;
+    opacity: 0.7;
+  }
+
+  .c-site-header__desktop-link:hover,
+  .c-site-header__mega-trigger:hover {
+    color: var(--color-pink-01);
+  }
+
+  .c-site-header__mega-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .c-site-header__mega-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border: 0;
+    background: transparent;
+    padding: 0.25rem 0;
+    cursor: pointer;
+  }
+
+  .c-site-header__mega-panel {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    z-index: 70;
+    width: max-content;
+    min-width: min(100vw - 3rem, 280px);
+    padding-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%);
+    transition: opacity 0.15s ease-out, visibility 0.15s ease-out;
+  }
+
+  .c-site-header__mega-wrap:hover .c-site-header__mega-panel,
+  .c-site-header__mega-wrap:focus-within .c-site-header__mega-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .c-site-header__mega-menu {
+    border: 1px solid rgb(0 0 0 / 0.1);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.12);
+    padding: 0.5rem 0;
+  }
+
+  .c-site-header__mega-link {
+    display: block;
+    white-space: nowrap;
+    padding: 0.625rem 1rem;
+    color: var(--color-black-03);
+    font-size: 15px;
+    font-weight: 700;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .c-site-header__mega-link:hover {
+    color: var(--color-pink-01);
+    background: var(--color-bg-warm);
+  }
+
+  .c-site-header__cta-icon {
+    color: #fff;
+  }
+
+  .c-site-header__mobile-nav-details {
+    position: relative;
+  }
+
+  .c-site-header__mobile-summary {
+    list-style: none;
+    cursor: pointer;
+    margin-right: -0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.375rem;
+    border: 0;
+    background: var(--color-pink-01);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+  }
+
+  .c-site-header__mobile-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .c-site-header__mobile-summary:hover {
+    opacity: 0.9;
+  }
+
+  .c-site-header__hamburger {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 1.25rem;
+    height: 0.875rem;
+  }
+
+  .c-site-header__hamburger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 9999px;
+    background: #fff;
+    transform-origin: center;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+  .c-site-header__mobile-nav-details[open] .c-site-header__hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .c-site-header__mobile-nav-details[open] .c-site-header__hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .c-site-header__mobile-nav-details[open] .c-site-header__hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .c-site-header__mobile-panel {
+    position: fixed;
+    left: 50%;
+    top: calc(var(--site-header-bottom, 84px) + 0.5rem);
+    z-index: 60;
+    width: calc(100vw - 3rem);
+    transform: translateX(-50%);
+    transform-origin: top;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 14px 30px rgb(0 0 0 / 0.14);
+  }
+
+  .c-site-header__mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .c-site-header__mobile-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2.75rem;
+    border-bottom: 1px solid rgb(0 0 0 / 0.05);
+    padding: 0.625rem 0;
+    color: var(--color-black-03);
+    transition: color 0.2s ease;
+  }
+
+  .c-site-header__mobile-link:hover {
+    color: var(--color-pink-01);
+  }
+
+  .c-site-header__mobile-link-icon {
+    transform: translateY(1px);
+  }
+
+  .c-site-header__mobile-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .c-site-header__shell {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .c-site-header__brand {
+      gap: 0.75rem;
+    }
+
+    .c-site-header__logo {
+      width: 60px;
+      height: 60px;
+    }
+
+    .c-site-header__brand-copy {
+      font-size: 13px;
+    }
+
+    .c-site-header__desktop-nav {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.5rem;
+      flex-wrap: nowrap;
+    }
+
+    .c-site-header__desktop-ctas {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .c-site-header__mobile-nav-details {
+      display: none;
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     #mobile-nav-details[open] .mobile-nav-panel {
       animation: mobile-nav-panel-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -216,12 +505,7 @@ const mobileNavLinks: { href: string; label: string }[] = [
     if (!el) return;
     function sync() {
       var on = (window.scrollY || window.pageYOffset) > 4;
-      el.classList.toggle('bg-white', on);
-      el.classList.toggle('bg-transparent', !on);
-      el.classList.toggle('border-black/5', on);
-      el.classList.toggle('border-transparent', !on);
-      el.classList.toggle('shadow-sm', on);
-      el.classList.toggle('shadow-none', !on);
+      el.classList.toggle('is-scrolled', on);
       el.style.setProperty('--site-header-bottom', el.offsetHeight + 'px');
     }
     sync();

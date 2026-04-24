@@ -1,0 +1,7 @@
+/**
+ * 本文・補助ページのインラインリンク（旧 Tailwind: text-link + underline）
+ */
+.c-link {
+  color: var(--color-link);
+  text-decoration: underline;
+}

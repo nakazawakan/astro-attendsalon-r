@@ -15,37 +15,158 @@ const { title, body, bodyTone, icon, ctaLabel, anchorId } = Astro.props;
 <article
   {...anchorId ? { id: anchorId } : {}}
   data-service-card
-  class="mx-0 flex w-full min-w-0 max-w-[300px] flex-col items-center gap-[18px] self-stretch rounded-2xl border border-black/[0.06] bg-bg-warm p-6 text-center shadow-sm md:max-w-none md:w-full"
+  class="p-service-card"
 >
-  <h3
-    class="mx-0 block min-w-0 max-w-full self-stretch whitespace-nowrap text-center text-xl font-zen font-bold text-black-03 leading-[1.3]"
-  >
+  <h3 class="p-service-card__title">
     {title}
   </h3>
-  <div class="flex h-[79px] w-[79px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
-    <img src={icon} alt="" width="32" height="32" class="h-8 w-8 object-contain" aria-hidden="true" loading="lazy" decoding="async" />
+  <div class="p-service-card__icon-wrap">
+    <img
+      src={icon}
+      alt=""
+      width="32"
+      height="32"
+      class="p-service-card__icon"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
   </div>
   <p
     class:list={[
-      'flex min-h-[70px] w-full flex-1 items-start justify-start text-left text-sm font-zen font-medium leading-[1.6]',
-      bodyTone === 'muted' ? 'text-black-05' : 'text-black-03',
+      'p-service-card__body',
+      bodyTone === 'muted' ? 'p-service-card__body--muted' : 'p-service-card__body--dark',
     ]}
   >
     {body}
   </p>
-  <a
-    href="/contact/"
-    class="mt-auto inline-flex w-full max-w-[240px] items-center justify-center gap-2.5 rounded-full bg-pink-01 px-0 py-[1.3rem] font-zen text-base font-bold leading-[1.1] text-white transition-opacity hover:opacity-90"
-  >
+  <a href="/contact/" class="p-service-card__cta">
     <img
       src="/images/about-chevron-cta.svg"
       alt=""
       width="10"
       height="10"
-      class="h-2.5 w-2.5 shrink-0 rotate-180"
+      class="p-service-card__cta-icon"
       aria-hidden="true"
       decoding="async"
     />
     {ctaLabel}
   </a>
 </article>
+
+<style>
+  .p-service-card {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: 300px;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    gap: 18px;
+    margin: 0;
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--color-black-03);
+    background: var(--color-bg-warm);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  @media (min-width: 768px) {
+    .p-service-card {
+      max-width: none;
+      width: 100%;
+    }
+  }
+
+  .p-service-card__title {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    align-self: stretch;
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+    font-family: var(--font-family-base);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-black-03);
+  }
+
+  .p-service-card__icon-wrap {
+    display: flex;
+    height: 79px;
+    width: 79px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: var(--radius-full);
+    background: #fff;
+  }
+
+  .p-service-card__icon {
+    height: 2rem;
+    width: 2rem;
+    object-fit: contain;
+  }
+
+  .p-service-card__body {
+    display: flex;
+    min-height: 70px;
+    width: 100%;
+    flex: 1;
+    margin: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  .p-service-card__body--dark {
+    color: var(--color-black-03);
+  }
+
+  .p-service-card__body--muted {
+    color: var(--color-black-05);
+  }
+
+  .p-service-card__cta {
+    box-sizing: border-box;
+    margin-top: auto;
+    display: inline-flex;
+    width: 100%;
+    max-width: 240px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    border-radius: var(--radius-full);
+    background: var(--color-pink-01);
+    padding: 1.3rem 0;
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .p-service-card__cta:hover {
+    opacity: 0.9;
+  }
+
+  .p-service-card__cta-icon {
+    height: 0.625rem;
+    width: 0.625rem;
+    flex-shrink: 0;
+    transform: rotate(180deg);
+  }
+</style>

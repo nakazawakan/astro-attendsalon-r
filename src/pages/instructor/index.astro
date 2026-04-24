@@ -3,17 +3,54 @@ import SiteChrome from '../../layouts/SiteChrome.astro';
 import InstructorSection from '../../components/InstructorSection.astro';
 ---
 <SiteChrome title="講師紹介｜アテンドサロンR">
-  <div
-    class="mx-auto w-full min-w-0 max-w-pageShell px-6 pb-[80px] pt-[130px]"
-    data-reveal
-  >
-    <div class="mx-auto w-full min-w-0 max-w-page">
-    <p class="text-center text-black-05 font-zen text-sm mb-2">アテンドサロンR</p>
-    <h1 class="text-2xl md:text-3xl font-zen font-bold text-black-03 text-center mb-2">講師紹介</h1>
-    <p class="text-center text-sm text-black-05 font-zen max-w-xl mx-auto mb-10">
-      現場経験と専門資格を兼ね備えた講師が、貴社の研修を担当します。
-    </p>
-    <InstructorSection embedded />
+  <div class="p-instructor-subpage" data-reveal>
+    <div class="l-page-shell">
+      <div class="l-page-inner">
+        <p class="p-instructor-subpage__eyebrow">アテンドサロンR</p>
+        <h1 class="p-instructor-subpage__title">講師紹介</h1>
+        <p class="p-instructor-subpage__lead">
+          現場経験と専門資格を兼ね備えた講師が、貴社の研修を担当します。
+        </p>
+        <InstructorSection embedded />
+      </div>
     </div>
   </div>
 </SiteChrome>
+<style>
+  .p-instructor-subpage {
+    padding-top: 130px;
+    padding-bottom: 80px;
+  }
+
+  .p-instructor-subpage__eyebrow {
+    margin: 0 0 0.5rem;
+    text-align: center;
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    color: var(--color-black-05);
+  }
+
+  .p-instructor-subpage__title {
+    margin: 0 0 0.5rem;
+    text-align: center;
+    font-family: var(--font-family-base);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  @media (min-width: 768px) {
+    .p-instructor-subpage__title {
+      font-size: 1.875rem;
+    }
+  }
+
+  .p-instructor-subpage__lead {
+    margin: 0 auto 2.5rem;
+    max-width: 36rem;
+    text-align: center;
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    color: var(--color-black-05);
+  }
+</style>

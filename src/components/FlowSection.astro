@@ -36,34 +36,122 @@ const steps: { title: string; body: string | string[] }[] = [
   },
 ];
 ---
-<section id="flow" class="bg-white pt-[130px] pb-[80px]" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
-    <div class="mx-auto w-full min-w-0 max-w-page">
-    <SectionHeading label="FLOW" title="研修導入までの流れ" />
-    <div class="flex flex-col items-center gap-4 md:gap-5">
-      {steps.map(({ title, body }, i) => {
-        const paragraphs = Array.isArray(body) ? body : [body];
-        return (
-          <div class="w-full max-w-[740px] bg-white border border-black/[0.06] p-4 md:p-6 rounded shadow-sm">
-            <div class="flex items-start gap-3">
-              <span
-                class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-01 text-white text-sm font-bold tabular-nums shrink-0 font-['Lato',sans-serif]"
-              >
-                {i + 1}
-              </span>
-              <div class="min-w-0">
-                <h3 class="text-lg font-zen font-bold text-black-03 mb-2">{title}</h3>
-                <div class="text-[14px] leading-relaxed font-zen text-black-03 md:text-base">
-                  {paragraphs.map((text) => (
-                    <p class="m-0">{text}</p>
-                  ))}
+<section
+  id="flow"
+  class="p-flow"
+  data-reveal
+>
+  <div class="l-page-shell">
+    <div class="l-page-inner">
+      <SectionHeading label="FLOW" title="研修導入までの流れ" />
+      <div class="p-flow__steps">
+        {steps.map(({ title, body }, i) => {
+          const paragraphs = Array.isArray(body) ? body : [body];
+          return (
+            <div class="p-flow__card">
+              <div class="p-flow__row">
+                <span class="p-flow__step-num">
+                  {i + 1}
+                </span>
+                <div class="p-flow__text-block">
+                  <h3 class="p-flow__title">{title}</h3>
+                  <div class="p-flow__body">
+                    {paragraphs.map((text) => (
+                      <p class="p-flow__para">{text}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .p-flow {
+    background: #fff;
+    padding-top: 130px;
+    padding-bottom: 80px;
+  }
+
+  .p-flow__steps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .p-flow__card {
+    width: 100%;
+    max-width: 740px;
+    border-radius: 0.25rem;
+    border: 1px solid rgb(0 0 0 / 0.06);
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  }
+
+  .p-flow__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .p-flow__step-num {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full);
+    background: var(--color-blue-01);
+    font-family: Lato, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+  }
+
+  .p-flow__text-block {
+    min-width: 0;
+  }
+
+  .p-flow__title {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-family-base);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--color-black-03);
+  }
+
+  .p-flow__body {
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: var(--color-black-03);
+  }
+
+  .p-flow__para {
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .p-flow__steps {
+      gap: 1.25rem;
+    }
+
+    .p-flow__card {
+      padding: 1.5rem;
+    }
+
+    .p-flow__body {
+      font-size: 1rem;
+    }
+  }
+</style>

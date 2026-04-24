@@ -15,39 +15,148 @@ interface Props {
 }
 
 const { instructors } = Astro.props;
+
+/** 旧 Tailwind 任意 `object-[x_y]` を object-position 用 CSS 値へ（データ文字列は据え置き） */
+function objectPositionValue(twClass: string): string {
+  const m = twClass.match(/^object-\[([^\]]+)\]$/);
+  if (!m) return '50% 50%';
+  return m[1].replace(/_/g, ' ');
+}
 ---
 
-<div
-  class="flex w-full min-w-0 flex-col items-stretch gap-8 md:flex-row md:flex-nowrap md:items-stretch md:justify-center md:gap-[39px]"
->
+<div class="p-instructor-cards">
   {
-    instructors.map(({ nameJa, nameEn, tags, image, imageAlt, imgWidth, imgHeight, objectPosition }) => (
-      <article
-        class="mx-auto flex w-full min-w-0 max-w-[480px] shrink-0 flex-col gap-[14px] md:mx-0 md:w-[460px] md:flex-none md:shrink-0"
-      >
-        <div class="relative w-full h-[200px] md:h-[300px] rounded-lg overflow-hidden bg-surface-01">
-          <img
-            src={image}
-            alt={imageAlt}
-            width={imgWidth}
-            height={imgHeight}
-            class:list={['absolute inset-0 w-full h-full object-cover', objectPosition]}
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        <div class="flex flex-col gap-[7px] font-zen font-bold text-black-03">
-          <h3 class="text-lg leading-none">{nameJa}</h3>
-          <p class="text-sm leading-none text-black-03">{nameEn}</p>
-        </div>
-        <div class="flex flex-wrap gap-1">
-          {tags.map((t) => (
-            <span class="inline-flex items-center justify-center bg-white px-2 py-1 rounded-sm text-sm font-zen font-bold text-black-03 whitespace-nowrap shadow-sm border border-black/[0.06]">
-              {t}
-            </span>
-          ))}
-        </div>
-      </article>
-    ))
+    instructors.map(
+      ({ nameJa, nameEn, tags, image, imageAlt, imgWidth, imgHeight, objectPosition }) => (
+        <article class="p-instructor-cards__item">
+          <div class="p-instructor-cards__media">
+            <img
+              src={image}
+              alt={imageAlt}
+              width={imgWidth}
+              height={imgHeight}
+              class="p-instructor-cards__img"
+              style={`object-position: ${objectPositionValue(objectPosition)}`}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="p-instructor-cards__names">
+            <h3 class="p-instructor-cards__name-ja">{nameJa}</h3>
+            <p class="p-instructor-cards__name-en">{nameEn}</p>
+          </div>
+          <div class="p-instructor-cards__tags">
+            {tags.map((t) => (
+              <span class="p-instructor-cards__tag">{t}</span>
+            ))}
+          </div>
+        </article>
+      )
+    )
   }
 </div>
+
+<style>
+  .p-instructor-cards {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+  }
+
+  .p-instructor-cards__item {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: 480px;
+    margin-inline: auto;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 14px;
+  }
+
+  .p-instructor-cards__media {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-01);
+  }
+
+  .p-instructor-cards__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .p-instructor-cards__names {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-family: var(--font-family-base);
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  .p-instructor-cards__name-ja {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  .p-instructor-cards__name-en {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1;
+    color: var(--color-black-03);
+  }
+
+  .p-instructor-cards__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .p-instructor-cards__tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.125rem;
+    border: 1px solid rgb(0 0 0 / 0.06);
+    background: #fff;
+    padding: 0.25rem 0.5rem;
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+    white-space: nowrap;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  }
+
+  @media (min-width: 768px) {
+    .p-instructor-cards {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      justify-content: center;
+      gap: 39px;
+    }
+
+    .p-instructor-cards__item {
+      width: 460px;
+      max-width: none;
+      margin-inline: 0;
+      flex: none;
+      flex-shrink: 0;
+    }
+
+    .p-instructor-cards__media {
+      height: 300px;
+    }
+  }
+</style>

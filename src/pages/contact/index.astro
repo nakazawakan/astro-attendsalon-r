@@ -2,41 +2,142 @@
 import SiteChrome from '../../layouts/SiteChrome.astro';
 ---
 <SiteChrome title="無料相談・資料請求｜アテンドサロンR">
-  <div
-    class="mx-auto w-full min-w-0 max-w-pageShell px-6 pb-[80px] pt-[130px]"
-    data-reveal
-  >
-    <div class="mx-auto w-full min-w-0 max-w-page">
-    <h1 class="text-2xl md:text-3xl font-zen font-bold text-black-03 mb-4 text-center">無料相談・資料請求</h1>
-    <p class="text-center text-black-05 font-zen text-sm md:text-base mb-12 max-w-xl mx-auto">
+  <div class="p-contact-subpage" data-reveal>
+    <div class="l-page-shell">
+      <div class="l-page-inner">
+    <h1 class="p-contact-subpage__title">無料相談・資料請求</h1>
+    <p class="p-contact-subpage__intro">
       研修内容のご相談や資料のご請求は、下記よりお問い合わせください。（フォーム連携は別途実装予定のため、現時点ではメール等の案内文のみです）
     </p>
 
-    <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-      <section class="border border-pink-03 rounded-2xl p-6 md:p-8 bg-white shadow-sm" aria-labelledby="consult-heading">
-        <h2 id="consult-heading" class="text-lg font-zen font-bold text-black-03 mb-3">無料相談</h2>
-        <p class="text-sm text-black-05 leading-relaxed font-zen mb-4">
+    <div class="p-contact-subpage__grid">
+      <section class="p-contact-subpage__card p-contact-subpage__card--pink" aria-labelledby="consult-heading">
+        <h2 id="consult-heading" class="p-contact-subpage__card-title">無料相談</h2>
+        <p class="p-contact-subpage__card-text p-contact-subpage__card-text--muted">
           現状の課題や研修のご希望をお聞きし、最適なプログラムをご提案します。お気軽にご連絡ください。
         </p>
-        <p class="text-sm font-zen text-black-03">
-          準備中：お問い合わせは <a href="mailto:info@example.com" class="text-link underline">info@example.com</a>（ダミー）まで。
+        <p class="p-contact-subpage__card-text">
+          準備中：お問い合わせは <a href="mailto:info@example.com" class="c-link">info@example.com</a>（ダミー）まで。
         </p>
       </section>
 
-      <section id="request" class="border border-border-soft rounded-2xl p-6 md:p-8 bg-white shadow-sm" aria-labelledby="request-heading">
-        <h2 id="request-heading" class="text-lg font-zen font-bold text-black-03 mb-3">資料請求</h2>
-        <p class="text-sm text-black-05 leading-relaxed font-zen mb-4">
+      <section id="request" class="p-contact-subpage__card" aria-labelledby="request-heading">
+        <h2 id="request-heading" class="p-contact-subpage__card-title">資料請求</h2>
+        <p class="p-contact-subpage__card-text p-contact-subpage__card-text--muted">
           研修概要資料や料金の目安について、メールにてお送りいたします。会社名・お名前・ご連絡先を明記のうえお問い合わせください。
         </p>
-        <p class="text-sm font-zen text-black-03">
+        <p class="p-contact-subpage__card-text">
           準備中：同上メールアドレスより「資料請求」と件名にご記載ください。
         </p>
       </section>
     </div>
 
-    <p class="mt-10 text-center">
-      <a href="/" class="text-link text-sm font-zen underline">トップページへ戻る</a>
+    <p class="p-contact-subpage__back-wrap">
+      <a href="/" class="c-link p-contact-subpage__back">トップページへ戻る</a>
     </p>
+      </div>
     </div>
   </div>
 </SiteChrome>
+<style>
+  .p-contact-subpage {
+    padding-top: 130px;
+    padding-bottom: 80px;
+  }
+
+  .p-contact-subpage__title {
+    margin: 0 0 1rem;
+    text-align: center;
+    font-family: var(--font-family-base);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  @media (min-width: 768px) {
+    .p-contact-subpage__title {
+      font-size: 1.875rem;
+    }
+  }
+
+  .p-contact-subpage__intro {
+    margin: 0 auto 3rem;
+    max-width: 36rem;
+    text-align: center;
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    color: var(--color-black-05);
+  }
+
+  @media (min-width: 768px) {
+    .p-contact-subpage__intro {
+      font-size: 1rem;
+    }
+  }
+
+  .p-contact-subpage__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .p-contact-subpage__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .p-contact-subpage__card {
+    box-sizing: border-box;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  @media (min-width: 768px) {
+    .p-contact-subpage__card {
+      padding: 2rem;
+    }
+  }
+
+  .p-contact-subpage__card--pink {
+    border-color: var(--color-pink-03);
+  }
+
+  .p-contact-subpage__card-title {
+    margin: 0 0 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-family: var(--font-family-base);
+    color: var(--color-black-03);
+  }
+
+  .p-contact-subpage__card-text {
+    margin: 0 0 1rem;
+    font-size: 0.875rem;
+    font-family: var(--font-family-base);
+    color: var(--color-black-03);
+    line-height: 1.625;
+  }
+
+  .p-contact-subpage__card-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .p-contact-subpage__card-text--muted {
+    color: var(--color-black-05);
+  }
+
+  .p-contact-subpage__back-wrap {
+    margin: 2.5rem 0 0;
+    text-align: center;
+  }
+
+  .p-contact-subpage__back {
+    font-size: 0.875rem;
+  }
+</style>

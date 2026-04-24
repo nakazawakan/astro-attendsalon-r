@@ -8,17 +8,66 @@ const footerLinks = [
   { href: '/contact/', label: 'お問い合わせ' },
 ];
 ---
-<footer class="bg-stone-700 text-white py-10 md:py-12" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6 text-center">
-    <div class="mx-auto w-full min-w-0 max-w-page">
-    <nav aria-label="フッターナビ" class="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm md:text-base font-zen">
+<footer class="c-site-footer" data-reveal>
+  <div class="l-page-shell c-site-footer__shell">
+    <div class="l-page-inner c-site-footer__inner">
+    <nav aria-label="フッターナビ" class="c-site-footer__nav">
       {footerLinks.map(({ href, label }) => (
-        <a href={href} class="text-white/90 hover:text-white underline-offset-4 hover:underline">
+        <a href={href} class="c-site-footer__link">
           {label}
         </a>
       ))}
     </nav>
-    <p class="mt-8 text-xs text-white/50 font-zen">© {new Date().getFullYear()} アテンドサロンR. All rights reserved.</p>
+    <p class="c-site-footer__copy">© {new Date().getFullYear()} アテンドサロンR. All rights reserved.</p>
     </div>
   </div>
 </footer>
+
+<style>
+  .c-site-footer {
+    background: var(--color-footer-bg);
+    color: #fff;
+    padding-block: 2.5rem;
+  }
+
+  .c-site-footer__inner {
+    text-align: center;
+  }
+
+  .c-site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 1.5rem;
+    row-gap: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  .c-site-footer__link {
+    color: rgb(255 255 255 / 0.9);
+    text-underline-offset: 4px;
+    transition: color 0.2s ease;
+  }
+
+  .c-site-footer__link:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .c-site-footer__copy {
+    margin: 2rem 0 0;
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .c-site-footer {
+      padding-block: 3rem;
+    }
+
+    .c-site-footer__nav {
+      font-size: 1rem;
+    }
+  }
+</style>

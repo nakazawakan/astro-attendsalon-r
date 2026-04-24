@@ -11,10 +11,8 @@
     "figma:export:voice": "node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 279-1696 public/images/voice-01.png png && node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 279-1695 public/images/voice-02.png png"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^5.0.0",
     "astro": "^4.16.0",
-    "embla-carousel": "^8.6.0",
-    "tailwindcss": "^3.4.0"
+    "embla-carousel": "^8.6.0"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

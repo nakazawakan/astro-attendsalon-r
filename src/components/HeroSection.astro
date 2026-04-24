@@ -10,20 +10,19 @@ const blobs = [
 ];
 ---
 <section
-  class="hero-soft-enter relative overflow-x-clip bg-bg-warm pt-[7rem] pb-10 md:pt-[130px] md:pb-[80px] min-h-[520px] md:min-h-0"
+  class="p-hero hero-soft-enter"
 >
   <!-- 左上装飾「R」— 白・+45°（旧 -45° の逆回り）。Ruika → Rubik 900。影なし -->
   <div
-    class="pointer-events-none select-none absolute left-0 top-0 z-0 origin-top-left scale-[1.5] md:scale-[0.85] rotate-45
-      translate-x-[calc(8%+20px)] md:translate-x-[3%] -translate-y-[calc(38%+64px)] md:-translate-y-[34%]
-      w-[370px] md:w-[clamp(320px,86vw,1480px)]"
+    class="p-hero__r-mark"
     aria-hidden="true"
   >
-    <svg class="block h-auto w-full text-white antialiased" viewBox="0 0 1440 1152"
+    <svg class="p-hero__r-svg" viewBox="0 0 1440 1152"
       xmlns="http://www.w3.org/2000/svg"
       role="presentation"
     >
       <text
+        class="p-hero__r-text"
         x="0"
         y="1095"
         fill="currentColor"
@@ -32,7 +31,6 @@ const blobs = [
         font-family="'Ruika 09', 'Ruika', 'Rubik', sans-serif"
         letter-spacing="-0.04em"
         dominant-baseline="alphabetic"
-        style="text-shadow: none"
       >
         R
       </text>
@@ -40,47 +38,43 @@ const blobs = [
   </div>
 
   <!-- 外: 1008 + 左右24px。内: max-w-page で本文カラム 960px を明示 -->
-  <div class="relative mx-auto w-full min-w-0 max-w-pageShell px-6">
-    <div
-      class="relative mx-auto w-full min-w-0 max-w-page md:flex md:flex-row md:items-center md:justify-between md:gap-6 lg:gap-8"
-    >
+  <div class="l-page-shell p-hero__shell">
+    <div class="l-page-inner p-hero__inner">
       <!-- md: flex 行で右イラストと並べ、translate による img のにじみを避ける（旧: absolute + pr 予約） -->
-      <div class="relative z-10 w-full min-w-0 md:flex-1 md:min-w-0">
-        <div class="flex flex-nowrap gap-2 mb-[0.4rem] md:mb-6">
+      <div class="p-hero__copy">
+        <div class="p-hero__tags">
           {tags.map((t) => (
-            <span class="shrink-0 whitespace-nowrap rounded-sm border border-blue-01 bg-white px-1 py-0.5 font-zen text-[13px] font-bold leading-none text-blue-01 md:px-1.5 md:py-[4px] md:text-base md:leading-[1]">
+            <span class="p-hero__tag">
               {t}
             </span>
           ))}
         </div>
 
-        <div
-          class="flex flex-nowrap items-end gap-0 sm:gap-0.5 md:gap-1.5 mb-1 md:mb-2 -ml-0.5 sm:-ml-1"
-        >
+        <div class="p-hero__blobs">
           {blobs.map(({ char, src }) => (
-            <span class="relative inline-flex h-[60px] w-[60px] shrink-0 items-center justify-center md:h-[4.6rem] md:w-[4.75rem] -mr-1.5 sm:-mr-2 md:-mr-2 last:mr-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.04)]">
-              <img src={src} alt="" class="absolute inset-0 h-full w-full object-contain" aria-hidden="true" />
-              <span class="relative translate-y-[1px] font-zen text-[42px] font-bold leading-none tracking-tight text-pink-01 md:translate-y-0.5 md:text-[54px]">
+            <span class="p-hero__blob">
+              <img src={src} alt="" class="p-hero__blob-bg" aria-hidden="true" />
+              <span class="p-hero__blob-char">
                 {char}
               </span>
             </span>
           ))}
         </div>
 
-        <p class="text-black-03 text-[32px] md:text-[40px] font-zen font-bold leading-tight mb-4 whitespace-nowrap">
+        <p class="p-hero__heading-sub">
           の職場向け研修支援
         </p>
 
-        <div class="text-black-03 text-[18px] leading-[1.4] md:text-[26px] md:leading-[1.5] font-zen font-bold">
-          <p class="mb-0 whitespace-nowrap">アテンドサロンRは、</p>
-          <p class="mb-0 whitespace-nowrap">感情労働のフィールドで</p>
-          <p class="mb-0 whitespace-nowrap">イキイキ働く組織づくりを支援します</p>
+        <div class="p-hero__lead">
+          <p class="p-hero__lead-line">アテンドサロンRは、</p>
+          <p class="p-hero__lead-line">感情労働のフィールドで</p>
+          <p class="p-hero__lead-line">イキイキ働く組織づくりを支援します</p>
         </div>
       </div>
 
       <!-- ヒーロー右：仮は `HeroEmotionalRipple` の NO IMAGE（本番ビジュアルは後から差し替え） -->
       <figure
-        class="mt-16 w-full max-w-[min(100%,420px)] mx-auto shrink-0 md:mx-0 md:mt-0 md:w-[min(380px,40vw)] lg:w-[min(420px,38vw)] md:max-w-[440px] z-[5]"
+        class="p-hero__visual"
         aria-hidden="true"
       >
         <HeroEmotionalRipple />
@@ -88,3 +82,230 @@ const blobs = [
     </div>
   </div>
 </section>
+
+<style>
+  .p-hero {
+    position: relative;
+    overflow-x: clip;
+    background: var(--color-bg-warm);
+    padding-top: 7rem;
+    padding-bottom: 2.5rem;
+    min-height: 520px;
+  }
+
+  .p-hero__r-mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 370px;
+    transform-origin: top left;
+    transform: translate(calc(8% + 20px), calc(-38% - 64px)) rotate(45deg) scale(1.5);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .p-hero__r-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .p-hero__r-text {
+    text-shadow: none;
+  }
+
+  .p-hero__shell,
+  .p-hero__inner {
+    position: relative;
+  }
+
+  .p-hero__copy {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .p-hero__tags {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .p-hero__tag {
+    flex-shrink: 0;
+    white-space: nowrap;
+    border: 1px solid var(--color-blue-01);
+    border-radius: 0.125rem;
+    background: #fff;
+    padding: 0.125rem 0.25rem;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 700;
+    color: var(--color-blue-01);
+  }
+
+  .p-hero__blobs {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 0;
+    margin-bottom: 0.25rem;
+    margin-left: -0.125rem;
+  }
+
+  .p-hero__blob {
+    position: relative;
+    display: inline-flex;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    margin-right: -0.375rem;
+    filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.04));
+  }
+
+  .p-hero__blob:last-child {
+    margin-right: 0;
+  }
+
+  .p-hero__blob-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .p-hero__blob-char {
+    position: relative;
+    transform: translateY(1px);
+    font-size: 42px;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    color: var(--color-pink-01);
+  }
+
+  .p-hero__heading-sub {
+    margin: 0 0 1rem;
+    white-space: nowrap;
+    color: var(--color-black-03);
+    font-size: 32px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .p-hero__lead {
+    color: var(--color-black-03);
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .p-hero__lead-line {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .p-hero__visual {
+    margin: 4rem auto 0;
+    width: 100%;
+    max-width: min(100%, 420px);
+    flex-shrink: 0;
+    z-index: 5;
+  }
+
+  @media (min-width: 640px) {
+    .p-hero__blobs {
+      gap: 0.125rem;
+      margin-left: -0.25rem;
+    }
+
+    .p-hero__blob {
+      margin-right: -0.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .p-hero {
+      padding-top: 130px;
+      padding-bottom: 80px;
+      min-height: 0;
+    }
+
+    .p-hero__r-mark {
+      width: clamp(320px, 86vw, 1480px);
+      transform: translate(3%, -34%) rotate(45deg) scale(0.85);
+    }
+
+    .p-hero__inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .p-hero__copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .p-hero__tags {
+      margin-bottom: 1.5rem;
+    }
+
+    .p-hero__tag {
+      padding: 4px 0.375rem;
+      font-size: 1rem;
+    }
+
+    .p-hero__blobs {
+      gap: 0.375rem;
+      margin-left: -0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .p-hero__blob {
+      width: 4.75rem;
+      height: 4.6rem;
+      margin-right: -0.5rem;
+    }
+
+    .p-hero__blob-char {
+      transform: translateY(0.125rem);
+      font-size: 54px;
+    }
+
+    .p-hero__heading-sub {
+      font-size: 40px;
+    }
+
+    .p-hero__lead {
+      font-size: 26px;
+      line-height: 1.5;
+    }
+
+    .p-hero__visual {
+      margin: 0;
+      width: min(380px, 40vw);
+      max-width: 440px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .p-hero__inner {
+      gap: 2rem;
+    }
+
+    .p-hero__visual {
+      width: min(420px, 38vw);
+    }
+  }
+</style>

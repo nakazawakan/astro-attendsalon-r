@@ -5,6 +5,20 @@
  */
 import NoImagePlaceholder from './NoImagePlaceholder.astro';
 ---
-<NoImagePlaceholder
-  class="hero-emotional-root mx-auto max-w-full aspect-[420/360] min-h-[180px]"
-/>
+<div class="c-hero-emotional-ripple">
+  <NoImagePlaceholder />
+</div>
+
+<style>
+  .c-hero-emotional-ripple {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    aspect-ratio: 420 / 360;
+    min-height: 180px;
+  }
+
+  .c-hero-emotional-ripple :global(.c-no-image-placeholder) {
+    height: 100%;
+  }
+</style>

@@ -15,12 +15,12 @@ const industries = [
   { label: '営業', icon: '/images/about-icon-eigyo.svg' },
 ];
 ---
-<section id="about" class="pt-12 pb-[80px] md:pt-[130px]" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
-    <div class="mx-auto w-full min-w-0 max-w-page">
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-8">
+<section id="about" class="p-about" data-reveal>
+  <div class="l-page-shell">
+    <div class="l-page-inner">
+    <div class="p-about__intro">
       <div
-        class="grid grid-cols-2 gap-2.5 md:gap-[10px] w-full max-w-none shrink-0 md:flex-1 md:min-w-0"
+        class="p-about__grid"
       >
         {gridImages.map(({ src, alt }, i) => (
           <img
@@ -28,76 +28,76 @@ const industries = [
             alt={alt}
             width="194"
             height="148"
-            class="w-full aspect-[194/148] object-cover rounded-[5px]"
+            class="p-about__grid-image"
             loading={i < 2 ? 'eager' : 'lazy'}
             decoding="async"
           />
         ))}
       </div>
 
-      <div class="flex-1 min-w-0 w-full max-w-none md:max-w-[460px] md:ml-auto">
-        <h2 class="font-zen text-black-03 mb-0">
-          <span class="relative inline-flex flex-wrap items-baseline gap-0.5">
-            <span class="relative inline-block pb-1 text-[1.75rem] md:text-[34px] font-bold leading-tight">
-              <span class="relative z-10">アテンドサロンR</span>
+      <div class="p-about__copy">
+        <h2 class="p-about__title">
+          <span class="p-about__title-row">
+            <span class="p-about__title-main">
+              <span class="p-about__title-main-text">アテンドサロンR</span>
               <span
-                class="absolute left-0 bottom-1 z-0 h-3 w-[min(100%,265px)] max-w-full rounded-sm bg-[#FFDDD2]"
+                class="p-about__title-marker"
                 aria-hidden="true"
               />
             </span>
-            <span class="text-lg md:text-[22px] font-bold leading-tight">は</span>
+            <span class="p-about__title-tail">は</span>
           </span>
         </h2>
 
-        <p class="text-base md:text-[20px] font-zen font-bold text-black-03 leading-[1.7]">
+        <p class="p-about__lead-strong">
           感情労働の現場経験及び指導経験を活かした<br />
           実践型マネジメント研修を提供します
         </p>
 
-        <p class="mt-4 text-base font-zen font-normal leading-[1.6] text-black-05">
+        <p class="p-about__lead-normal">
           働く現場の感情を適切に管理し、感情→行動→組織をつなぐことで、個人、組織の相互支援（心理的安全性）の実現を提案します。
         </p>
 
         <a
           href="/#features"
-          class="mt-6 inline-flex items-center gap-2.5 rounded-full bg-pink-01 py-[1.3rem] text-white font-zen font-bold px-6 text-base hover:opacity-90 transition-opacity min-w-[min(100%,300px)] max-w-full justify-center"
+          class="p-about__cta"
         >
           <img
             src="/images/about-chevron-cta.svg"
             alt=""
             width="10"
             height="10"
-            class="w-2.5 h-2.5 shrink-0 rotate-180"
+            class="p-about__cta-icon"
             aria-hidden="true"
             decoding="async"
           />
-          <span class="leading-[1.1] text-center whitespace-nowrap">私たちが選ばれる理由</span>
+          <span class="p-about__cta-label">私たちが選ばれる理由</span>
         </a>
       </div>
     </div>
 
-    <div class="mt-10 w-full bg-white border border-border-softer rounded-lg px-5 py-6 md:px-[25px] md:py-6 shadow-sm">
-      <div class="flex flex-col gap-4">
-        <div class="flex gap-[7px] items-start">
-          <div class="w-[6px] h-8 shrink-0 rounded-sm bg-blue-01" aria-hidden="true" />
-          <p class="text-[17px] font-zen font-bold text-black-03 leading-[1.6] pt-0.5">感情労働とは？</p>
+    <div class="p-about__panel">
+      <div class="p-about__panel-content">
+        <div class="p-about__panel-head">
+          <div class="p-about__panel-bar" aria-hidden="true" />
+          <p class="p-about__panel-title">感情労働とは？</p>
         </div>
 
-        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-          <div class="flex-1 min-w-0 w-full max-w-none md:max-w-[370px]">
-            <p class="text-[15px] text-black-03 font-medium leading-[1.4] mb-6">
+        <div class="p-about__panel-body">
+          <div class="p-about__panel-copy">
+            <p class="p-about__panel-text">
               感情労働とは、仕事上の役割に応じて感情をコントロールし、適切な態度や振る舞いを求められる労働です。感情を抑えたり演出したりするため、精神的な負担が生じやすい特徴があります。
             </p>
             <a
               href="/kanjorodou/"
-              class="inline-flex items-center gap-2.5 text-link text-base font-zen font-bold border-b border-link pb-1 hover:opacity-80"
+              class="p-about__panel-link"
             >
               <img
                 src="/images/about-chevron-link.svg"
                 alt=""
                 width="10"
                 height="10"
-                class="w-2.5 h-2.5 shrink-0 rotate-180"
+                class="p-about__panel-link-icon"
                 aria-hidden="true"
                 decoding="async"
               />
@@ -105,22 +105,22 @@ const industries = [
             </a>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full md:w-auto md:max-w-[500px] shrink-0">
+          <div class="p-about__industry-grid">
             {industries.map(({ label, icon }) => (
               <div
-                class="flex items-center gap-1.5 min-h-[50px] h-[50px] px-2.5 border border-border-softer rounded bg-white overflow-hidden"
+                class="p-about__industry-item"
               >
                 <img
                   src={icon}
                   alt=""
                   width="28"
                   height="28"
-                  class="h-7 w-7 shrink-0 object-contain"
+                  class="p-about__industry-icon"
                   loading="lazy"
                   decoding="async"
                   aria-hidden="true"
                 />
-                <span class="text-sm font-zen font-medium text-black-03 leading-none truncate">{label}</span>
+                <span class="p-about__industry-label">{label}</span>
               </div>
             ))}
           </div>
@@ -130,3 +130,316 @@ const industries = [
     </div>
   </div>
 </section>
+
+<style>
+  .p-about {
+    padding-top: 3rem;
+    padding-bottom: 80px;
+  }
+
+  .p-about__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .p-about__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: none;
+    flex-shrink: 0;
+  }
+
+  .p-about__grid-image {
+    width: 100%;
+    aspect-ratio: 194 / 148;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .p-about__copy {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  .p-about__title {
+    margin: 0;
+    color: var(--color-black-03);
+  }
+
+  .p-about__title-row {
+    position: relative;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.125rem;
+  }
+
+  .p-about__title-main {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.25rem;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .p-about__title-main-text {
+    position: relative;
+    z-index: 10;
+  }
+
+  .p-about__title-marker {
+    position: absolute;
+    left: 0;
+    bottom: 0.25rem;
+    z-index: 0;
+    width: min(100%, 265px);
+    max-width: 100%;
+    height: 0.75rem;
+    border-radius: 0.125rem;
+    background: #ffddd2;
+  }
+
+  .p-about__title-tail {
+    font-size: 1.125rem;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .p-about__lead-strong {
+    margin: 0;
+    color: var(--color-black-03);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 700;
+  }
+
+  .p-about__lead-normal {
+    margin: 1rem 0 0;
+    color: var(--color-black-05);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .p-about__cta {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-width: min(100%, 300px);
+    max-width: 100%;
+    padding: 1.3rem 1.5rem;
+    border-radius: 9999px;
+    background: var(--color-pink-01);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .p-about__cta:hover {
+    opacity: 0.9;
+  }
+
+  .p-about__cta-icon {
+    width: 0.625rem;
+    height: 0.625rem;
+    flex-shrink: 0;
+    transform: rotate(180deg);
+  }
+
+  .p-about__cta-label {
+    line-height: 1.1;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .p-about__panel {
+    margin-top: 2.5rem;
+    width: 100%;
+    border: 1px solid var(--color-border-softer);
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    padding: 1.5rem 1.25rem;
+  }
+
+  .p-about__panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .p-about__panel-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .p-about__panel-bar {
+    width: 6px;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 0.125rem;
+    background: var(--color-blue-01);
+  }
+
+  .p-about__panel-title {
+    margin: 0;
+    padding-top: 0.125rem;
+    color: var(--color-black-03);
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 700;
+  }
+
+  .p-about__panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .p-about__panel-copy {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  .p-about__panel-text {
+    margin: 0 0 1.5rem;
+    color: var(--color-black-03);
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .p-about__panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--color-link);
+    color: var(--color-link);
+    font-size: 1rem;
+    font-weight: 700;
+    transition: opacity 0.2s ease;
+  }
+
+  .p-about__panel-link:hover {
+    opacity: 0.8;
+  }
+
+  .p-about__panel-link-icon {
+    width: 0.625rem;
+    height: 0.625rem;
+    flex-shrink: 0;
+    transform: rotate(180deg);
+  }
+
+  .p-about__industry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .p-about__industry-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 50px;
+    height: 50px;
+    padding-inline: 0.625rem;
+    border: 1px solid var(--color-border-softer);
+    border-radius: 0.25rem;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .p-about__industry-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .p-about__industry-label {
+    color: var(--color-black-03);
+    font-size: 0.875rem;
+    line-height: 1;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (min-width: 640px) {
+    .p-about__industry-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .p-about {
+      padding-top: 130px;
+    }
+
+    .p-about__intro {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .p-about__grid {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .p-about__copy {
+      max-width: 460px;
+      margin-left: auto;
+    }
+
+    .p-about__title-main {
+      font-size: 34px;
+    }
+
+    .p-about__title-tail {
+      font-size: 22px;
+    }
+
+    .p-about__lead-strong {
+      font-size: 20px;
+    }
+
+    .p-about__panel {
+      padding: 1.5rem 25px;
+    }
+
+    .p-about__panel-body {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .p-about__panel-copy {
+      max-width: 370px;
+    }
+
+    .p-about__industry-grid {
+      width: auto;
+      max-width: 500px;
+    }
+  }
+</style>

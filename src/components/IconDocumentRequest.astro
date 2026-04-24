@@ -2,10 +2,10 @@
 interface Props {
   class?: string;
 }
-const { class: className = 'w-4 h-4 shrink-0' } = Astro.props;
+const { class: className } = Astro.props;
 ---
 <svg
-  class={className}
+  class:list={['c-icon--inline-16', className]}
   viewBox="0 0 24 24"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"

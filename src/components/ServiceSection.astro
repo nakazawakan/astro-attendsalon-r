@@ -29,36 +29,34 @@ const services = [
   },
 ];
 ---
-<section id="services" class="bg-white pt-[130px] pb-[80px]" data-reveal>
-  <div class="mx-auto w-full min-w-0 max-w-pageShell px-6">
-    <div class="mx-auto w-full min-w-0 max-w-page">
+<section id="services" class="p-service-section" data-reveal>
+  <div class="l-page-shell">
+    <div class="l-page-inner">
     <SectionHeading label="SERVICE" title="研修サービス一覧" decoLoading="eager">
       <div
         slot="after"
-        class="mt-2 max-w-[720px] text-base font-zen font-normal leading-[1.6] text-black-03"
+        class="p-service-section__intro"
       >
-        <p class="mb-0">感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
+        <p>感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
         <p>課題に合わせて、研修内容はカスタマイズいたします</p>
       </div>
     </SectionHeading>
 
-    <!-- SP のみ（md:hidden）: カルーセル操作域のため親 px-6 を相殺。PCでは非表示のためレイアウト仕様書のフルブリード禁止に該当しない -->
-    <div
-      class="service-embla-sp mt-4 w-[calc(100%+3rem)] min-w-0 max-w-none shrink-0 -mx-6 py-4 pb-5 md:hidden"
-    >
-      <div class="min-w-0 w-full px-0">
+    <!-- SP のみ: カルーセル操作域のため親の左右ガターを相殺。PCでは非表示のためレイアウト仕様書のフルブリード禁止に該当しない -->
+    <div class="p-service-section__embla-sp">
+      <div class="p-service-section__embla-sp-inner">
         <div
           id="service-embla-viewport"
-          class="service-embla__viewport min-w-0 overflow-hidden py-2"
+          class="service-embla__viewport p-service-section__embla-viewport"
           role="region"
           aria-roledescription="カルーセル"
           aria-label="研修サービス一覧。横にスワイプして全件を表示できます"
           tabindex="0"
         >
-          <div id="service-embla-container" class="service-embla__container flex">
+          <div id="service-embla-container" class="service-embla__container">
             {
               services.map((s) => (
-                <div class="service-embla__slide flex shrink-0 grow-0 py-1">
+                <div class="service-embla__slide">
                   <ServiceCard {...s} />
                 </div>
               ))
@@ -71,12 +69,12 @@ const services = [
     <!-- md+: 3 カラムグリッド（アンカー id はこちらのみ） -->
     <div
       id="service-carousel"
-      class="relative mt-10 hidden min-w-0 w-full grid-cols-3 gap-x-[27px] gap-y-0 items-stretch md:grid"
+      class="p-service-section__grid"
       aria-label="研修サービス一覧"
     >
       {
         services.map((s) => (
-          <div class="min-w-0">
+          <div class="p-service-section__grid-cell">
             <ServiceCard {...s} anchorId={s.id} />
           </div>
         ))
@@ -96,20 +94,104 @@ const services = [
     --service-slide-spacing: 1rem;
   }
   .service-embla__container {
+    display: flex;
     backface-visibility: hidden;
     touch-action: pan-y pinch-zoom;
     margin-left: calc(var(--service-slide-spacing) * -1);
   }
-  /* cqi = ビューポートのコンテンツ幅。カードを少し細くして中央時に左右に覗きと余白を確保 */
   .service-embla__slide {
+    display: flex;
     flex: 0 0 min(300px, calc(100vw - 10rem));
+    flex-grow: 0;
+    flex-shrink: 0;
     min-width: 0;
-    padding-left: var(--service-slide-spacing);
+    padding: 0.25rem 0 0.25rem var(--service-slide-spacing);
   }
   @supports (width: 1cqi) {
     .service-embla__slide {
       flex: 0 0 min(300px, calc(100cqi - 4rem));
     }
+  }
+</style>
+
+<style>
+  .p-service-section {
+    background: #fff;
+    padding-top: 130px;
+    padding-bottom: 80px;
+  }
+
+  .p-service-section__intro {
+    margin-top: 0.5rem;
+    max-width: 720px;
+  }
+
+  .p-service-section__intro p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-black-03);
+  }
+
+  .p-service-section__intro p + p {
+    margin-top: 1em;
+  }
+
+  /* SP のみ: 左右ガターを相殺してカルーセル幅を確保 */
+  .p-service-section__embla-sp {
+    box-sizing: border-box;
+    margin-top: 1rem;
+    width: calc(100% + 2 * var(--page-gutter));
+    min-width: 0;
+    max-width: none;
+    flex-shrink: 0;
+    margin-left: calc(-1 * var(--page-gutter));
+    margin-right: calc(-1 * var(--page-gutter));
+    padding-top: 1rem;
+    padding-bottom: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .p-service-section__embla-sp {
+      display: none;
+    }
+  }
+
+  .p-service-section__embla-sp-inner {
+    min-width: 0;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .p-service-section__embla-viewport {
+    min-width: 0;
+    overflow: hidden;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .p-service-section__grid {
+    position: relative;
+    display: none;
+    margin-top: 2.5rem;
+    min-width: 0;
+    width: 100%;
+    align-items: stretch;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 27px;
+    row-gap: 0;
+  }
+
+  @media (min-width: 768px) {
+    .p-service-section__grid {
+      display: grid;
+    }
+  }
+
+  .p-service-section__grid-cell {
+    min-width: 0;
   }
 </style>
 

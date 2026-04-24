@@ -1,0 +1,7 @@
+/* インライン SVG（CTA 横など）。旧 utility 風 w-4 h-4 shrink-0 に相当 */
+.c-icon--inline-16 {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}

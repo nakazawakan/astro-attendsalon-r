@@ -1,5 +1,12 @@
 ---
 import '../styles/soft-motion.css';
+import '../styles/foundation/tokens.css';
+import '../styles/foundation/reset.css';
+import '../styles/foundation/base.css';
+import '../styles/layout/page-shell.css';
+import '../styles/components/button.css';
+import '../styles/components/icon.css';
+import '../styles/components/link.css';
 
 interface Props {
   title: string;
@@ -8,7 +15,7 @@ interface Props {
 const { title, description = 'アテンドサロンRは、感情労働のフィールドでイキイキ働く組織づくりを支援します。' } = Astro.props;
 ---
 <!doctype html>
-<html lang="ja" class="overflow-x-clip">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,7 +31,7 @@ const { title, description = 'アテンドサロンRは、感情労働のフィ�
       rel="stylesheet"
     />
   </head>
-  <body class="overflow-x-clip font-zen antialiased text-black-03 bg-bg-warm">
+  <body>
     <script is:inline>
       try {
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
