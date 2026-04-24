@@ -32,54 +32,55 @@ const services = [
 <section id="services" class="p-service-section" data-reveal>
   <div class="l-page-shell">
     <div class="l-page-inner">
-    <SectionHeading label="SERVICE" title="研修サービス一覧" decoLoading="eager">
-      <div
-        slot="after"
-        class="p-service-section__intro"
+      <SectionHeading
+        label="SERVICE"
+        title="研修サービス一覧"
+        decoLoading="eager"
       >
-        <p>感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
-        <p>課題に合わせて、研修内容はカスタマイズいたします</p>
-      </div>
-    </SectionHeading>
+        <div slot="intro">
+          <p>感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
+          <p>課題に合わせて、研修内容はカスタマイズいたします</p>
+        </div>
+      </SectionHeading>
 
-    <!-- SP のみ: カルーセル操作域のため親の左右ガターを相殺。PCでは非表示のためレイアウト仕様書のフルブリード禁止に該当しない -->
-    <div class="p-service-section__embla-sp">
-      <div class="p-service-section__embla-sp-inner">
-        <div
-          id="service-embla-viewport"
-          class="service-embla__viewport p-service-section__embla-viewport"
-          role="region"
-          aria-roledescription="カルーセル"
-          aria-label="研修サービス一覧。横にスワイプして全件を表示できます"
-          tabindex="0"
-        >
-          <div id="service-embla-container" class="service-embla__container">
-            {
-              services.map((s) => (
-                <div class="service-embla__slide">
-                  <ServiceCard {...s} />
-                </div>
-              ))
-            }
+      <!-- SP のみ: カルーセル操作域のため親の左右ガターを相殺。PCでは非表示のためレイアウト仕様書のフルブリード禁止に該当しない -->
+      <div class="p-service-section__embla-sp">
+        <div class="p-service-section__embla-sp-inner">
+          <div
+            id="service-embla-viewport"
+            class="service-embla__viewport p-service-section__embla-viewport"
+            role="region"
+            aria-roledescription="カルーセル"
+            aria-label="研修サービス一覧。横にスワイプして全件を表示できます"
+            tabindex="0"
+          >
+            <div id="service-embla-container" class="service-embla__container">
+              {
+                services.map((s) => (
+                  <div class="service-embla__slide">
+                    <ServiceCard {...s} />
+                  </div>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- md+: 3 カラムグリッド（アンカー id はこちらのみ） -->
-    <div
-      id="service-carousel"
-      class="p-service-section__grid"
-      aria-label="研修サービス一覧"
-    >
-      {
-        services.map((s) => (
-          <div class="p-service-section__grid-cell">
-            <ServiceCard {...s} anchorId={s.id} />
-          </div>
-        ))
-      }
-    </div>
+      <!-- md+: 3 カラムグリッド（アンカー id はこちらのみ） -->
+      <div
+        id="service-carousel"
+        class="p-service-section__grid"
+        aria-label="研修サービス一覧"
+      >
+        {
+          services.map((s) => (
+            <div class="p-service-section__grid-cell">
+              <ServiceCard {...s} anchorId={s.id} />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
@@ -119,23 +120,6 @@ const services = [
     background: #fff;
     padding-top: 130px;
     padding-bottom: 80px;
-  }
-
-  .p-service-section__intro {
-    margin-top: 0.5rem;
-    max-width: 720px;
-  }
-
-  .p-service-section__intro p {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
-    color: var(--color-black-03);
-  }
-
-  .p-service-section__intro p + p {
-    margin-top: 1em;
   }
 
   /* SP のみ: 左右ガターを相殺してカルーセル幅を確保 */

@@ -14,7 +14,15 @@ const instructors: InstructorCard[] = [
   {
     nameJa: '佐藤 亮子',
     nameEn: 'Sato Ryoko',
-    tags: ['元客室乗務員', '一級キャリアコンサルティング'],
+    tags: ['元航空会社客室乗務員（乗務管理職）', 'EAPカウンセラー', '福岡県出身'],
+    qualifications: [
+      '1級キャリアコンサルティング技能士',
+      '2級キャリアコンサルティング技能士',
+      'キャリアコンサルタント',
+      '公認心理師',
+      '産業カウンセラー',
+      '心理相談員',
+    ],
     image: '/images/instructor-sato.png',
     imageAlt: '佐藤亮子のポートレート',
     imgWidth: 933,
@@ -24,7 +32,7 @@ const instructors: InstructorCard[] = [
   {
     nameJa: '舘野 理香',
     nameEn: 'Tateno Rika',
-    tags: ['元客室乗務員'],
+    tags: ['元航空会社客室乗務員（乗務管理職）', 'エデュケーションアシスタント', '福岡県出身', 'キャリアコンサルタント'],
     image: '/images/instructor-tateno.png',
     imageAlt: '舘野理香のポートレート',
     imgWidth: 920,
@@ -46,12 +54,22 @@ const instructors: InstructorCard[] = [
     ) : (
       <div class="l-page-shell">
         <div class="l-page-inner">
-          <SectionHeading label="FACILITATOR" title="講師紹介" />
-          <div class="p-instructor-section__intro">
-            <p>客室乗務員として40年、管理職として10年以上、</p>
-            <p>感情を扱う現場に携わってきた実務経験をもとに、</p>
-            <p>私たちが、感情に振り回されない働き方、イキイキ働くチーム作りを支援します</p>
-          </div>
+          <SectionHeading
+            label="FACILITATOR"
+            title="講師紹介"
+            bottomMarginStyle="content"
+          >
+            <div slot="intro">
+              <p>客室乗務員として40年、管理職として10年以上、</p>
+              <p>感情を扱う現場に携わってきた実務経験をもとに、</p>
+              <p>私たちが、感情に振り回されない働き方、イキイキ働くチーム作りを支援します</p>
+              <p>私たちは長年にわたり、客室乗務員として感情労働の最前線で働き、</p>
+              <p>管理職として（部下の）人財育成や相談対応も長く担ってきました</p>
+              <p>私たちが目指しているのは、感情を我慢させる職場ではありません</p>
+              <p>理論だけではない、感情を扱う現場で起こる、実情に即した研修をご提案し</p>
+              <p>感情に振り回されない働き方、イキイキ働くチーム作りを支援します</p>
+            </div>
+          </SectionHeading>
           <InstructorCardsRow instructors={instructors} />
         </div>
       </div>
@@ -75,22 +93,4 @@ const instructors: InstructorCard[] = [
     min-width: 0;
   }
 
-  .p-instructor-section__intro {
-    margin-bottom: 2.5rem;
-    font-family: var(--font-family-base);
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
-    color: var(--color-black-03);
-  }
-
-  .p-instructor-section__intro p {
-    margin: 0;
-  }
-
-  @media (min-width: 768px) {
-    .p-instructor-section__intro {
-      margin-bottom: 3rem;
-    }
-  }
 </style>

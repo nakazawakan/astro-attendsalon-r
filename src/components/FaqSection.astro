@@ -38,18 +38,23 @@ import { faqs } from '../data/faqs';
                   </svg>
                 </span>
               </summary>
-              <div class="p-faq__body">
-                <p>{a}</p>
-                {cta && (
-                  <p class="p-faq__cta">
-                    <a
-                      href={cta.href}
-                      class="p-faq__link"
-                    >
-                      {cta.label}
-                    </a>
-                  </p>
-                )}
+              <div
+                class="p-faq__panel"
+                data-faq-panel
+              >
+                <div class="p-faq__body">
+                  <p>{a}</p>
+                  {cta && (
+                    <p class="p-faq__cta">
+                      <a
+                        href={cta.href}
+                        class="p-faq__link"
+                      >
+                        {cta.label}
+                      </a>
+                    </p>
+                  )}
+                </div>
               </div>
             </details>
           ))
@@ -82,10 +87,10 @@ import { faqs } from '../data/faqs';
   }
 
   .p-faq__item {
+    /* box-shadow は高さが変わるたびに影の再トレースが走りカクつきの原因になるため border のみ */
     border-radius: 0.5rem;
     border: 1px solid var(--color-border-softer);
     background: #fff;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
   .p-faq__summary {
@@ -126,15 +131,38 @@ import { faqs } from '../data/faqs';
   .p-faq__chevron {
     flex-shrink: 0;
     color: var(--color-pink-01);
-    transition: transform 0.2s ease;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .p-faq__chevron-svg {
     display: block;
   }
 
+  /**
+   * 開閉: 実測 scrollHeight への max-height 遷移のみ（0→正確px）
+   * grid 0fr/1fr より WebKit で安定しやすい。JS は FaqSection 末尾スクリプト。
+   */
+  .p-faq__panel {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: auto;
+  }
+
+  .p-faq__panel.p-faq__panel--anim {
+    will-change: max-height;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .p-faq__panel,
+    .p-faq__chevron {
+      transition: none;
+    }
+  }
+
   .p-faq__body {
     box-sizing: border-box;
+    overflow: hidden;
     border-top: 1px solid var(--color-border-softer);
     padding: 0.75rem 1rem 1rem;
     font-family: var(--font-family-base);
@@ -173,7 +201,151 @@ import { faqs } from '../data/faqs';
     opacity: 0.85;
   }
 
-  details[open] .p-faq__chevron {
+  /**
+   * 回転は [open] ではなく JS が付与する --expanded
+   * （close 中も [open] は true のまま → アイコンだけ遅延していたのを防ぐ）
+   */
+  .p-faq__item.p-faq__item--expanded .p-faq__chevron {
     transform: rotate(180deg);
   }
 </style>
+
+<script>
+  const PANEL_DUR_MS = 600;
+
+  function cancelPanelInFlight(panel: HTMLElement) {
+    try {
+      panel.getAnimations?.().forEach((a) => a.cancel());
+    } catch {
+      /* ignore */
+    }
+  }
+
+  document.querySelectorAll<HTMLDetailsElement>('.p-faq__item').forEach((details) => {
+    const summary = details.querySelector<HTMLElement>('.p-faq__summary')!;
+    const panel   = details.querySelector<HTMLElement>('[data-faq-panel]')!;
+
+    let   opSeq     = 0;
+    let   closeTmr: ReturnType<typeof setTimeout> | null = null;
+
+    const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const endAnimHint = () => {
+      panel.classList.remove('p-faq__panel--anim');
+    };
+
+    const clearCloseFallback = () => {
+      if (closeTmr != null) {
+        clearTimeout(closeTmr);
+        closeTmr = null;
+      }
+    };
+
+    const finishClose = (myClose: number) => {
+      if (myClose !== opSeq) return;
+      if (!details.classList.contains('p-faq__item--closing')) return;
+      clearCloseFallback();
+      details.open = false;
+      panel.removeAttribute('style');
+      details.classList.remove('p-faq__item--closing');
+      endAnimHint();
+    };
+
+    const startClose = () => {
+      const myClose = ++opSeq;
+      cancelPanelInFlight(panel);
+      clearCloseFallback();
+      /* 遅延する transitionend や未発火向け: 前の id は finish で弾かれる */
+      details.classList.remove('p-faq__item--expanded');
+      details.classList.add('p-faq__item--closing');
+
+      const h = Math.ceil(panel.scrollHeight);
+      panel.style.maxHeight = `${h}px`;
+      void panel.offsetHeight;
+      panel.classList.add('p-faq__panel--anim');
+      panel.style.maxHeight = '0px';
+
+      const onEnd = (ev: Event) => {
+        const t = ev as TransitionEvent;
+        if (t.target !== panel) return;
+        if (t.propertyName !== 'max-height') return;
+        if (myClose !== opSeq) return;
+        finishClose(myClose);
+      };
+      panel.addEventListener('transitionend', onEnd, { once: true });
+
+      closeTmr = setTimeout(() => {
+        closeTmr = null;
+        finishClose(myClose);
+      }, PANEL_DUR_MS);
+    };
+
+    const runOpen = () => {
+      const myOpen = ++opSeq;
+      cancelPanelInFlight(panel);
+      clearCloseFallback();
+
+      details.classList.remove('p-faq__item--closing');
+      details.open = true;
+      details.classList.add('p-faq__item--expanded');
+      panel.style.maxHeight = '0px';
+      void panel.offsetHeight;
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (myOpen !== opSeq) return;
+          const bodyEl = panel.querySelector<HTMLElement>('.p-faq__body');
+          let   h = Math.ceil(panel.scrollHeight);
+          if (h < 1 && bodyEl) {
+            h = Math.ceil(bodyEl.getBoundingClientRect().height);
+          }
+          h += 1;
+          if (myOpen !== opSeq) return;
+          panel.classList.add('p-faq__panel--anim');
+          panel.style.maxHeight = `${h}px`;
+
+          const onEnd = (ev: Event) => {
+            const t = ev as TransitionEvent;
+            if (t.target !== panel) return;
+            if (t.propertyName !== 'max-height') return;
+            if (myOpen !== opSeq) return;
+            panel.style.maxHeight = 'none';
+            endAnimHint();
+          };
+          panel.addEventListener('transitionend', onEnd, { once: true });
+        });
+      });
+    };
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (prefersReduced()) {
+        if (details.open) {
+          details.classList.remove('p-faq__item--expanded', 'p-faq__item--closing');
+          details.open = false;
+          panel.removeAttribute('style');
+        } else {
+          details.open = true;
+          details.classList.add('p-faq__item--expanded');
+          panel.removeAttribute('style');
+        }
+        endAnimHint();
+        clearCloseFallback();
+        return;
+      }
+
+      /* 閉じアニメ中のクリック: 同じ要約行は「戻る」= すぐ再展開 */
+      if (details.classList.contains('p-faq__item--closing')) {
+        runOpen();
+        return;
+      }
+
+      if (details.open) {
+        startClose();
+        return;
+      }
+      runOpen();
+    });
+  });
+</script>

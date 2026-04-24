@@ -9,14 +9,30 @@ interface Props {
   id?: string;
   /** 見出しブロック下の余白（デフォルト: セクション標準） */
   withBottomMargin?: boolean;
+  /** 次要素との余白バリエーション */
+  bottomMarginStyle?: 'section' | 'content';
   /** ファーストビュー付近なら eager */
   decoLoading?: 'eager' | 'lazy';
 }
-const { label, title, id, withBottomMargin = true, decoLoading = 'lazy' } = Astro.props;
-const rootClass = withBottomMargin ? 'c-section-heading c-section-heading--with-margin' : 'c-section-heading';
+const {
+  label,
+  title,
+  id,
+  withBottomMargin = true,
+  bottomMarginStyle = 'section',
+  decoLoading = 'lazy',
+} = Astro.props;
+const rootClass = [
+  'c-section-heading',
+  withBottomMargin && 'c-section-heading--with-margin',
+  withBottomMargin && bottomMarginStyle === 'content' && 'c-section-heading--with-content-margin',
+]
+  .filter(Boolean)
+  .join(' ');
+const hasIntro = Astro.slots.has('intro');
 ---
 <div class={rootClass}>
-  <!-- 装飾の基準は英字ラベル＋h2のみ（Figma 294:425 系・リードは下段に分離） -->
+  <!-- 装飾の基準は英字ラベル＋h2。必要なら intro も同一コンポーネントで受ける -->
   <div class="c-section-heading__inner">
     <img
       src="/images/section-heading-deco.svg"
@@ -35,15 +51,27 @@ const rootClass = withBottomMargin ? 'c-section-heading c-section-heading--with-
       </h2>
     </div>
   </div>
-  <slot name="after" />
+  {
+    hasIntro && (
+      <div class="c-section-heading__intro">
+        <slot name="intro" />
+      </div>
+    )
+  }
 </div>
 
 <style>
   .c-section-heading {
+    display: grid;
+    row-gap: 0.5rem;
     text-align: left;
   }
 
   .c-section-heading--with-margin {
+    margin-bottom: 2.5rem;
+  }
+
+  .c-section-heading--with-content-margin {
     margin-bottom: 2.5rem;
   }
 
@@ -86,9 +114,31 @@ const rootClass = withBottomMargin ? 'c-section-heading c-section-heading--with-
     color: var(--color-black-03);
   }
 
+  .c-section-heading__intro {
+    max-width: 720px;
+    margin-top: 2rem;
+    font-family: var(--font-family-base);
+    color: var(--color-black-03);
+  }
+
+  .c-section-heading__intro :global(p) {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .c-section-heading__intro :global(p + p) {
+    margin-top: 0;
+  }
+
   @media (min-width: 768px) {
     .c-section-heading--with-margin {
       margin-bottom: 54px;
+    }
+
+    .c-section-heading--with-content-margin {
+      margin-bottom: 3rem;
     }
 
     .c-section-heading__deco {
@@ -98,6 +148,12 @@ const rootClass = withBottomMargin ? 'c-section-heading c-section-heading--with-
 
     .c-section-heading__title {
       font-size: 32px;
+    }
+
+    .c-section-heading__intro :global(p) {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      font-weight: 400;
     }
   }
 </style>
