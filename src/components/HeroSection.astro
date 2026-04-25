@@ -57,10 +57,11 @@ const blobs = [
               </span>
             </span>
           ))}
+          の
         </div>
 
         <p class="p-hero__heading-sub">
-          の職場向け実践型<br>マネジメント研修
+          職場向け実践型マネジメント研修
         </p>
 
         <div class="p-hero__lead">
@@ -154,6 +155,8 @@ const blobs = [
     gap: 0;
     margin-bottom: 0.25rem;
     margin-left: -0.125rem;
+    font-size: 32px;
+    font-weight: 700;
   }
 
   .p-hero__blob {
@@ -197,6 +200,12 @@ const blobs = [
     font-size: 32px;
     line-height: 1.25;
     font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .p-hero__heading-sub {
+      font-size: 24px;
+    }
   }
 
   .p-hero__lead {
