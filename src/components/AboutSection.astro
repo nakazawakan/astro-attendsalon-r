@@ -51,7 +51,7 @@ const industries = [
 
         <p class="p-about__lead-strong">
           感情労働の現場経験および指導経験を活かした<br />
-          実効性のある(現場で本当に使える）研修を提供します
+          実効性のある(現場で使える）研修を提供します
         </p>
 
         <p class="p-about__lead-normal">
@@ -217,6 +217,11 @@ const industries = [
     font-size: 1rem;
     line-height: 1.7;
     font-weight: 700;
+  }
+  @media (max-width: 640px) {
+    .p-about__lead-strong {
+      font-size: 15px;
+    }
   }
 
   .p-about__lead-normal {
