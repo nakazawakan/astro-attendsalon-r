@@ -20,6 +20,9 @@
   --page-gutter: 24px;
   --page-shell-max-width: 1008px;
 
+  /* 横レスの md 基準（AGENTS.md: 768px = md） */
+  --bp-md: 768px;
+
   --radius-full: 9999px;
   --radius-lg: 0.5rem;
 

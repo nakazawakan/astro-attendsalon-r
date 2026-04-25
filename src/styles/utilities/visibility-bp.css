@@ -1,0 +1,22 @@
+/**
+ * ビューポート幅による表示の出し分け
+ * 基準: `var(--bp-md)`（768px）未満 = スマホ、以上 = パソコン
+ *
+ * - .u-only-sp : スマホ幅のみ表示（768px 以上では非表示）
+ * - .u-only-pc : パソコン幅のみ表示（768px 未満は非表示、768px 以上は要素の既定 display に戻す）
+ */
+@media (min-width: var(--bp-md)) {
+  .u-only-sp {
+    display: none !important;
+  }
+}
+
+.u-only-pc {
+  display: none !important;
+}
+
+@media (min-width: var(--bp-md)) {
+  .u-only-pc {
+    display: revert !important;
+  }
+}
