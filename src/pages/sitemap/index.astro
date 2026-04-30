@@ -1,25 +1,13 @@
 ---
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
-import {
-  getColumnSitemapNavEntries,
-  getStaticSitemapNavEntries,
-} from '../../lib/sitemap-urls';
+import { getHtmlSitemapNavEntries } from '../../lib/sitemap-urls';
 
 const title = 'サイトマップ';
 const description =
   'アテンドサロンRの公開ページへのリンク一覧です。主要ページおよびお役立ち記事の URL をまとめています。';
 
-const staticEntries = getStaticSitemapNavEntries().filter(
-  ({ path }) =>
-    path !== '/column/' &&
-    path !== '/news/' &&
-    path !== '/sitemap/' &&
-    path !== '/comming-soon/',
-);
-const columnEntries = await getColumnSitemapNavEntries();
-const columnIndexEntry = getStaticSitemapNavEntries().find(
-  (e) => e.path === '/column/',
-);
+/** HTML サイトマップのみ掲載を絞る（`sitemap.xml` とは別。`getHtmlSitemapNavEntries` 定義を参照） */
+const staticEntries = getHtmlSitemapNavEntries();
 ---
 <DocumentPageLayout
   title={title}
@@ -45,32 +33,6 @@ const columnIndexEntry = getStaticSitemapNavEntries().find(
     }
   </ul>
 
-  <h2 class="p-sitemap-page__heading">お役立ち情報</h2>
-  <ul class="p-sitemap-page__grid p-sitemap-page__grid--column">
-    {
-      columnIndexEntry ? (
-        <li class="p-sitemap-page__cell">
-          <a
-            href={columnIndexEntry.path}
-            class="c-button c-button--outline-pink p-sitemap-page__tile"
-          >
-            <span class="p-sitemap-page__tile-label">{columnIndexEntry.label}</span>
-            <span class="p-sitemap-page__tile-path">{columnIndexEntry.path}</span>
-          </a>
-        </li>
-      ) : null
-    }
-    {
-      columnEntries.map(({ path, label }) => (
-        <li class="p-sitemap-page__cell">
-          <a href={path} class="c-button c-button--outline-pink p-sitemap-page__tile">
-            <span class="p-sitemap-page__tile-label">{label}</span>
-            <span class="p-sitemap-page__tile-path">{path}</span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
 
 </DocumentPageLayout>
 
@@ -163,6 +125,7 @@ const columnIndexEntry = getStaticSitemapNavEntries().find(
   }
 
   .p-sitemap-page__tile-label {
+    color: var(--color-black-03);
     font-size: 0.875rem;
     font-weight: 700;
     line-height: 1.45;

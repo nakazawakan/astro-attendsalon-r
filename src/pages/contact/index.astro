@@ -1,9 +1,9 @@
 ---
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
 
-const title = 'お問い合わせ';
+const title = '研修の無料相談';
 const description =
-  '研修内容のご相談や資料のご請求など、お問い合わせは下記フォームよりご連絡ください。（送信処理は別途実装予定のため、現時点ではメール等の案内に沿ってご連絡ください）';
+  '研修内容のご相談や資料のご請求など、研修の無料相談は下記フォームよりご連絡ください。（送信処理は別途実装予定のため、現時点ではメール等の案内に沿ってご連絡ください）';
 
 /** 首都圏を先頭に、その後は都道府県コード順（埼玉・千葉・東京・神奈川を除く） */
 const prefectureFirst = ['東京都', '神奈川県', '千葉県', '埼玉県'] as const;
@@ -166,7 +166,7 @@ const prefectures = [...prefectureFirst, ...prefectureRest];
 
       <div class="p-contact-form__field">
         <label class="p-contact-form__label" for="contact-message">
-          お問い合わせ内容 <span class="p-contact-form__req">必須</span>
+          ご相談内容 <span class="p-contact-form__req">必須</span>
         </label>
         <textarea
           class="p-contact-form__control p-contact-form__control--textarea"

@@ -21,6 +21,8 @@ interface Props {
   titleSpacing?: 'default' | 'loose';
   /** BreadcrumbList / WebPage に加えて挿入する JSON-LD（例: FAQPage） */
   additionalJsonLd?: Record<string, unknown>[];
+  /** `<meta name="robots">`（thanks 等） */
+  robots?: string;
 }
 
 const {
@@ -35,6 +37,7 @@ const {
   titleAlign = 'start',
   titleSpacing = 'default',
   additionalJsonLd = [],
+  robots,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://attendsalon-r.com');
@@ -70,6 +73,7 @@ const mainSectionClassList = ['l-section', 'l-section--article', 'p-document-pag
   description={description}
   canonicalPath={canonicalPath}
   ogImage="/images/logo.png"
+  robots={robots}
   jsonLd={[breadcrumbJsonLd, webPageJsonLd, ...additionalJsonLd]}
 >
   <article class="p-document-page" aria-labelledby="doc-page-title">
@@ -132,7 +136,7 @@ const mainSectionClassList = ['l-section', 'l-section--article', 'p-document-pag
 
   .p-document-page-section__kicker {
     margin: 0 0 0.75rem;
-    color: var(--color-blue-01);
+    color: var(--color-pink-01);
     font-family: Lato, var(--font-family-base);
     font-size: 0.875rem;
     font-weight: 900;

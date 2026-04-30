@@ -1,7 +1,7 @@
 import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import { SITEMAP_STATIC_PATHS } from '../lib/sitemap-urls';
+import { SITEMAP_XML_STATIC_PATHS } from '../lib/sitemap-urls';
 
 type SitemapUrl = { path: string; lastmod?: string };
 
@@ -13,8 +13,13 @@ const escapeXml = (value: string) =>
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&apos;');
 
+/**
+ * 検索エンジン向け sitemap.xml。
+ * HTML の `/sitemap/` ページ（`getHtmlSitemapNavEntries`）とはデータ源を分け、こちらは全公開 URL を列挙する。
+ */
 export async function GET({ site }: APIContext) {
   const baseUrl = site ?? new URL('https://attendsalon-r.com');
+
   const articles: CollectionEntry<'column'>[] = await getCollection(
     'column',
     (entry: CollectionEntry<'column'>) => !entry.data.draft,
@@ -34,7 +39,7 @@ export async function GET({ site }: APIContext) {
   }));
 
   const urls: SitemapUrl[] = [
-    ...SITEMAP_STATIC_PATHS.map((path) => ({ path })),
+    ...SITEMAP_XML_STATIC_PATHS.map((path) => ({ path })),
     ...newsPaths,
     ...articlePaths,
   ];

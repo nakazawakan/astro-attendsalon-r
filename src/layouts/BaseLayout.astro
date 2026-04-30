@@ -22,6 +22,8 @@ interface Props {
   ogType?: 'website' | 'article';
   ogImage?: string;
   noindex?: boolean;
+  /** 指定時は `noindex` より優先（例: thanks ページの `noindex, nofollow`） */
+  robots?: string;
   publishedTime?: string;
   modifiedTime?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
@@ -33,6 +35,7 @@ const {
   ogType = 'website',
   ogImage,
   noindex = false,
+  robots,
   publishedTime,
   modifiedTime,
   jsonLd,
@@ -57,7 +60,7 @@ const safeJsonLd = (item: Record<string, unknown>) =>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {robots ? <meta name="robots" content={robots} /> : noindex && <meta name="robots" content="noindex" />}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:site_name" content="アテンドサロンR" />
     <meta property="og:title" content={title} />
