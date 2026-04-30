@@ -1,0 +1,41 @@
+@layer components {
+  /**
+   * ピンク塗りつぶし pill + 先頭シェブロンのアンカー（複数セクションで再利用）
+   */
+  .c-cta {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-width: min(100%, 300px);
+    max-width: 100%;
+    padding: 1.3rem 1.5rem;
+    border-radius: var(--radius-full);
+    background: var(--color-pink-01);
+    color: #fff;
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .c-cta:hover {
+    opacity: 0.9;
+  }
+
+  .c-cta__icon {
+    width: 0.625rem;
+    height: 0.625rem;
+    flex-shrink: 0;
+    transform: rotate(180deg);
+  }
+
+  .c-cta__label {
+    line-height: 1.1;
+    text-align: center;
+    white-space: nowrap;
+  }
+}

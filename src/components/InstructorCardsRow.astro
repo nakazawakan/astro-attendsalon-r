@@ -1,15 +1,7 @@
 ---
-export interface InstructorCard {
-  nameJa: string;
-  nameEn: string;
-  tags: string[];
-  qualifications?: string[];
-  image: string;
-  imageAlt: string;
-  imgWidth: number;
-  imgHeight: number;
-  objectPosition: string;
-}
+import type { InstructorCard } from '../data/instructors';
+
+export type { InstructorCard } from '../data/instructors';
 
 interface Props {
   instructors: InstructorCard[];
@@ -143,7 +135,7 @@ function objectPositionValue(twClass: string): string {
     font-weight: 700;
     color: var(--color-black-03);
     white-space: nowrap;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    box-shadow: var(--shadow-soft);
   }
 
   .p-instructor-cards__qualifications {
@@ -171,7 +163,7 @@ function objectPositionValue(twClass: string): string {
     flex-shrink: 0;
   }
 
-  @media (min-width: 768px) {
+  @media (--bp-md-up) {
     .p-instructor-cards {
       flex-direction: row;
       flex-wrap: nowrap;

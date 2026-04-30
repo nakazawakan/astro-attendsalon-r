@@ -1,60 +1,30 @@
 ---
+import ChevronPillCtaLink from './ChevronPillCtaLink.astro';
 import SectionHeading from './SectionHeading.astro';
 import InstructorCardsRow from './InstructorCardsRow.astro';
-import type { InstructorCard } from './InstructorCardsRow.astro';
+import { instructorsForCards } from '../data/instructors';
 
 interface Props {
-  /** サブページでは見出し・リード・装飾を出さず、カード行のみ（親が pageShell + page を持つ想定） */
+  /** サブページでは見出し・リード・装飾を出さず、カード行のみ（親が l-container を持つ想定） */
   embedded?: boolean;
 }
 const { embedded = false } = Astro.props;
 
-/** Figma `294:719` 左→右: 佐藤、舘野。佐藤写真ノード `294:732` */
-const instructors: InstructorCard[] = [
-  {
-    nameJa: '佐藤 亮子',
-    nameEn: 'Sato Ryoko',
-    nameLocation: '福岡県出身',
-    tags: ['元航空会社客室乗務員（乗務管理職）', 'EAPカウンセラー'],
-    qualifications: [
-      '1級キャリアコンサルティング技能士',
-      '2級キャリアコンサルティング技能士',
-      'キャリアコンサルタント',
-      '公認心理師',
-      '産業カウンセラー',
-      '心理相談員',
-    ],
-    image: '/images/instructor-sato.png',
-    imageAlt: '佐藤亮子のポートレート',
-    imgWidth: 933,
-    imgHeight: 1400,
-    objectPosition: 'object-[50%_13%]',
-  },
-  {
-    nameJa: '舘野 理香',
-    nameEn: 'Tateno Rika',
-    tags: ['元航空会社客室乗務員（乗務管理職）', 'エデュケーションアシスタント', '福岡県出身', 'キャリアコンサルタント'],
-    image: '/images/instructor-tateno.png',
-    imageAlt: '舘野理香のポートレート',
-    imgWidth: 920,
-    imgHeight: 1380,
-    objectPosition: 'object-[50%_19%]',
-  },
-];
+const instructors = instructorsForCards;
 ---
 <section
   id="instructors"
-  class:list={['p-instructor-section', embedded && 'p-instructor-section--embedded']}
+  class:list={['l-section', 'p-instructor-section', embedded && 'p-instructor-section--embedded']}
   {...(!embedded ? { 'data-reveal': true } : {})}
 >
+  {!embedded && <div class="l-wave l-wave--top l-wave--pattern-gentle-a" aria-hidden="true"></div>}
   {
     embedded ? (
       <div class="p-instructor-section__embed">
         <InstructorCardsRow instructors={instructors} />
       </div>
     ) : (
-      <div class="l-page-shell">
-        <div class="l-page-inner">
+      <div class="l-container">
           <SectionHeading
             label="FACILITATOR"
             title="講師紹介"
@@ -67,26 +37,87 @@ const instructors: InstructorCard[] = [
             </div>
           </SectionHeading>
           <InstructorCardsRow instructors={instructors} />
-        </div>
+          <p class="p-instructor-section__trainer-more">
+            <ChevronPillCtaLink href="/trainer/">講師のプロフィール・写真を見る</ChevronPillCtaLink>
+          </p>
       </div>
     )
   }
+  {!embedded && <div class="l-wave l-wave--bottom l-wave--pattern-gentle-b" aria-hidden="true"></div>}
 </section>
 
 <style>
   .p-instructor-section {
-    padding-top: 130px;
-    padding-bottom: 80px;
+    --wave-height: 40px;
+    --wave-mask-gentle-a: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 12 C110 -4 220 -4 330 12 C420 26 510 26 600 12 C704 -4 808 -4 912 10 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
+    --wave-mask-gentle-b: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 14 C88 -2 176 -2 264 14 C370 30 476 30 582 14 C692 -2 802 -2 912 12 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding-top: calc(var(--section-padding-block-start, var(--section-padding-block-start-default)) + var(--wave-height));
+    padding-bottom: calc(var(--section-padding-block-end, var(--section-padding-block-end-default)) + var(--wave-height));
+  }
+
+  .p-instructor-section > .l-container,
+  .p-instructor-section__embed {
+    position: relative;
+    z-index: var(--z-section-content, 3);
+  }
+
+  .l-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--wave-height);
+    z-index: var(--section-wave-z-index, var(--z-section-wave, 1));
+    pointer-events: none;
+    background: #fff;
+  }
+
+  .l-wave--top {
+    top: 0;
+    transform: translateY(-1px) scaleY(-1);
+    transform-origin: 50% 50%;
+  }
+
+  .l-wave--bottom {
+    bottom: 0;
+    transform: translateY(1px);
+  }
+
+  .l-wave--pattern-gentle-a {
+    mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
+    -webkit-mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
+  }
+
+  .l-wave--pattern-gentle-b {
+    mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
+    -webkit-mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
   }
 
   .p-instructor-section--embedded {
+    --section-padding-block-start: 0;
+    --section-padding-block-end: 0;
     padding-top: 0;
     padding-bottom: 0;
+    overflow: visible;
   }
 
   .p-instructor-section__embed {
     width: 100%;
     min-width: 0;
+  }
+
+  .p-instructor-section__trainer-more {
+    margin: 1.75rem 0 0;
+    text-align: center;
+  }
+
+  @media (--bp-md-up) {
+    .p-instructor-section {
+      --wave-height: 62px;
+    }
   }
 
 </style>

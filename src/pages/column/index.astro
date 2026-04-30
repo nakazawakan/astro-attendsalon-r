@@ -1,0 +1,179 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+
+const columnThumbFallback = '/images/column-thumbnail-placeholder.png';
+
+const articles: CollectionEntry<'column'>[] = (await getCollection(
+  'column',
+  (entry: CollectionEntry<'column'>) => !entry.data.draft,
+)).sort(
+  (a: CollectionEntry<'column'>, b: CollectionEntry<'column'>) =>
+    b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+const formatDate = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Tokyo',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const title = 'コラム';
+const description =
+  'アテンドサロンRのコラム一覧です。感情労働、メンタルヘルス、ハラスメント対策など、職場のウェルビーイングに関する情報をお届けします。';
+---
+<DocumentPageLayout
+  title={title}
+  description={description}
+  canonicalPath="/column/"
+  eyebrow="Column"
+>
+  <div class="p-column-subpage">
+    <div class="p-column-subpage__grid">
+      {articles.map((article: CollectionEntry<'column'>) => (
+        <article class="p-column-subpage__card">
+          <a href={`/column/${article.slug}/`} class="p-column-subpage__card-link">
+            <div class="p-column-subpage__media">
+              {article.data.heroImage ? (
+                <img
+                  class="p-column-subpage__thumb"
+                  src={article.data.heroImage}
+                  alt={article.data.heroAlt ?? article.data.title}
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="400"
+                />
+              ) : (
+                <img
+                  class="p-column-subpage__thumb p-column-subpage__thumb--fallback"
+                  src={columnThumbFallback}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="400"
+                />
+              )}
+            </div>
+            <div class="p-column-subpage__body">
+              <time class="p-column-subpage__date" datetime={article.data.publishedAt.toISOString()}>
+                {formatDate.format(article.data.publishedAt)}
+              </time>
+              <h2 class="p-column-subpage__card-title">{article.data.title}</h2>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</DocumentPageLayout>
+
+<style>
+  .p-column-subpage__lead {
+    margin: 0;
+    color: var(--color-black-03);
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    text-align: start;
+  }
+
+  .p-column-subpage__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .p-column-subpage__card {
+    overflow: hidden;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .p-column-subpage__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgb(0 0 0 / 0.08);
+  }
+
+  .p-column-subpage__card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .p-column-subpage__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: var(--color-bg-warm);
+  }
+
+  .p-column-subpage__thumb {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .p-column-subpage__thumb--fallback {
+    object-fit: contain;
+    background: var(--color-surface-02);
+  }
+
+  .p-column-subpage__body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .p-column-subpage__date {
+    display: block;
+    color: var(--color-black-03);
+    font-size: 0.8125rem;
+    opacity: 0.85;
+  }
+
+  .p-column-subpage__card-title {
+    margin: 0.5rem 0 0;
+    color: var(--color-black-03);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  @media (--bp-md-up) {
+    .p-column-subpage__lead {
+      font-size: 1rem;
+    }
+
+    .p-column-subpage__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .p-column-subpage__body {
+      padding: 1.125rem 1.375rem 1.375rem;
+    }
+
+    .p-column-subpage__card-title {
+      font-size: 1.0625rem;
+    }
+  }
+
+  @media (--bp-lg-up) {
+    .p-column-subpage__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .p-column-subpage__card-title {
+      font-size: 1.125rem;
+    }
+  }
+</style>

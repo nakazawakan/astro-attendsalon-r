@@ -1,0 +1,430 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BreadcrumbNav from '../components/BreadcrumbNav.astro';
+import { buildBreadcrumbJsonLd, type DocumentBreadcrumbItem } from '../lib/document-page';
+import SiteChrome from './SiteChrome.astro';
+
+interface Props {
+  article: CollectionEntry<'column'>;
+  canonicalPath: string;
+}
+
+type Faq = CollectionEntry<'column'>['data']['faqs'][number];
+
+const { article, canonicalPath } = Astro.props;
+
+const recommendedSeminars = [
+  { href: '/comming-soon/', label: 'ハラスメント研修' },
+  { href: '/comming-soon/', label: 'メンタルヘルス研修' },
+  { href: '/comming-soon/', label: 'アンガーマネジメント研修' },
+] as const;
+
+const relatedArticles: CollectionEntry<'column'>[] = (
+  await getCollection('column', (entry: CollectionEntry<'column'>) => !entry.data.draft)
+)
+  .filter((entry) => entry.slug !== article.slug)
+  .sort(
+    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+  );
+const { data } = article;
+const site = Astro.site ?? new URL('https://attendsalon-r.com');
+const articleUrl = new URL(canonicalPath, site).toString();
+const articleImage = new URL(data.heroImage ?? '/images/logo.png', site).toString();
+const publishedIso = data.publishedAt.toISOString();
+const modifiedDate = data.updatedAt ?? data.publishedAt;
+const modifiedIso = modifiedDate.toISOString();
+const displayDate = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Tokyo',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(data.publishedAt);
+const modifiedDisplayDate = data.updatedAt
+  ? new Intl.DateTimeFormat('ja-JP', {
+      timeZone: 'Asia/Tokyo',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(data.updatedAt)
+  : null;
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.description,
+  datePublished: publishedIso,
+  dateModified: modifiedIso,
+  inLanguage: 'ja',
+  mainEntityOfPage: articleUrl,
+  image: [articleImage],
+  keywords: data.keyword,
+  author: {
+    '@type': 'Organization',
+    name: 'アテンドサロンR',
+    url: site.toString(),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'アテンドサロンR',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/images/logo.png', site).toString(),
+    },
+  },
+};
+
+const faqJsonLd = data.faqs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: data.faqs.map(({ question, answer }: Faq) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: answer,
+        },
+      })),
+    }
+  : null;
+const breadcrumbItems: DocumentBreadcrumbItem[] = [
+  { label: 'ホーム', href: '/' },
+  { label: 'コラム', href: '/column/' },
+  { label: data.title },
+];
+const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbItems, site, articleUrl);
+const jsonLd = faqJsonLd
+  ? [breadcrumbJsonLd, articleJsonLd, faqJsonLd]
+  : [breadcrumbJsonLd, articleJsonLd];
+---
+<SiteChrome
+  title={`${data.title}｜アテンドサロンR`}
+  description={data.description}
+  canonicalPath={canonicalPath}
+  ogType="article"
+  ogImage={data.heroImage ?? '/images/logo.png'}
+  publishedTime={publishedIso}
+  modifiedTime={modifiedIso}
+  jsonLd={jsonLd}
+>
+  <article class="l-section l-section--article p-column-article">
+    <div class="l-container">
+      <div class="p-column-article__layout">
+        <div class="p-column-article__main">
+          <BreadcrumbNav items={breadcrumbItems} />
+
+          <h1 class="p-column-article__title">{data.title}</h1>
+          <p class="p-column-article__meta">
+            <time datetime={publishedIso}>{displayDate}</time>
+            {modifiedDisplayDate && (
+              <>
+                <span aria-hidden="true"> / </span>
+                <span>更新日 </span>
+                <time datetime={modifiedIso}>{modifiedDisplayDate}</time>
+              </>
+            )}
+          </p>
+
+          <div class="p-column-article__body">
+            <slot />
+          </div>
+
+          {data.faqs.length > 0 && (
+            <section class="p-column-article__faq" aria-labelledby="column-faq-heading">
+              <h2 id="column-faq-heading" class="p-column-article__faq-title">よくある質問</h2>
+              <dl class="p-column-article__faq-list">
+                {data.faqs.map(({ question, answer }: Faq) => (
+                  <div class="p-column-article__faq-item">
+                    <dt class="p-column-article__faq-question">{question}</dt>
+                    <dd class="p-column-article__faq-answer">{answer}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          )}
+        </div>
+        <aside class="p-sidebar" aria-label="記事サイドバー">
+          <section class="p-sidebar__box">
+            <h2 class="p-sidebar__title">おすすめセミナー</h2>
+            <ul class="p-sidebar__list">
+              {recommendedSeminars.map(({ href, label }) => (
+                <li class="p-sidebar__item">
+                  <a href={href} class="p-sidebar__link">{label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section class="p-sidebar__box">
+            <h2 class="p-sidebar__title">関連記事一覧</h2>
+            {relatedArticles.length > 0 ? (
+              <ul class="p-sidebar__list">
+                {relatedArticles.map((related) => (
+                  <li class="p-sidebar__item">
+                    <a href={`/column/${related.slug}/`} class="p-sidebar__link">
+                      {related.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="p-sidebar__empty">他のコラム記事はまだありません。</p>
+            )}
+          </section>
+        </aside>
+      </div>
+    </div>
+  </article>
+  <slot name="pre-footer" slot="pre-footer" />
+</SiteChrome>
+
+<style>
+  .p-column-article__layout {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .p-column-article__main {
+    min-width: 0;
+  }
+
+  .p-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .p-sidebar__box {
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    background: #fff;
+    padding: 1rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .p-sidebar__title {
+    margin: 0;
+    color: var(--color-black-03);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  .p-sidebar__list {
+    margin: 0.875rem 0 0;
+    padding-left: 1.25rem;
+    color: var(--color-black-03);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .p-sidebar__item + .p-sidebar__item {
+    margin-top: 0.5rem;
+  }
+
+  .p-sidebar__link {
+    color: var(--color-link);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .p-sidebar__empty {
+    margin: 0.875rem 0 0;
+    color: var(--color-black-03);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .p-column-article__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--color-blue-01);
+    font-family: Lato, var(--font-family-base);
+    font-size: 0.875rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .p-column-article__title {
+    margin: 0;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  .p-column-article__meta {
+    margin: 1rem 0 0;
+    color: var(--color-black-03);
+    font-size: 0.875rem;
+    text-align: right;
+  }
+
+  .p-column-article__body {
+    margin-top: 2rem;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    background: #fff;
+    padding: 1.5rem var(--page-gutter);
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    line-height: 1.9;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .p-column-article__body :global(*:first-child) {
+    margin-top: 0;
+  }
+
+  .p-column-article__body :global(*:last-child) {
+    margin-bottom: 0;
+  }
+
+  .p-column-article__body :global(p) {
+    margin: 1rem 0 0;
+  }
+
+  .p-column-article__body :global(h2) {
+    margin: 3rem 0 1rem;
+    border-left: 5px solid var(--color-pink-01);
+    padding-left: 0.875rem;
+    color: var(--color-black-03);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .p-column-article__body :global(h3) {
+    margin: 2rem 0 0.75rem;
+    color: var(--color-black-03);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  .p-column-article__body :global(ul),
+  .p-column-article__body :global(ol) {
+    margin: 1rem 0 0;
+    padding-left: 1.4rem;
+  }
+
+  .p-column-article__body :global(li + li) {
+    margin-top: 0.5rem;
+  }
+
+  .p-column-article__body :global(strong) {
+    font-weight: 700;
+  }
+
+  .p-column-article__body :global(a) {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .p-column-article__body :global(table) {
+    display: block;
+    width: 100%;
+    margin: 1.5rem 0 0;
+    overflow-x: auto;
+    border-collapse: collapse;
+    white-space: nowrap;
+  }
+
+  .p-column-article__body :global(th),
+  .p-column-article__body :global(td) {
+    border: 1px solid var(--color-border-soft);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .p-column-article__body :global(th) {
+    background: var(--color-surface-01);
+    font-weight: 700;
+  }
+
+  .p-column-article__faq {
+    margin-top: 2.5rem;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    background: #fff;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .p-column-article__faq-title {
+    margin: 0 0 1.25rem;
+    color: var(--color-black-03);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .p-column-article__faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .p-column-article__faq-item {
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-warm);
+    padding: 1rem;
+  }
+
+  .p-column-article__faq-question {
+    margin: 0;
+    color: var(--color-black-03);
+    font-weight: 700;
+    line-height: 1.65;
+  }
+
+  .p-column-article__faq-answer {
+    margin: 0.5rem 0 0;
+    color: var(--color-black-03);
+    font-size: 0.9375rem;
+    line-height: 1.8;
+  }
+
+  @media (--bp-md-up) {
+    .p-column-article__layout {
+      grid-template-columns: minmax(0, 1fr) 18rem;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .p-sidebar__box {
+      padding: 1.25rem;
+    }
+
+    .p-sidebar__title {
+      font-size: 1.125rem;
+    }
+
+    .p-column-article__title {
+      font-size: 2rem;
+      line-height: 1.5;
+    }
+
+    .p-column-article__body,
+    .p-column-article__faq {
+      padding: 2.5rem;
+    }
+
+    .p-column-article__body :global(h2),
+    .p-column-article__faq-title {
+      font-size: 1.625rem;
+    }
+
+    .p-column-article__body :global(h3) {
+      font-size: 1.25rem;
+    }
+  }
+</style>

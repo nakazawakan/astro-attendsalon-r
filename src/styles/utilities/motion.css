@@ -1,0 +1,73 @@
+@layer utilities {
+  /**
+   * スクロールインの柔らかな出現。
+   * `html.is-reveal-active` は JS 無効時は付かず、本文は常に表示される。
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    html.is-reveal-active {
+      scroll-behavior: smooth;
+      --reveal-duration: 2.6s;
+      --reveal-offset-y: 3.75rem;
+      --reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html.is-reveal-active [data-reveal]:not(.l-section):not(.is-visible) {
+      opacity: 0;
+      transform: translate3d(0, var(--reveal-offset-y), 0);
+      transition:
+        opacity var(--reveal-duration) var(--reveal-easing),
+        transform var(--reveal-duration) var(--reveal-easing);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    html.is-reveal-active [data-reveal]:not(.l-section).is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* `l-section` は可視判定のみ持たせ、実際の入場はコンテンツ本体（innerブロック）に限定する */
+    html.is-reveal-active .l-section[data-reveal]:not(.is-visible) > .l-container > * {
+      opacity: 0;
+      transform: translate3d(0, var(--reveal-offset-y), 0);
+      transition:
+        opacity var(--reveal-duration) var(--reveal-easing),
+        transform var(--reveal-duration) var(--reveal-easing);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    html.is-reveal-active .l-section[data-reveal].is-visible > .l-container > * {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* ファーストビュー: LCP を守るためスクロール検知ではなく一度きりの keyframes */
+    html.is-reveal-active .p-hero-section--soft-enter {
+      animation: u-soft-hero-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes u-soft-hero-in {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 0.75rem, 0);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+
+    .p-hero-section--soft-enter {
+      animation: none;
+    }
+  }
+}

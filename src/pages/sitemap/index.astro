@@ -1,0 +1,180 @@
+---
+import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import {
+  getColumnSitemapNavEntries,
+  getStaticSitemapNavEntries,
+} from '../../lib/sitemap-urls';
+
+const title = 'サイトマップ';
+const description =
+  'アテンドサロンRの公開ページへのリンク一覧です。主要ページおよびお役立ち記事の URL をまとめています。';
+
+const staticEntries = getStaticSitemapNavEntries().filter(
+  ({ path }) =>
+    path !== '/column/' &&
+    path !== '/news/' &&
+    path !== '/sitemap/' &&
+    path !== '/comming-soon/',
+);
+const columnEntries = await getColumnSitemapNavEntries();
+const columnIndexEntry = getStaticSitemapNavEntries().find(
+  (e) => e.path === '/column/',
+);
+---
+<DocumentPageLayout
+  title={title}
+  description={description}
+  canonicalPath="/sitemap/"
+  eyebrow="Sitemap"
+  breadcrumbItems={[
+    { label: 'ホーム', href: '/' },
+    { label: title },
+  ]}
+>
+
+  <ul class="p-sitemap-page__grid p-sitemap-page__grid--static">
+    {
+      staticEntries.map(({ path, label }) => (
+        <li class="p-sitemap-page__cell">
+          <a href={path} class="c-button c-button--outline-pink p-sitemap-page__tile">
+            <span class="p-sitemap-page__tile-label">{label}</span>
+            <span class="p-sitemap-page__tile-path">{path}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2 class="p-sitemap-page__heading">お役立ち情報</h2>
+  <ul class="p-sitemap-page__grid p-sitemap-page__grid--column">
+    {
+      columnIndexEntry ? (
+        <li class="p-sitemap-page__cell">
+          <a
+            href={columnIndexEntry.path}
+            class="c-button c-button--outline-pink p-sitemap-page__tile"
+          >
+            <span class="p-sitemap-page__tile-label">{columnIndexEntry.label}</span>
+            <span class="p-sitemap-page__tile-path">{columnIndexEntry.path}</span>
+          </a>
+        </li>
+      ) : null
+    }
+    {
+      columnEntries.map(({ path, label }) => (
+        <li class="p-sitemap-page__cell">
+          <a href={path} class="c-button c-button--outline-pink p-sitemap-page__tile">
+            <span class="p-sitemap-page__tile-label">{label}</span>
+            <span class="p-sitemap-page__tile-path">{path}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+</DocumentPageLayout>
+
+<style>
+  .p-sitemap-page__lede {
+    margin: 0 0 1.5rem;
+    color: var(--color-black-03);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  .p-sitemap-page__lede :global(a) {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .p-sitemap-page__heading {
+    margin: 0 0 1rem;
+    border-left: 5px solid var(--color-pink-01);
+    padding-left: 0.875rem;
+    color: var(--color-black-03);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  @media (--bp-md-up) {
+    .p-sitemap-page__heading {
+      font-size: 1.625rem;
+    }
+  }
+
+  .p-sitemap-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+    gap: 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .p-sitemap-page__grid--static {
+    margin-bottom: 2.5rem;
+  }
+
+  .p-sitemap-page__heading + .p-sitemap-page__grid {
+    margin-top: 1rem;
+  }
+
+  .p-sitemap-page__grid--column {
+    margin-bottom: 2.5rem;
+  }
+
+  .p-sitemap-page__grid:not(.p-sitemap-page__grid--static) {
+    margin-top: 1rem;
+  }
+
+  .p-sitemap-page__cell {
+    margin: 0;
+    min-width: 0;
+  }
+
+  /* ピル型タイル（本文リンクの下線は付けない） */
+  .p-sitemap-page__tile.c-button {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.85rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .p-sitemap-page__tile.c-button:hover {
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+    transform: translateY(-1px);
+  }
+
+  .p-sitemap-page__tile.c-button:focus-visible {
+    outline: 2px solid var(--color-blue-01);
+    outline-offset: 2px;
+  }
+
+  .p-sitemap-page__tile-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .p-sitemap-page__tile-path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+      monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--color-black-05);
+    word-break: break-all;
+  }
+</style>

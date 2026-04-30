@@ -1,0 +1,115 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+
+const items: CollectionEntry<'news'>[] = (await getCollection(
+  'news',
+  (entry: CollectionEntry<'news'>) => !entry.data.draft,
+)).sort(
+  (a: CollectionEntry<'news'>, b: CollectionEntry<'news'>) =>
+    b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+
+const formatDate = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Asia/Tokyo',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
+const title = 'お知らせ';
+const description =
+  'アテンドサロンRからのお知らせ一覧です。サービス・イベント・メンテナンス等の最新情報を掲載します。';
+---
+<DocumentPageLayout
+  title={title}
+  description={description}
+  canonicalPath="/news/"
+  eyebrow="News"
+>
+  <nav class="p-news-list" aria-label="お知らせ一覧">
+    <ul class="p-news-list__list">
+      {
+        items.map((item) => (
+          <li class="p-news-list__item">
+            <a href={`/news/${item.slug}/`} class="p-news-list__link">
+              <time class="p-news-list__date" datetime={item.data.publishedAt.toISOString()}>
+                {formatDate.format(item.data.publishedAt)}
+              </time>
+              <p class="p-news-list__ttl">{item.data.title}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</DocumentPageLayout>
+
+<style>
+  .p-news-list {
+    margin-block-start: 2rem;
+  }
+
+  .p-news-list__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-block: 1px solid var(--color-border-soft);
+  }
+
+  .p-news-list__item:not(:last-child) {
+    border-bottom: 1px solid var(--color-border-softer);
+  }
+
+  .p-news-list__link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 1.25rem;
+    padding-block: 1rem;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+
+  @media (--bp-md-up) {
+    .p-news-list__link {
+      padding-block: 1.125rem;
+      gap: 1rem 1.5rem;
+    }
+  }
+
+  .p-news-list__link:hover {
+    background-color: rgb(250 246 239 / 0.6);
+  }
+
+  .p-news-list__link:focus-visible {
+    outline: 2px solid var(--color-pink-01);
+    outline-offset: 2px;
+  }
+
+  .p-news-list__date {
+    flex: 0 0 auto;
+    min-width: 6.5rem;
+    color: var(--color-black-03);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.5;
+  }
+
+  .p-news-list__ttl {
+    flex: 1 1 12rem;
+    margin: 0;
+    color: var(--color-black-03);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  .p-news-list__link:hover .p-news-list__ttl {
+    text-decoration: underline;
+    text-decoration-color: rgb(69 66 62 / 0.35);
+    text-underline-offset: 0.2em;
+  }
+</style>

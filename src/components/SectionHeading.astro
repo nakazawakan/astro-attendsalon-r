@@ -115,7 +115,7 @@ const hasIntro = Astro.slots.has('intro');
   }
 
   .c-section-heading__intro {
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-family: var(--font-family-base);
     color: var(--color-black-03);
   }
@@ -131,7 +131,7 @@ const hasIntro = Astro.slots.has('intro');
     margin-top: 0;
   }
 
-  @media (min-width: 768px) {
+  @media (--bp-md-up) {
     .c-section-heading--with-margin {
       margin-bottom: 54px;
     }

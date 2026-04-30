@@ -4,17 +4,21 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:poll": "ASTRO_DEV_POLL=1 astro dev",
     "build": "astro build",
+    "check:breakpoints": "node scripts/check-breakpoints.mjs",
     "preview": "astro preview",
     "deploy": "astro build && wrangler pages deploy dist --project-name=astro-attendsalon-r",
     "figma:export:sato": "node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 294-732 public/images/instructor-sato.png",
     "figma:export:voice": "node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 279-1696 public/images/voice-01.png png && node scripts/figma-export-image.mjs mVJaZra8kGkMaIlwF14ZAs 279-1695 public/images/voice-02.png png"
   },
   "dependencies": {
-    "astro": "^4.16.0",
+    "astro": "^4.16.19",
     "embla-carousel": "^8.6.0"
   },
   "devDependencies": {
-    "wrangler": "^4.0.0"
+    "@csstools/postcss-global-data": "^4.0.0",
+    "postcss-custom-media": "^12.0.1",
+    "wrangler": "^4.86.0"
   }
 }

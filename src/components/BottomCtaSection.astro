@@ -3,150 +3,122 @@ import SectionHeading from './SectionHeading.astro';
 ---
 <section
   id="contact-cta"
-  class="p-bottom-cta"
+  class="l-section p-bottom-cta-section"
   data-reveal
 >
   <!-- 背景装飾（感情労働ブロブを低不透明度で重ねる） -->
   <div
-    class="p-bottom-cta__blob p-bottom-cta__blob--kan"
+    class="p-bottom-cta-section__blob p-bottom-cta-section__blob--kan"
     aria-hidden="true"
   >
-    <img src="/images/blob-kan.svg" alt="" class="p-bottom-cta__blob-img p-bottom-cta__blob-img--kan" width="256" height="256" loading="lazy" decoding="async" />
+    <img src="/images/blob-kan.svg" alt="" class="p-bottom-cta-section__blob-img p-bottom-cta-section__blob-img--kan" width="256" height="256" loading="lazy" decoding="async" />
   </div>
   <div
-    class="p-bottom-cta__blob p-bottom-cta__blob--do"
+    class="p-bottom-cta-section__blob p-bottom-cta-section__blob--do"
     aria-hidden="true"
   >
-    <img src="/images/blob-do.svg" alt="" class="p-bottom-cta__blob-img p-bottom-cta__blob-img--do" width="224" height="224" loading="lazy" decoding="async" />
+    <img src="/images/blob-do.svg" alt="" class="p-bottom-cta-section__blob-img p-bottom-cta-section__blob-img--do" width="224" height="224" loading="lazy" decoding="async" />
   </div>
-  <!-- 薄いアクセント帯（上端） -->
-  <div
-    class="p-bottom-cta__accent-line"
-    aria-hidden="true"
-  >
-  </div>
-
-  <div class="l-page-shell">
-    <div class="l-page-inner">
+  <div class="l-container">
       <SectionHeading label="CONTACT" title="研修のご相談はこちら" />
 
-      <div class="p-bottom-cta__card">
+      <div class="p-bottom-cta-section__card">
         <!-- 内側のコーナー装飾（ブルーの細ライン） -->
         <div
-          class="p-bottom-cta__corner p-bottom-cta__corner--tl"
+          class="p-bottom-cta-section__corner p-bottom-cta-section__corner--tl"
           aria-hidden="true"
         >
         </div>
         <div
-          class="p-bottom-cta__corner p-bottom-cta__corner--br"
+          class="p-bottom-cta-section__corner p-bottom-cta-section__corner--br"
           aria-hidden="true"
         >
         </div>
 
-        <p class="p-bottom-cta__lead">
-          課題や日程のイメージが<br class="p-bottom-cta__br--mobile" />
+        <p class="p-bottom-cta-section__lead">
+          課題や日程のイメージが<br class="p-bottom-cta-section__br--mobile" />
           まだ固まっていなくても大丈夫です。<br>
-          初回ヒアリングおよび<br class="p-bottom-cta__br--mobile" />概算お見積もりは無料です。
+          初回ヒアリングおよび<br class="p-bottom-cta-section__br--mobile" />概算お見積もりは無料です。
         </p>
 
-        <div class="p-bottom-cta__actions">
+        <div class="p-bottom-cta-section__actions">
           <a
             href="/contact/"
-            class="p-bottom-cta__cta"
+            class="p-bottom-cta-section__cta"
           >
             <img
               src="/images/about-chevron-cta.svg"
               alt=""
               width="10"
               height="10"
-              class="p-bottom-cta__cta-icon"
+              class="p-bottom-cta-section__cta-icon"
               aria-hidden="true"
               decoding="async"
             />
             お問い合わせ
           </a>
-          <p class="p-bottom-cta__note">通常2営業日以内にご返信いたします。</p>
+          <p class="p-bottom-cta-section__note">通常2営業日以内にご返信いたします。</p>
         </div>
       </div>
-    </div>
   </div>
 </section>
 
 <style>
-  .p-bottom-cta {
+  .p-bottom-cta-section {
     position: relative;
-    overflow-x: clip;
-    background: #fff;
-    padding-top: 130px;
-    padding-bottom: 80px;
   }
 
-  .p-bottom-cta__blob {
+  .p-bottom-cta-section__blob {
     pointer-events: none;
     position: absolute;
     user-select: none;
     opacity: 0.06;
   }
 
-  .p-bottom-cta__blob--kan {
+  .p-bottom-cta-section__blob--kan {
     left: -4rem;
     top: 2rem;
   }
 
-  .p-bottom-cta__blob--do {
+  .p-bottom-cta-section__blob--do {
     right: -3rem;
     bottom: 1rem;
   }
 
-  .p-bottom-cta__blob-img {
+  .p-bottom-cta-section__blob-img {
     display: block;
   }
 
-  .p-bottom-cta__blob-img--kan {
+  .p-bottom-cta-section__blob-img--kan {
     width: 12rem;
     height: 12rem;
   }
 
-  .p-bottom-cta__blob-img--do {
+  .p-bottom-cta-section__blob-img--do {
     width: 11rem;
     height: 11rem;
   }
 
-  .p-bottom-cta__accent-line {
-    pointer-events: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 4px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      rgba(251, 107, 106, 0.25),
-      transparent
-    );
-  }
-
-  .p-bottom-cta__card {
+  .p-bottom-cta-section__card {
     position: relative;
     margin-inline: auto;
     max-width: 720px;
     border-radius: 1rem;
     border: 1px solid var(--color-border-softer);
-    background: var(--color-bg-warm);
+    background: #fff;
     padding: 2.5rem 1.5rem;
     text-align: center;
     box-shadow: 0 12px 40px -12px rgb(69 66 62 / 0.08);
   }
 
-  .p-bottom-cta__corner {
+  .p-bottom-cta-section__corner {
     pointer-events: none;
     position: absolute;
     width: 2.5rem;
     height: 2.5rem;
   }
 
-  .p-bottom-cta__corner--tl {
+  .p-bottom-cta-section__corner--tl {
     left: 1rem;
     top: 1rem;
     border-top: 2px solid rgb(127 154 168 / 0.35);
@@ -154,7 +126,7 @@ import SectionHeading from './SectionHeading.astro';
     border-top-left-radius: 0.5rem;
   }
 
-  .p-bottom-cta__corner--br {
+  .p-bottom-cta-section__corner--br {
     right: 1rem;
     bottom: 1rem;
     border-bottom: 2px solid rgb(127 154 168 / 0.35);
@@ -162,7 +134,7 @@ import SectionHeading from './SectionHeading.astro';
     border-bottom-right-radius: 0.5rem;
   }
 
-  .p-bottom-cta__lead {
+  .p-bottom-cta-section__lead {
     position: relative;
     z-index: 10;
     margin: 0 auto;
@@ -173,11 +145,11 @@ import SectionHeading from './SectionHeading.astro';
     line-height: 1.625;
   }
 
-  .p-bottom-cta__br--mobile {
+  .p-bottom-cta-section__br--mobile {
     display: block;
   }
 
-  .p-bottom-cta__actions {
+  .p-bottom-cta-section__actions {
     position: relative;
     z-index: 10;
     margin-top: 2rem;
@@ -187,7 +159,7 @@ import SectionHeading from './SectionHeading.astro';
     gap: 1rem;
   }
 
-  .p-bottom-cta__cta {
+  .p-bottom-cta-section__cta {
     display: inline-flex;
     min-height: 3.25rem;
     width: 100%;
@@ -203,78 +175,78 @@ import SectionHeading from './SectionHeading.astro';
     font-weight: 700;
     color: #fff;
     text-decoration: none;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    box-shadow: var(--shadow-soft);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
-  .p-bottom-cta__cta:hover {
+  .p-bottom-cta-section__cta:hover {
     opacity: 0.9;
   }
 
-  .p-bottom-cta__cta:active {
+  .p-bottom-cta-section__cta:active {
     transform: scale(0.99);
   }
 
-  .p-bottom-cta__cta-icon {
+  .p-bottom-cta-section__cta-icon {
     width: 0.625rem;
     height: 0.625rem;
     flex-shrink: 0;
     transform: rotate(180deg);
   }
 
-  .p-bottom-cta__note {
+  .p-bottom-cta-section__note {
     margin: 0;
     font-family: var(--font-family-base);
     font-size: 0.75rem;
     color: var(--color-black-03);
   }
 
-  @media (min-width: 768px) {
-    .p-bottom-cta__blob--kan {
+  @media (--bp-md-up) {
+    .p-bottom-cta-section__blob--kan {
       left: -2rem;
       top: 3rem;
       opacity: 0.08;
     }
 
-    .p-bottom-cta__blob--do {
+    .p-bottom-cta-section__blob--do {
       right: -1.5rem;
       bottom: 3rem;
       opacity: 0.08;
     }
 
-    .p-bottom-cta__blob-img--kan {
+    .p-bottom-cta-section__blob-img--kan {
       width: 16rem;
       height: 16rem;
     }
 
-    .p-bottom-cta__blob-img--do {
+    .p-bottom-cta-section__blob-img--do {
       width: 14rem;
       height: 14rem;
     }
 
-    .p-bottom-cta__card {
+    .p-bottom-cta-section__card {
       padding: 3.5rem 3rem;
     }
 
-    .p-bottom-cta__corner--tl {
+    .p-bottom-cta-section__corner--tl {
       left: 1.5rem;
       top: 1.5rem;
     }
 
-    .p-bottom-cta__corner--br {
+    .p-bottom-cta-section__corner--br {
       right: 1.5rem;
       bottom: 1.5rem;
     }
 
-    .p-bottom-cta__br--mobile {
+    .p-bottom-cta-section__br--mobile {
       display: none;
     }
 
-    .p-bottom-cta__cta {
+    .p-bottom-cta-section__cta {
       font-size: 1.125rem;
     }
 
-    .p-bottom-cta__note {
+    .p-bottom-cta-section__note {
       font-size: 0.875rem;
     }
   }

@@ -1,0 +1,341 @@
+---
+import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import BottomCtaSection from '../../components/BottomCtaSection.astro';
+import { instructorProfiles } from '../../data/instructors';
+
+const title = '講師紹介';
+const description =
+  'アテンドサロンRの講師（ファシリテーター）の経歴、資格、研修の様子をご紹介します。現場経験と専門資格を兼ね備えた講師が研修を担当します。';
+
+function objectPositionValue(twClass: string): string {
+  const m = twClass.match(/^object-\[([^\]]+)\]$/);
+  if (!m) return '50% 50%';
+  return m[1].replace(/_/g, ' ');
+}
+---
+
+<DocumentPageLayout
+  title={title}
+  description={description}
+  canonicalPath="/trainer/"
+  eyebrow="Facilitators"
+>
+  <div class="p-trainer-page">
+    <div class="p-trainer-page__lead">
+      <p>
+        現場経験と専門資格を兼ね備えた講師が、貴社の研修を担当します。私たちは長年にわたり、客室乗務員として感情労働の最前線で働き、管理職として人財育成や相談対応を担ってきました。
+      </p>
+      <p>
+        感情を扱う現場で起こる、実情に即した研修をご提案し、感情に振り回されない働き方、イキイキ働くチーム作りを支援します。
+      </p>
+    </div>
+
+    <nav class="p-trainer-page__toc" aria-label="講師別ページ内リンク">
+      <p class="p-trainer-page__toc-label">講師一覧</p>
+      <ul class="p-trainer-page__toc-list">
+        {
+          instructorProfiles.map(({ slug, nameJa }) => (
+            <li>
+              <a href={`#${slug}`} class="c-link">
+                {nameJa}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    {
+      instructorProfiles.map(
+        ({ slug, nameJa, nameEn, image, imageAlt, imgWidth, imgHeight, objectPosition, tags, qualifications, longBio, focusAreas, gallery }) => (
+          <section class="p-trainer-profile" id={slug} aria-labelledby={`${slug}-heading`}>
+            <h2 id={`${slug}-heading`} class="p-trainer-profile__title">
+              {nameJa}
+              <span class="p-trainer-profile__title-en" lang="en">
+                {nameEn}
+              </span>
+            </h2>
+
+            <div class="p-trainer-profile__hero">
+              <div class="p-trainer-profile__portrait">
+                <img
+                  src={image}
+                  alt={imageAlt}
+                  width={imgWidth}
+                  height={imgHeight}
+                  class="p-trainer-profile__portrait-img"
+                  style={`object-position: ${objectPositionValue(objectPosition)}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-trainer-profile__hero-content">
+                <div class="p-trainer-profile__body">
+                  {longBio.map((para) => (
+                    <p>{para}</p>
+                  ))}
+                </div>
+                <div class="p-trainer-profile__tags">
+                  {tags.map((t) => (
+                    <span class="p-trainer-profile__tag">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <h3 class="p-trainer-profile__subhead">担当・得意領域</h3>
+            <ul class="p-trainer-profile__list">
+              {focusAreas.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+
+            {qualifications && qualifications.length > 0 && (
+              <>
+                <h3 class="p-trainer-profile__subhead">資格・認定</h3>
+                <ul class="p-trainer-profile__list p-trainer-profile__list--qual">
+                  {qualifications.map((q) => (
+                    <li>{q}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            <h3 class="p-trainer-profile__subhead">研修・活動の様子</h3>
+            <ul class="p-trainer-profile__gallery">
+              {gallery.map((g) => (
+                <li class="p-trainer-profile__gallery-item">
+                  <img
+                    src={g.src}
+                    alt={g.alt}
+                    width={g.width}
+                    height={g.height}
+                    class="p-trainer-profile__gallery-img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ),
+      )
+    }
+  </div>
+  <BottomCtaSection slot="pre-footer" />
+</DocumentPageLayout>
+
+<style>
+  .p-trainer-page {
+    margin-top: 0;
+    padding-bottom: 3rem;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+  }
+
+  .p-trainer-page__lead {
+    margin: 0 0 2rem;
+    font-size: 0.9375rem;
+    line-height: 1.85;
+  }
+
+  .p-trainer-page__lead p {
+    margin: 0 0 1rem;
+  }
+
+  .p-trainer-page__lead p:last-child {
+    margin-bottom: 0;
+  }
+
+  .p-trainer-page__toc {
+    margin: 0 0 2.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg, 8px);
+    background: var(--color-surface-01, #fff);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .p-trainer-page__toc-label {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  .p-trainer-page__toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .p-trainer-profile {
+    margin: 0 0 3.5rem;
+    padding: 0 0 3rem;
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .p-trainer-profile:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .p-trainer-profile__title {
+    margin: 0 0 1.25rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-black-03);
+  }
+
+  .p-trainer-profile__title-en {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--color-black-03);
+    opacity: 0.85;
+  }
+
+  .p-trainer-profile__hero {
+    margin-bottom: 1.5rem;
+  }
+
+  .p-trainer-profile__hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .p-trainer-profile__portrait {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 1rem;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: var(--radius-lg, 8px);
+    background: var(--color-surface-01);
+  }
+
+  .p-trainer-profile__portrait-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .p-trainer-profile__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .p-trainer-profile__tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.125rem;
+    border: 1px solid rgb(0 0 0 / 0.06);
+    background: #fff;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .p-trainer-profile__body {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.85;
+  }
+
+  .p-trainer-profile__body p {
+    margin: 0 0 0.75rem;
+  }
+
+  .p-trainer-profile__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .p-trainer-profile__subhead {
+    margin: 1.75rem 0 0.65rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+    border-left: 4px solid var(--color-pink-01);
+    padding-left: 0.65rem;
+  }
+
+  .p-trainer-profile__list {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .p-trainer-profile__list li + li {
+    margin-top: 0.35rem;
+  }
+
+  .p-trainer-profile__list--qual {
+    list-style: disc;
+  }
+
+  .p-trainer-profile__gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .p-trainer-profile__gallery-item {
+    margin: 0;
+    border-radius: var(--radius-lg, 8px);
+    overflow: hidden;
+    background: var(--color-surface-01);
+  }
+
+  .p-trainer-profile__gallery-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (--bp-md-up) {
+    .p-trainer-profile__hero {
+      display: grid;
+      grid-template-columns: min(280px, 36%) 1fr;
+      gap: 1.5rem 2rem;
+      align-items: start;
+    }
+
+    .p-trainer-profile__portrait {
+      margin: 0;
+      max-width: none;
+    }
+
+    .p-trainer-profile__tags {
+      justify-content: flex-start;
+      align-items: center;
+      align-content: start;
+      padding-top: 0.25rem;
+    }
+
+    .p-trainer-profile__gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

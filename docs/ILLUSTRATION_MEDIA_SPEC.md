@@ -62,7 +62,7 @@
 
 | ファイル | 用途 |
 |---------|------|
-| （コード）`HeroEmotionalRipple.astro` + `soft-motion.css` | ヒーロー右：水彩だまり風の重なり SVG とレイヤー別 CSS 揺らぎ（ラスタ不使用） |
+| （コード）`HeroEmotionalRipple.astro` | ヒーロー右：差し替え前のプレースホルダ（メッシュ SVG 実装を戻す場合は Git 履歴を参照） |
 | `public/images/hero-figma-311-117.png` | 旧 Figma 透過 PNG（参照用・現行ヒーローでは未使用） |
 | `public/images/blob-*.svg` | 「感情労働」4文字の背景 |
 | `public/images/service-icon-*.svg` | 研修サービスカード |

@@ -1,0 +1,19 @@
+---
+export interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+<a href={href} class="c-cta">
+  <img
+    src="/images/about-chevron-cta.svg"
+    alt=""
+    width="10"
+    height="10"
+    class="c-cta__icon"
+    aria-hidden="true"
+    decoding="async"
+  />
+  <span class="c-cta__label"><slot /></span>
+</a>

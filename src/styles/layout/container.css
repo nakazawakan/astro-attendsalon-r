@@ -1,0 +1,9 @@
+@layer layout {
+  .l-container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    min-width: 0;
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+}

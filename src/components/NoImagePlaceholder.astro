@@ -31,7 +31,7 @@ const { class: className = '' } = Astro.props;
     background-color: #d6d3d1;
   }
 
-  @media (min-width: 768px) {
+  @media (--bp-md-up) {
     .c-no-image-placeholder {
       border-radius: var(--radius-lg);
     }

@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import ColumnArticleLayout from '../../layouts/ColumnArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const articles: CollectionEntry<'column'>[] = await getCollection(
+    'column',
+    (entry: CollectionEntry<'column'>) => !entry.data.draft,
+  );
+
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<'column'>;
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+const canonicalPath = `/column/${article.slug}/`;
+---
+<ColumnArticleLayout article={article} canonicalPath={canonicalPath}>
+  <Content />
+</ColumnArticleLayout>

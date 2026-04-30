@@ -5,20 +5,19 @@ import IconChevronCtaPink from './IconChevronCtaPink.astro';
 
 const mobileNavLinks: { href: string; label: string }[] = [
   { href: '/#about', label: '選ばれる理由' },
-  { href: '/kanjorodou/', label: '感情労働とは' },
+  { href: '/column/about-emotional-labor', label: '感情労働とは' },
   { href: '/#service-mental-health', label: 'メンタルヘルス研修' },
   { href: '/#service-anger-management', label: 'アンガーマネジメント研修' },
   { href: '/#service-harassment', label: 'ハラスメント研修' },
-  { href: '/about/', label: '運営者情報' },
-  { href: '/instructor/', label: '講師紹介' },
+  { href: '/company/', label: '運営者情報' },
+  { href: '/trainer/', label: '講師紹介' },
 ];
 ---
 <header
   id="site-header"
   class="c-site-header"
 >
-  <div class="l-page-shell c-site-header__shell">
-    <div class="l-page-inner c-site-header__inner">
+  <div class="l-container c-site-header__inner">
       <a href="/" class="c-site-header__brand">
       <img
         src="/images/logo.png"
@@ -39,7 +38,7 @@ const mobileNavLinks: { href: string; label: string }[] = [
       aria-label="メインナビゲーション"
     >
       <a href="/#about" class="c-site-header__desktop-link">選ばれる理由</a>
-      <a href="/kanjorodou/" class="c-site-header__desktop-link">感情労働とは</a>
+      <!-- <a href="/column/about-emotional-labor" class="c-site-header__desktop-link">感情労働とは</a> -->
       <div id="mega-services-wrap" class="c-site-header__mega-wrap">
         <button
           type="button"
@@ -85,7 +84,7 @@ const mobileNavLinks: { href: string; label: string }[] = [
         無料相談
       </a>
       <a
-        href="/contact/#request"
+        href="/request/"
         class="c-button c-button--solid-pink"
       >
         <IconDocumentRequest class="c-site-header__cta-icon" />
@@ -93,11 +92,11 @@ const mobileNavLinks: { href: string; label: string }[] = [
       </a>
     </div>
 
-    <details id="mobile-nav-details" class="c-site-header__mobile-nav-details">
+    <details id="site-header-mobile-details" class="c-site-header__mobile-details">
       <summary
         class="c-site-header__mobile-summary"
         aria-label="メニューを開く"
-        aria-controls="mobile-nav-panel"
+        aria-controls="site-header-mobile-panel"
       >
         <span class="u-visually-hidden">メニュー</span>
         <span class="c-site-header__hamburger" aria-hidden="true">
@@ -107,8 +106,8 @@ const mobileNavLinks: { href: string; label: string }[] = [
         </span>
       </summary>
       <div
-        id="mobile-nav-panel"
-        class="mobile-nav-panel c-site-header__mobile-panel"
+        id="site-header-mobile-panel"
+        class="c-site-header__mobile-panel"
       >
         <nav class="c-site-header__mobile-links" aria-label="モバイルナビ">
           {
@@ -123,19 +122,18 @@ const mobileNavLinks: { href: string; label: string }[] = [
             ))
           }
         </nav>
-        <div class="mobile-nav-ctas c-site-header__mobile-ctas">
+        <div class="c-site-header__mobile-ctas">
           <a href="/contact/" class="c-button c-button--outline-pink">
             <IconChatConsult />
             無料相談
           </a>
-          <a href="/contact/#request" class="c-button c-button--solid-pink">
+          <a href="/request/" class="c-button c-button--solid-pink">
             <IconDocumentRequest class="c-site-header__cta-icon" />
             資料請求
           </a>
         </div>
       </div>
     </details>
-    </div>
   </div>
 </header>
 
@@ -156,17 +154,14 @@ const mobileNavLinks: { href: string; label: string }[] = [
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
   }
 
-  .c-site-header__shell {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-  }
-
   .c-site-header__inner {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
 
   .c-site-header__brand {
@@ -286,7 +281,7 @@ const mobileNavLinks: { href: string; label: string }[] = [
     color: #fff;
   }
 
-  .c-site-header__mobile-nav-details {
+  .c-site-header__mobile-details {
     position: relative;
   }
 
@@ -333,16 +328,16 @@ const mobileNavLinks: { href: string; label: string }[] = [
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
   }
 
-  .c-site-header__mobile-nav-details[open] .c-site-header__hamburger-line:nth-child(1) {
+  .c-site-header__mobile-details[open] .c-site-header__hamburger-line:nth-child(1) {
     transform: translateY(6px) rotate(45deg);
   }
 
-  .c-site-header__mobile-nav-details[open] .c-site-header__hamburger-line:nth-child(2) {
+  .c-site-header__mobile-details[open] .c-site-header__hamburger-line:nth-child(2) {
     opacity: 0;
     transform: scaleX(0);
   }
 
-  .c-site-header__mobile-nav-details[open] .c-site-header__hamburger-line:nth-child(3) {
+  .c-site-header__mobile-details[open] .c-site-header__hamburger-line:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
   }
 
@@ -395,8 +390,8 @@ const mobileNavLinks: { href: string; label: string }[] = [
     margin-top: 1rem;
   }
 
-  @media (min-width: 768px) {
-    .c-site-header__shell {
+  @media (--bp-md-up) {
+    .c-site-header__inner {
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
@@ -430,53 +425,53 @@ const mobileNavLinks: { href: string; label: string }[] = [
       flex-shrink: 0;
     }
 
-    .c-site-header__mobile-nav-details {
+    .c-site-header__mobile-details {
       display: none;
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    #mobile-nav-details[open] .mobile-nav-panel {
-      animation: mobile-nav-panel-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+    .c-site-header__mobile-details[open] .c-site-header__mobile-panel {
+      animation: c-site-header-panel-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    #mobile-nav-details[open] .mobile-nav-panel nav > a {
-      animation: mobile-nav-item-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a {
+      animation: c-site-header-item-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(1) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a:nth-child(1) {
       animation-delay: 0.04s;
     }
-    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(2) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a:nth-child(2) {
       animation-delay: 0.07s;
     }
-    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(3) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a:nth-child(3) {
       animation-delay: 0.1s;
     }
-    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(4) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a:nth-child(4) {
       animation-delay: 0.13s;
     }
-    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(5) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a:nth-child(5) {
       animation-delay: 0.16s;
     }
-    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(6) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a:nth-child(6) {
       animation-delay: 0.19s;
     }
-    #mobile-nav-details[open] .mobile-nav-panel nav > a:nth-child(7) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-links > a:nth-child(7) {
       animation-delay: 0.22s;
     }
 
-    #mobile-nav-details[open] .mobile-nav-ctas > a {
-      animation: mobile-nav-item-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+    .c-site-header__mobile-details[open] .c-site-header__mobile-ctas > a {
+      animation: c-site-header-item-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-    #mobile-nav-details[open] .mobile-nav-ctas > a:nth-child(1) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-ctas > a:nth-child(1) {
       animation-delay: 0.26s;
     }
-    #mobile-nav-details[open] .mobile-nav-ctas > a:nth-child(2) {
+    .c-site-header__mobile-details[open] .c-site-header__mobile-ctas > a:nth-child(2) {
       animation-delay: 0.3s;
     }
   }
 
-  @keyframes mobile-nav-panel-in {
+  @keyframes c-site-header-panel-in {
     from {
       opacity: 0;
       transform: translate(-50%, -0.5rem) scale(0.96);
@@ -487,7 +482,7 @@ const mobileNavLinks: { href: string; label: string }[] = [
     }
   }
 
-  @keyframes mobile-nav-item-in {
+  @keyframes c-site-header-item-in {
     from {
       opacity: 0;
       transform: translateY(0.4rem);
@@ -506,21 +501,23 @@ const mobileNavLinks: { href: string; label: string }[] = [
     function sync() {
       var on = (window.scrollY || window.pageYOffset) > 4;
       el.classList.toggle('is-scrolled', on);
-      el.style.setProperty('--site-header-bottom', el.offsetHeight + 'px');
+      var h = el.offsetHeight + 'px';
+      el.style.setProperty('--site-header-bottom', h);
+      document.documentElement.style.setProperty('--scroll-padding-top', h);
     }
     sync();
     document.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
     window.addEventListener('pageshow', sync);
 
-    var details = document.getElementById('mobile-nav-details');
+    var details = document.getElementById('site-header-mobile-details');
     var sum = details && details.querySelector('summary');
     if (details && sum) {
       details.addEventListener('toggle', function () {
         sum.setAttribute('aria-label', details.open ? 'メニューを閉じる' : 'メニューを開く');
       });
     }
-    var panel = document.getElementById('mobile-nav-panel');
+    var panel = document.getElementById('site-header-mobile-panel');
     if (details && panel) {
       panel.addEventListener('click', function (e) {
         if (e.target.closest('a')) details.removeAttribute('open');

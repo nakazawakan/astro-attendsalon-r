@@ -4,12 +4,15 @@ export interface Props {
   body: string;
   bodyTone: 'dark' | 'muted';
   icon: string;
+  iconSize?: 'default' | 'large';
   ctaLabel: string;
   /** デスクトップグリッドでアンカー用。SP カルーセルでは重複 id を避けて省略 */
   anchorId?: string;
 }
 
-const { title, body, bodyTone, icon, ctaLabel, anchorId } = Astro.props;
+const { title, body, bodyTone, icon, iconSize = 'default', ctaLabel, anchorId } = Astro.props;
+const isLargeIcon = iconSize === 'large';
+const iconPixelSize = isLargeIcon ? 48 : 32;
 ---
 
 <article
@@ -24,9 +27,9 @@ const { title, body, bodyTone, icon, ctaLabel, anchorId } = Astro.props;
     <img
       src={icon}
       alt=""
-      width="32"
-      height="32"
-      class="p-service-card__icon"
+      width={iconPixelSize}
+      height={iconPixelSize}
+      class:list={['p-service-card__icon', isLargeIcon && 'p-service-card__icon--large']}
       aria-hidden="true"
       loading="lazy"
       decoding="async"
@@ -75,7 +78,7 @@ const { title, body, bodyTone, icon, ctaLabel, anchorId } = Astro.props;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
-  @media (min-width: 768px) {
+  @media (--bp-md-up) {
     .p-service-card {
       max-width: none;
       width: 100%;
@@ -113,6 +116,11 @@ const { title, body, bodyTone, icon, ctaLabel, anchorId } = Astro.props;
     height: 2rem;
     width: 2rem;
     object-fit: contain;
+  }
+
+  .p-service-card__icon--large {
+    height: 3rem;
+    width: 3rem;
   }
 
   .p-service-card__body {

@@ -1,0 +1,149 @@
+---
+import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+
+const title = '運営者情報';
+const description =
+  'アテンドサロンRの運営者情報として、事業内容、対応エリア・形式、お問い合わせ方法をご案内します。';
+---
+<DocumentPageLayout
+  title={title}
+  description={description}
+  canonicalPath="/company/"
+  eyebrow="Company"
+>
+  <div class="p-company-table-wrap">
+    <table class="p-company-table">
+      <tbody>
+        <tr>
+          <th scope="row">名称</th>
+          <td>アテンドサロンR</td>
+        </tr>
+        <tr>
+          <th scope="row">所在地</th>
+          <td>東京都xxx</td>
+        </tr>
+        <tr>
+          <th scope="row">代表者</th>
+          <td>佐藤 亮子、舘野 理香</td>
+        </tr>
+        <tr>
+          <th scope="row">事業内容</th>
+          <td>
+            <ul class="p-company-services">
+              <li>
+                <a href="/comming-soon/" class="c-link">ハラスメント研修</a>
+              </li>
+              <li>
+                <a href="/comming-soon/" class="c-link">メンタルヘルス研修</a>
+              </li>
+              <li>
+                <a href="/comming-soon/" class="c-link">アンガーマネジメント研修</a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">対応形式</th>
+          <td>対面研修・オンライン研修・ハイブリッド研修（対面とオンラインの併用）</td>
+        </tr>
+        <tr>
+          <th scope="row">対応エリア</th>
+          <td>
+            全国対応（訪問・オンライン）<br />
+            対面開催は地域や日程を確認のうえ個別に調整し、オンライン形式にも柔軟に対応可能です。
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">対象</th>
+          <td>
+            接客・医療・介護・福祉・教育・対人支援など感情労働の現場を中心に、業種・組織規模に合わせたご提案を行います。
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">創業</th>
+          <td>2026年5月</td>
+        </tr>
+        <tr>
+          <th scope="row">取引形態</th>
+          <td>
+            法人向け研修のご提案、無料相談、資料請求に基づく個別見積・契約（準備中の連絡手段については<a
+              href="/contact/">お問い合わせページ</a
+            >をご確認ください）
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">お問い合わせ</th>
+          <td><a href="/contact/">お問い合わせ</a>ページよりご連絡ください。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</DocumentPageLayout>
+
+<style>
+  .p-company-table-wrap {
+    overflow-x: auto;
+    margin-top: 1rem;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg, 0.75rem);
+    background: #fff;
+  }
+
+  .p-company-table {
+    width: 100%;
+    min-width: 17rem;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    text-align: left;
+  }
+
+  .p-company-table th,
+  .p-company-table td {
+    padding: 0.875rem 1rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .p-company-table tr:last-child th,
+  .p-company-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .p-company-table th {
+    width: 7.5rem;
+    background: var(--color-surface-01);
+    color: var(--color-black-03);
+    font-weight: 600;
+  }
+
+  .p-company-table td {
+    color: var(--color-black-03);
+  }
+
+  .p-company-services {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .p-company-services li + li {
+    margin-top: 0.375rem;
+  }
+
+  @media (--bp-md-up) {
+    .p-company-table {
+      font-size: 1rem;
+    }
+
+    .p-company-table th,
+    .p-company-table td {
+      padding: 1rem 1.25rem;
+    }
+
+    .p-company-table th {
+      width: 11rem;
+    }
+  }
+</style>

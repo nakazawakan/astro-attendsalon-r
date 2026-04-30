@@ -1,0 +1,270 @@
+---
+import BreadcrumbNav from '../components/BreadcrumbNav.astro';
+import SiteChrome from './SiteChrome.astro';
+import { buildBreadcrumbJsonLd, type DocumentBreadcrumbItem } from '../lib/document-page';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalPath: string;
+  eyebrow?: string;
+  /** Default: ホーム → `title`（現ページ） */
+  breadcrumbItems?: DocumentBreadcrumbItem[];
+  /** 白枠の本文パネル（プライバシーポリシー・研修ポリシーのみ想定） */
+  bodyPanel?: boolean;
+  /** 本文のタイポグラフィ（MD/HTML 直書き。カード UI ページは false） */
+  bodyProse?: boolean;
+  /** 固定ヘッダー分の上余白（旧コラム一覧・FAQの 130px に相当） */
+  topSpacing?: 'default' | 'belowHeader';
+  titleAlign?: 'start' | 'center';
+  /** h1 下の余白（FAQ の dl との間隔など） */
+  titleSpacing?: 'default' | 'loose';
+  /** BreadcrumbList / WebPage に加えて挿入する JSON-LD（例: FAQPage） */
+  additionalJsonLd?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  eyebrow,
+  breadcrumbItems: breadcrumbItemsProp,
+  bodyPanel = false,
+  bodyProse = false,
+  topSpacing = 'default',
+  titleAlign = 'start',
+  titleSpacing = 'default',
+  additionalJsonLd = [],
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://attendsalon-r.com');
+const pageUrl = new URL(canonicalPath, site).toString();
+
+const breadcrumbItems: DocumentBreadcrumbItem[] =
+  breadcrumbItemsProp ?? [{ label: 'ホーム', href: '/' }, { label: title }];
+
+const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbItems, site, pageUrl);
+
+const webPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  ...(description ? { description } : {}),
+  inLanguage: 'ja',
+  url: pageUrl,
+};
+
+const introSectionClassList = [
+  'l-section',
+  'l-section--article',
+  'p-document-page-section',
+  'p-document-page-section--intro',
+  topSpacing === 'belowHeader' && 'p-document-page-section--below-header',
+];
+
+const mainSectionClassList = ['l-section', 'l-section--article', 'p-document-page-section', 'p-document-page-section--main'];
+---
+
+<SiteChrome
+  title={`${title}｜アテンドサロンR`}
+  description={description}
+  canonicalPath={canonicalPath}
+  ogImage="/images/logo.png"
+  jsonLd={[breadcrumbJsonLd, webPageJsonLd, ...additionalJsonLd]}
+>
+  <article class="p-document-page" aria-labelledby="doc-page-title">
+    <section class:list={introSectionClassList} aria-label="ページ見出し">
+      <div class="l-container">
+        <header class="p-document-page-section__head">
+          <BreadcrumbNav items={breadcrumbItems} />
+          {eyebrow && <p class="p-document-page-section__kicker">{eyebrow}</p>}
+          <h1
+            id="doc-page-title"
+            class:list={[
+              'p-document-page-section__title',
+              titleAlign === 'center' && 'p-document-page-section__title--center',
+              titleSpacing === 'loose' && 'p-document-page-section__title--loose',
+            ]}
+          >
+            {title}
+          </h1>
+        </header>
+      </div>
+    </section>
+    <section class:list={mainSectionClassList}>
+      <div class="l-container">
+        <div
+          class:list={[
+            'p-document-page-section__body',
+            bodyProse && 'p-document-page-section__body--prose',
+            bodyPanel && 'p-document-page-section__body--panel',
+          ]}
+        >
+          <slot />
+        </div>
+      </div>
+    </section>
+  </article>
+  <slot name="pre-footer" slot="pre-footer" />
+</SiteChrome>
+
+<style>
+  /* Project: ドキュメント系下位ページ（セクション背景・見出し・本文パネル） */
+
+  .p-document-page-section--below-header {
+    --section-padding-block-start: 130px;
+  }
+
+  /* 見出しセクションと本文セクションの境目で l-section の下余白を重ねない */
+  .p-document-page-section--intro {
+    --section-padding-block-end: 0;
+  }
+
+  /* 見出し直後の本文セクションとつなげ、二重に縦余白が乗らないようにする */
+  .p-document-page-section--main {
+    --section-padding-block-start: 0;
+  }
+
+  .p-document-page-section__head {
+    min-width: 0;
+    padding-block: 4rem;
+  }
+
+  .p-document-page-section__kicker {
+    margin: 0 0 0.75rem;
+    color: var(--color-blue-01);
+    font-family: Lato, var(--font-family-base);
+    font-size: 0.875rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .p-document-page-section__title {
+    margin: 0;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  .p-document-page-section__title--center {
+    text-align: center;
+  }
+
+  .p-document-page-section__title--loose {
+    margin-bottom: 2.5rem;
+  }
+
+  .p-document-page-section__body {
+    min-width: 0;
+  }
+
+  .p-document-page-section__body--prose {
+    margin-top: 2rem;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  .p-document-page-section__body--prose :global(*:first-child),
+  .p-document-page-section__body--panel :global(*:first-child) {
+    margin-top: 0;
+  }
+
+  .p-document-page-section__body--prose :global(*:last-child),
+  .p-document-page-section__body--panel :global(*:last-child) {
+    margin-bottom: 0;
+  }
+
+  .p-document-page-section__body--prose :global(p),
+  .p-document-page-section__body--panel :global(p) {
+    margin: 1rem 0 0;
+  }
+
+  .p-document-page-section__body--prose :global(h2),
+  .p-document-page-section__body--panel :global(h2) {
+    margin: 3rem 0 1rem;
+    border-left: 5px solid var(--color-pink-01);
+    padding-left: 0.875rem;
+    color: var(--color-black-03);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .p-document-page-section__body--prose :global(h3),
+  .p-document-page-section__body--panel :global(h3) {
+    margin: 2rem 0 0.75rem;
+    color: var(--color-black-03);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  .p-document-page-section__body--prose :global(ul),
+  .p-document-page-section__body--prose :global(ol),
+  .p-document-page-section__body--panel :global(ul),
+  .p-document-page-section__body--panel :global(ol) {
+    margin: 1rem 0 0;
+    padding-left: 1.4rem;
+  }
+
+  .p-document-page-section__body--prose :global(li + li),
+  .p-document-page-section__body--panel :global(li + li) {
+    margin-top: 0.5rem;
+  }
+
+  .p-document-page-section__body--prose :global(strong),
+  .p-document-page-section__body--panel :global(strong) {
+    font-weight: 700;
+  }
+
+  .p-document-page-section__body--prose :global(a),
+  .p-document-page-section__body--panel :global(a) {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .p-document-page-section__body--panel {
+    border: 1px solid var(--color-border-soft);
+    border-radius: 8px;
+    background: #fff;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* パネルのみ（プロースなし）のときは上余白とベースタイポをパネル側に寄せる */
+  .p-document-page-section__body--panel:not(.p-document-page-section__body--prose) {
+    margin-top: 2rem;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  @media (--bp-md-up) {
+    .p-document-page-section__title {
+      font-size: 2rem;
+      line-height: 1.5;
+    }
+
+    .p-document-page-section__body--panel {
+      padding: 2.5rem;
+    }
+
+    .p-document-page-section__body--prose :global(h2),
+    .p-document-page-section__body--panel :global(h2) {
+      font-size: 1.625rem;
+    }
+
+    .p-document-page-section__body--prose :global(h3),
+    .p-document-page-section__body--panel :global(h3) {
+      font-size: 1.25rem;
+    }
+  }
+</style>

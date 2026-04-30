@@ -1,23 +1,22 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import { faqs } from '../data/faqs';
+import { faqsForHome } from '../data/faqs';
 ---
 <section
   id="faq"
-  class="p-faq"
+  class="l-section p-faq-section"
   data-reveal
 >
-  <div class="l-page-shell">
-    <div class="l-page-inner">
+  <div class="l-container">
       <SectionHeading label="FAQ" title="よくある質問" />
-      <div class="p-faq__list">
+      <div class="p-faq-section__list">
         {
-          faqs.map(({ q, a, cta }) => (
-            <details class="p-faq__item">
-              <summary class="p-faq__summary">
-                <span class="p-faq__question">{q}</span>
+          faqsForHome.map(({ q, a, cta }) => (
+            <details class="p-faq-section__item">
+              <summary class="p-faq-section__summary">
+                <span class="p-faq-section__question">{q}</span>
                 <span
-                  class="p-faq__chevron"
+                  class="p-faq-section__chevron"
                   aria-hidden="true"
                 >
                   <svg
@@ -26,7 +25,7 @@ import { faqs } from '../data/faqs';
                     viewBox="0 0 20 20"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    class="p-faq__chevron-svg"
+                    class="p-faq-section__chevron-svg"
                   >
                     <path
                       d="M5 7.5L10 12.5L15 7.5"
@@ -39,16 +38,16 @@ import { faqs } from '../data/faqs';
                 </span>
               </summary>
               <div
-                class="p-faq__panel"
+                class="p-faq-section__panel"
                 data-faq-panel
               >
-                <div class="p-faq__body">
+                <div class="p-faq-section__body">
                   <p>{a}</p>
                   {cta && (
-                    <p class="p-faq__cta">
+                    <p class="p-faq-section__cta">
                       <a
                         href={cta.href}
-                        class="p-faq__link"
+                        class="p-faq-section__link"
                       >
                         {cta.label}
                       </a>
@@ -60,18 +59,15 @@ import { faqs } from '../data/faqs';
           ))
         }
       </div>
-    </div>
   </div>
 </section>
 
 <style>
-  .p-faq {
-    background: var(--color-bg-warm);
-    padding-top: 130px;
-    padding-bottom: 80px;
+  .p-faq-section {
+    background: #fff;
   }
 
-  .p-faq__list {
+  .p-faq-section__list {
     display: flex;
     width: 100%;
     max-width: 740px;
@@ -80,20 +76,20 @@ import { faqs } from '../data/faqs';
     margin: 0 auto;
   }
 
-  @media (min-width: 768px) {
-    .p-faq__list {
+  @media (--bp-md-up) {
+    .p-faq-section__list {
       gap: 1rem;
     }
   }
 
-  .p-faq__item {
+  .p-faq-section__item {
     /* box-shadow は高さが変わるたびに影の再トレースが走りカクつきの原因になるため border のみ */
     border-radius: 0.5rem;
     border: 1px solid var(--color-border-softer);
     background: #fff;
   }
 
-  .p-faq__summary {
+  .p-faq-section__summary {
     display: flex;
     list-style: none;
     align-items: center;
@@ -106,36 +102,36 @@ import { faqs } from '../data/faqs';
     color: var(--color-black-03);
   }
 
-  .p-faq__summary::-webkit-details-marker {
+  .p-faq-section__summary::-webkit-details-marker {
     display: none;
   }
 
-  @media (min-width: 768px) {
-    .p-faq__summary {
+  @media (--bp-md-up) {
+    .p-faq-section__summary {
       padding: 1.25rem;
     }
   }
 
-  .p-faq__question {
+  .p-faq-section__question {
     min-width: 0;
     text-align: left;
     font-size: 1rem;
     line-height: 1.4;
   }
 
-  @media (min-width: 768px) {
-    .p-faq__question {
+  @media (--bp-md-up) {
+    .p-faq-section__question {
       font-size: 1.125rem;
     }
   }
 
-  .p-faq__chevron {
+  .p-faq-section__chevron {
     flex-shrink: 0;
     color: var(--color-pink-01);
     transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .p-faq__chevron-svg {
+  .p-faq-section__chevron-svg {
     display: block;
   }
 
@@ -143,25 +139,25 @@ import { faqs } from '../data/faqs';
    * 開閉: 実測 scrollHeight への max-height 遷移のみ（0→正確px）
    * grid 0fr/1fr より WebKit で安定しやすい。JS は FaqSection 末尾スクリプト。
    */
-  .p-faq__panel {
+  .p-faq-section__panel {
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: auto;
   }
 
-  .p-faq__panel.p-faq__panel--anim {
+  .p-faq-section__panel.p-faq-section__panel--anim {
     will-change: max-height;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .p-faq__panel,
-    .p-faq__chevron {
+    .p-faq-section__panel,
+    .p-faq-section__chevron {
       transition: none;
     }
   }
 
-  .p-faq__body {
+  .p-faq-section__body {
     box-sizing: border-box;
     overflow: hidden;
     border-top: 1px solid var(--color-border-softer);
@@ -172,8 +168,8 @@ import { faqs } from '../data/faqs';
     color: var(--color-black-03);
   }
 
-  @media (min-width: 768px) {
-    .p-faq__body {
+  @media (--bp-md-up) {
+    .p-faq-section__body {
       padding-left: 1.25rem;
       padding-right: 1.25rem;
       padding-bottom: 1.25rem;
@@ -181,15 +177,15 @@ import { faqs } from '../data/faqs';
     }
   }
 
-  .p-faq__body p {
+  .p-faq-section__body p {
     margin: 0;
   }
 
-  .p-faq__body .p-faq__cta {
+  .p-faq-section__body .p-faq-section__cta {
     margin: 0.75rem 0 0;
   }
 
-  .p-faq__link {
+  .p-faq-section__link {
     font-weight: 700;
     color: var(--color-pink-01);
     text-decoration: underline;
@@ -198,7 +194,7 @@ import { faqs } from '../data/faqs';
     transition: opacity 0.2s ease;
   }
 
-  .p-faq__link:hover {
+  .p-faq-section__link:hover {
     opacity: 0.85;
   }
 
@@ -206,7 +202,7 @@ import { faqs } from '../data/faqs';
    * 回転は [open] ではなく JS が付与する --expanded
    * （close 中も [open] は true のまま → アイコンだけ遅延していたのを防ぐ）
    */
-  .p-faq__item.p-faq__item--expanded .p-faq__chevron {
+  .p-faq-section__item.p-faq-section__item--expanded .p-faq-section__chevron {
     transform: rotate(180deg);
   }
 </style>
@@ -222,8 +218,8 @@ import { faqs } from '../data/faqs';
     }
   }
 
-  document.querySelectorAll<HTMLDetailsElement>('.p-faq__item').forEach((details) => {
-    const summary = details.querySelector<HTMLElement>('.p-faq__summary')!;
+  document.querySelectorAll<HTMLDetailsElement>('.p-faq-section__item').forEach((details) => {
+    const summary = details.querySelector<HTMLElement>('.p-faq-section__summary')!;
     const panel   = details.querySelector<HTMLElement>('[data-faq-panel]')!;
 
     let   opSeq     = 0;
@@ -232,7 +228,7 @@ import { faqs } from '../data/faqs';
     const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const endAnimHint = () => {
-      panel.classList.remove('p-faq__panel--anim');
+      panel.classList.remove('p-faq-section__panel--anim');
     };
 
     const clearCloseFallback = () => {
@@ -244,11 +240,11 @@ import { faqs } from '../data/faqs';
 
     const finishClose = (myClose: number) => {
       if (myClose !== opSeq) return;
-      if (!details.classList.contains('p-faq__item--closing')) return;
+      if (!details.classList.contains('p-faq-section__item--closing')) return;
       clearCloseFallback();
       details.open = false;
       panel.removeAttribute('style');
-      details.classList.remove('p-faq__item--closing');
+      details.classList.remove('p-faq-section__item--closing');
       endAnimHint();
     };
 
@@ -257,13 +253,13 @@ import { faqs } from '../data/faqs';
       cancelPanelInFlight(panel);
       clearCloseFallback();
       /* 遅延する transitionend や未発火向け: 前の id は finish で弾かれる */
-      details.classList.remove('p-faq__item--expanded');
-      details.classList.add('p-faq__item--closing');
+      details.classList.remove('p-faq-section__item--expanded');
+      details.classList.add('p-faq-section__item--closing');
 
       const h = Math.ceil(panel.scrollHeight);
       panel.style.maxHeight = `${h}px`;
       void panel.offsetHeight;
-      panel.classList.add('p-faq__panel--anim');
+      panel.classList.add('p-faq-section__panel--anim');
       panel.style.maxHeight = '0px';
 
       const onEnd = (ev: Event) => {
@@ -286,23 +282,23 @@ import { faqs } from '../data/faqs';
       cancelPanelInFlight(panel);
       clearCloseFallback();
 
-      details.classList.remove('p-faq__item--closing');
+      details.classList.remove('p-faq-section__item--closing');
       details.open = true;
-      details.classList.add('p-faq__item--expanded');
+      details.classList.add('p-faq-section__item--expanded');
       panel.style.maxHeight = '0px';
       void panel.offsetHeight;
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           if (myOpen !== opSeq) return;
-          const bodyEl = panel.querySelector<HTMLElement>('.p-faq__body');
+          const bodyEl = panel.querySelector<HTMLElement>('.p-faq-section__body');
           let   h = Math.ceil(panel.scrollHeight);
           if (h < 1 && bodyEl) {
             h = Math.ceil(bodyEl.getBoundingClientRect().height);
           }
           h += 1;
           if (myOpen !== opSeq) return;
-          panel.classList.add('p-faq__panel--anim');
+          panel.classList.add('p-faq-section__panel--anim');
           panel.style.maxHeight = `${h}px`;
 
           const onEnd = (ev: Event) => {
@@ -323,12 +319,12 @@ import { faqs } from '../data/faqs';
 
       if (prefersReduced()) {
         if (details.open) {
-          details.classList.remove('p-faq__item--expanded', 'p-faq__item--closing');
+          details.classList.remove('p-faq-section__item--expanded', 'p-faq-section__item--closing');
           details.open = false;
           panel.removeAttribute('style');
         } else {
           details.open = true;
-          details.classList.add('p-faq__item--expanded');
+          details.classList.add('p-faq-section__item--expanded');
           panel.removeAttribute('style');
         }
         endAnimHint();
@@ -337,7 +333,7 @@ import { faqs } from '../data/faqs';
       }
 
       /* 閉じアニメ中のクリック: 同じ要約行は「戻る」= すぐ再展開 */
-      if (details.classList.contains('p-faq__item--closing')) {
+      if (details.classList.contains('p-faq-section__item--closing')) {
         runOpen();
         return;
       }

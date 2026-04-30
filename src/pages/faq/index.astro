@@ -1,59 +1,93 @@
 ---
-import SiteChrome from '../../layouts/SiteChrome.astro';
-import { faqs } from '../../data/faqs';
+import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import { faqs, FAQ_CATEGORY_ORDER } from '../../data/faqs';
+
+const title = 'よくある質問';
+const description =
+  'アテンドサロンRの研修・お見積り・実施形式など、よくいただくご質問と回答をまとめました。';
+
+const faqPageJsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: a.replace(/\s+/g, ' ').trim(),
+    },
+  })),
+};
+
+const faqGroups = FAQ_CATEGORY_ORDER.map((category) => ({
+  category,
+  items: faqs.filter((f) => f.category === category),
+})).filter((g) => g.items.length > 0);
 ---
-<SiteChrome title="よくある質問｜アテンドサロンR">
-  <div class="p-faq-subpage" data-reveal>
-    <div class="l-page-shell">
-      <div class="l-page-inner">
-    <h1 class="p-faq-subpage__title">よくある質問</h1>
-    <dl class="p-faq-subpage__list">
-      {faqs.map(({ q, a, cta }) => (
-        <div class="p-faq-subpage__item">
-          <dt class="p-faq-subpage__q">{q}</dt>
-          <dd class="p-faq-subpage__a">
-            {a}
-            {cta && (
-              <span class="p-faq-subpage__cta-line">
-                <a
-                  href={cta.href}
-                  class="p-faq-subpage__cta-link"
-                >
-                  {cta.label}
-                </a>
-              </span>
-            )}
-          </dd>
-        </div>
-      ))}
-    </dl>
-    <p class="p-faq-subpage__foot">
-      <a href="/contact/" class="p-faq-subpage__pill">
-        その他のご質問はお問い合わせへ
-      </a>
-    </p>
-      </div>
-    </div>
+<DocumentPageLayout
+  title={title}
+  description={description}
+  canonicalPath="/faq/"
+  eyebrow="FAQ"
+  additionalJsonLd={[faqPageJsonLd]}
+>
+  <div class="p-faq-subpage">
+    {
+      faqGroups.map(({ category, items }, idx) => (
+        <section
+          class="p-faq-subpage__group"
+          aria-labelledby={`faq-cat-${idx}`}
+        >
+          <h2
+            id={`faq-cat-${idx}`}
+            class="p-faq-subpage__category"
+          >
+            {category}
+          </h2>
+          <dl class="p-faq-subpage__list">
+            {items.map(({ q, a, cta }) => (
+              <div class="p-faq-subpage__item">
+                <dt class="p-faq-subpage__q">{q}</dt>
+                <dd class="p-faq-subpage__a">
+                  {a}
+                  {cta && (
+                    <span class="p-faq-subpage__cta-line">
+                      <a
+                        href={cta.href}
+                        class="p-faq-subpage__cta-link"
+                      >
+                        {cta.label}
+                      </a>
+                    </span>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))
+    }
   </div>
-</SiteChrome>
+</DocumentPageLayout>
 <style>
-  .p-faq-subpage {
-    padding-top: 130px;
-    padding-bottom: 80px;
+  .p-faq-subpage__group + .p-faq-subpage__group {
+    margin-top: 2rem;
   }
 
-  .p-faq-subpage__title {
-    margin: 0 0 2.5rem;
-    text-align: center;
+  .p-faq-subpage__category {
+    margin: 0 0 1rem;
+    border-left: 5px solid var(--color-pink-01);
+    padding-left: 0.875rem;
     font-family: var(--font-family-base);
-    font-size: 1.5rem;
+    font-size: 1.125rem;
     font-weight: 700;
+    line-height: 1.55;
     color: var(--color-black-03);
   }
 
-  @media (min-width: 768px) {
-    .p-faq-subpage__title {
-      font-size: 1.875rem;
+  @media (--bp-md-up) {
+    .p-faq-subpage__category {
+      font-size: 1.25rem;
     }
   }
 
@@ -85,7 +119,7 @@ import { faqs } from '../../data/faqs';
     color: var(--color-black-03);
   }
 
-  @media (min-width: 768px) {
+  @media (--bp-md-up) {
     .p-faq-subpage__a {
       font-size: 1rem;
     }

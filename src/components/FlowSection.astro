@@ -38,26 +38,26 @@ const steps: { title: string; body: string | string[] }[] = [
 ---
 <section
   id="flow"
-  class="p-flow"
+  class="l-section p-flow-section"
   data-reveal
 >
-  <div class="l-page-shell">
-    <div class="l-page-inner">
+  <div class="l-wave l-wave--top l-wave--pattern-gentle-a" aria-hidden="true"></div>
+  <div class="l-container">
       <SectionHeading label="FLOW" title="研修導入までの流れ" />
-      <div class="p-flow__steps">
+      <div class="p-flow-section__steps">
         {steps.map(({ title, body }, i) => {
           const paragraphs = Array.isArray(body) ? body : [body];
           return (
-            <div class="p-flow__card">
-              <div class="p-flow__row">
-                <span class="p-flow__step-num">
+            <div class="p-flow-section__card">
+              <div class="p-flow-section__row">
+                <span class="p-flow-section__step-num">
                   {i + 1}
                 </span>
-                <div class="p-flow__text-block">
-                  <h3 class="p-flow__title">{title}</h3>
-                  <div class="p-flow__body">
+                <div class="p-flow-section__text-block">
+                  <h3 class="p-flow-section__title">{title}</h3>
+                  <div class="p-flow-section__body">
                     {paragraphs.map((text) => (
-                      <p class="p-flow__para">{text}</p>
+                      <p class="p-flow-section__para">{text}</p>
                     ))}
                   </div>
                 </div>
@@ -66,41 +66,83 @@ const steps: { title: string; body: string | string[] }[] = [
           );
         })}
       </div>
-    </div>
   </div>
+  <div class="l-wave l-wave--bottom l-wave--pattern-gentle-b" aria-hidden="true"></div>
 </section>
 
 <style>
-  .p-flow {
-    background: #fff;
-    padding-top: 130px;
-    padding-bottom: 80px;
+  .p-flow-section {
+    --wave-height: 40px;
+    --wave-mask-gentle-a: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 C96 -4 192 -4 288 10 C384 24 480 24 576 10 C688 -4 800 -4 912 12 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
+    --wave-mask-gentle-b: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 14 C120 0 240 0 360 14 C450 28 540 28 630 14 C724 0 818 0 912 10 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding-top: calc(var(--section-padding-block-start, var(--section-padding-block-start-default)) + var(--wave-height));
+    padding-bottom: calc(var(--section-padding-block-end, var(--section-padding-block-end-default)) + var(--wave-height));
   }
 
-  .p-flow__steps {
+  .p-flow-section > .l-container {
+    position: relative;
+    z-index: var(--z-section-content, 3);
+  }
+
+  .l-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--wave-height);
+    z-index: var(--section-wave-z-index, var(--z-section-wave, 1));
+    pointer-events: none;
+    background: #fff;
+  }
+
+  .l-wave--top {
+    top: 0;
+    transform: translateY(-1px) scaleY(-1);
+    transform-origin: 50% 50%;
+  }
+
+  .l-wave--bottom {
+    bottom: 0;
+    transform: translateY(1px);
+  }
+
+  .l-wave--pattern-gentle-a {
+    mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
+    -webkit-mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
+  }
+
+  .l-wave--pattern-gentle-b {
+    mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
+    -webkit-mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
+  }
+
+  .p-flow-section__steps {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
   }
 
-  .p-flow__card {
+  .p-flow-section__card {
     width: 100%;
     max-width: 740px;
     border-radius: 0.25rem;
     border: 1px solid rgb(0 0 0 / 0.06);
     background: #fff;
     padding: 1rem;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    box-shadow: var(--shadow-soft);
   }
 
-  .p-flow__row {
+  .p-flow-section__row {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
   }
 
-  .p-flow__step-num {
+  .p-flow-section__step-num {
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -117,11 +159,11 @@ const steps: { title: string; body: string | string[] }[] = [
     color: #fff;
   }
 
-  .p-flow__text-block {
+  .p-flow-section__text-block {
     min-width: 0;
   }
 
-  .p-flow__title {
+  .p-flow-section__title {
     margin: 0 0 0.5rem;
     font-family: var(--font-family-base);
     font-size: 1.125rem;
@@ -130,27 +172,31 @@ const steps: { title: string; body: string | string[] }[] = [
     color: var(--color-black-03);
   }
 
-  .p-flow__body {
+  .p-flow-section__body {
     font-family: var(--font-family-base);
     font-size: 0.875rem;
     line-height: 1.625;
     color: var(--color-black-03);
   }
 
-  .p-flow__para {
+  .p-flow-section__para {
     margin: 0;
   }
 
-  @media (min-width: 768px) {
-    .p-flow__steps {
+  @media (--bp-md-up) {
+    .p-flow-section {
+      --wave-height: 62px;
+    }
+
+    .p-flow-section__steps {
       gap: 1.25rem;
     }
 
-    .p-flow__card {
+    .p-flow-section__card {
       padding: 1.5rem;
     }
 
-    .p-flow__body {
+    .p-flow-section__body {
       font-size: 1rem;
     }
   }

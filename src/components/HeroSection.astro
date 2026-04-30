@@ -9,18 +9,18 @@ const blobs = [
   { char: '働', src: '/images/blob-do.svg' },
 ];
 ---
-<section class="p-hero hero-soft-enter">
+<section class="l-section p-hero-section p-hero-section--soft-enter">
   <!-- 左上装飾「R」— 白・+45°（旧 -45° の逆回り）。Ruika → Rubik 900。影なし -->
   <div
-    class="p-hero__r-mark"
+    class="p-section-mark p-section-mark--anchor-tl p-section-mark--hero"
     aria-hidden="true"
   >
-    <svg class="p-hero__r-svg" viewBox="0 0 1440 1152"
+    <svg class="p-section-mark__svg" viewBox="0 0 1440 1152"
       xmlns="http://www.w3.org/2000/svg"
       role="presentation"
     >
       <text
-        class="p-hero__r-text"
+        class="p-section-mark__text"
         x="0"
         y="1095"
         fill="currentColor"
@@ -35,24 +35,23 @@ const blobs = [
     </svg>
   </div>
 
-  <!-- 外: 1008 + 左右24px。内: max-w-page で本文カラム 960px を明示 -->
-  <div class="l-page-shell p-hero__shell">
-    <div class="l-page-inner p-hero__inner">
+  <!-- 1008px 幅の l-container で、左右24pxガター込みの本文カラムを作る -->
+  <div class="l-container p-hero-section__inner">
       <!-- md: flex 行で右イラストと並べ、translate による img のにじみを避ける（旧: absolute + pr 予約） -->
-      <div class="p-hero__copy">
-        <div class="p-hero__tags">
+      <div class="p-hero-section__copy">
+        <div class="p-hero-section__tags">
           {tags.map((t) => (
-            <span class="p-hero__tag">
+            <span class="p-hero-section__tag">
               {t}
             </span>
           ))}
         </div>
 
-        <div class="p-hero__blobs">
+        <div class="p-hero-section__blobs">
           {blobs.map(({ char, src }) => (
-            <span class="p-hero__blob">
-              <img src={src} alt="" class="p-hero__blob-bg" aria-hidden="true" />
-              <span class="p-hero__blob-char">
+            <span class="p-hero-section__blob">
+              <img src={src} alt="" class="p-hero-section__blob-bg" aria-hidden="true" />
+              <span class="p-hero-section__blob-char">
                 {char}
               </span>
             </span>
@@ -60,82 +59,57 @@ const blobs = [
           の職場向け
         </div>
 
-        <p class="p-hero__heading-sub">
+        <p class="p-hero-section__heading-sub">
           実践型マネジメント研修
         </p>
 
-        <div class="p-hero__lead">
-          <p class="p-hero__lead-line">アテンドサロンRは、</p>
-          <p class="p-hero__lead-line">感情労働のフィールドで</p>
-          <p class="p-hero__lead-line">イキイキ働く組織づくりを支援します</p>
+        <div class="p-hero-section__lead">
+          <p class="p-hero-section__lead-line">アテンドサロンRは、</p>
+          <p class="p-hero-section__lead-line">感情労働のフィールドで</p>
+          <p class="p-hero-section__lead-line">イキイキ働く組織づくりを支援します</p>
         </div>
       </div>
 
       <!-- ヒーロー右：仮は `HeroEmotionalRipple` の NO IMAGE（本番ビジュアルは後から差し替え） -->
       <figure
-        class="p-hero__visual"
+        class="p-hero-section__visual"
         aria-hidden="true"
       >
         <HeroEmotionalRipple />
       </figure>
-    </div>
   </div>
 </section>
 
 <style>
-  .p-hero {
+  .p-hero-section {
+    --section-padding-block-start: 7rem;
+    --section-padding-block-end: 2.5rem;
+
     position: relative;
     overflow-x: clip;
     background: var(--color-bg-warm);
-    padding-top: 7rem;
-    padding-bottom: 2.5rem;
     min-height: 520px;
   }
 
-  .p-hero__r-mark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 370px;
-    transform-origin: top left;
-    transform: translate(calc(8% + 20px), calc(-38% - 64px)) rotate(45deg) scale(1.5);
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .p-hero__r-svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    color: #fff;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .p-hero__r-text {
-    text-shadow: none;
-  }
-
-  .p-hero__shell,
-  .p-hero__inner {
+  .p-hero-section__inner {
     position: relative;
   }
 
-  .p-hero__copy {
+  .p-hero-section__copy {
     position: relative;
     z-index: 10;
     width: 100%;
     min-width: 0;
   }
 
-  .p-hero__tags {
+  .p-hero-section__tags {
     display: flex;
     flex-wrap: nowrap;
     gap: 0.2rem;
     margin-bottom: 0.4rem;
   }
 
-  .p-hero__tag {
+  .p-hero-section__tag {
     flex-shrink: 0;
     white-space: nowrap;
     border: 1px solid var(--color-blue-01);
@@ -148,7 +122,7 @@ const blobs = [
     color: var(--color-blue-01);
   }
 
-  .p-hero__blobs {
+  .p-hero-section__blobs {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
@@ -158,14 +132,14 @@ const blobs = [
     font-size: 32px;
     font-weight: 700;
   }
-  @media (max-width: 640px) {
-    .p-hero__blobs {
+  @media (--bp-sp-down) {
+    .p-hero-section__blobs {
       font-size: 24px;
     }
   }
 
 
-  .p-hero__blob {
+  .p-hero-section__blob {
     position: relative;
     display: inline-flex;
     width: 60px;
@@ -176,20 +150,20 @@ const blobs = [
     margin-right: -0.375rem;
     filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.04));
   }
-  @media (max-width: 640px) {
+  @media (--bp-sp-down) {
 
-  .p-hero__blob {
+  .p-hero-section__blob {
     width: 55px;
     height: 55px;
   }
 
   }
 
-  .p-hero__blob:last-child {
+  .p-hero-section__blob:last-child {
     margin-right: 0;
   }
 
-  .p-hero__blob-bg {
+  .p-hero-section__blob-bg {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -197,7 +171,7 @@ const blobs = [
     object-fit: contain;
   }
 
-  .p-hero__blob-char {
+  .p-hero-section__blob-char {
     position: relative;
     transform: translateY(1px);
     font-size: 42px;
@@ -207,7 +181,7 @@ const blobs = [
     color: var(--color-pink-01);
   }
 
-  .p-hero__heading-sub {
+  .p-hero-section__heading-sub {
     margin: 0 0 1rem;
     white-space: nowrap;
     color: var(--color-black-03);
@@ -215,25 +189,25 @@ const blobs = [
     line-height: 1.25;
     font-weight: 700;
   }
-  @media (max-width: 640px) {
-    .p-hero__heading-sub {
+  @media (--bp-sp-down) {
+    .p-hero-section__heading-sub {
       font-size: 28px;
     }
   }
 
-  .p-hero__lead {
+  .p-hero-section__lead {
     color: var(--color-black-03);
     font-size: 18px;
     line-height: 1.4;
     font-weight: 700;
   }
 
-  .p-hero__lead-line {
+  .p-hero-section__lead-line {
     margin: 0;
     white-space: nowrap;
   }
 
-  .p-hero__visual {
+  .p-hero-section__visual {
     margin: 4rem auto 0;
     width: 100%;
     max-width: min(100%, 420px);
@@ -241,30 +215,26 @@ const blobs = [
     z-index: 5;
   }
 
-  @media (min-width: 640px) {
-    .p-hero__blobs {
+  @media (--bp-md-up) {
+    .p-hero-section__blobs {
       gap: 0.125rem;
       margin-left: -0.25rem;
     }
 
-    .p-hero__blob {
+    .p-hero-section__blob {
       margin-right: -0.5rem;
     }
   }
 
-  @media (min-width: 768px) {
-    .p-hero {
-      padding-top: 130px;
-      padding-bottom: 80px;
+  @media (--bp-md-up) {
+    .p-hero-section {
+      --section-padding-block-start: var(--section-padding-block-start-default);
+      --section-padding-block-end: var(--section-padding-block-end-default);
+
       min-height: 0;
     }
 
-    .p-hero__r-mark {
-      width: clamp(320px, 86vw, 1480px);
-      transform: translate(3%, -34%) rotate(45deg) scale(0.85);
-    }
-
-    .p-hero__inner {
+    .p-hero-section__inner {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -272,59 +242,59 @@ const blobs = [
       gap: 1.5rem;
     }
 
-    .p-hero__copy {
+    .p-hero-section__copy {
       flex: 1;
       min-width: 0;
     }
 
-    .p-hero__tags {
+    .p-hero-section__tags {
       margin-bottom: 1.5rem;
     }
 
-    .p-hero__tag {
+    .p-hero-section__tag {
       padding: 4px 0.375rem;
       font-size: 1rem;
     }
 
-    .p-hero__blobs {
+    .p-hero-section__blobs {
       gap: 0.375rem;
       margin-left: -0.25rem;
       margin-bottom: 0.5rem;
     }
 
-    .p-hero__blob {
+    .p-hero-section__blob {
       width: 4.75rem;
       height: 4.6rem;
       margin-right: -0.5rem;
     }
 
-    .p-hero__blob-char {
+    .p-hero-section__blob-char {
       transform: translateY(0.125rem);
       font-size: 54px;
     }
 
-    .p-hero__heading-sub {
+    .p-hero-section__heading-sub {
       font-size: 40px;
     }
 
-    .p-hero__lead {
+    .p-hero-section__lead {
       font-size: 26px;
       line-height: 1.5;
     }
 
-    .p-hero__visual {
+    .p-hero-section__visual {
       margin: 0;
       width: min(380px, 40vw);
       max-width: 440px;
     }
   }
 
-  @media (min-width: 1024px) {
-    .p-hero__inner {
+  @media (--bp-lg-up) {
+    .p-hero-section__inner {
       gap: 2rem;
     }
 
-    .p-hero__visual {
+    .p-hero-section__visual {
       width: min(420px, 38vw);
     }
   }

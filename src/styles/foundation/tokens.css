@@ -1,30 +1,50 @@
-:root {
-  --color-pink-01: #fb6b6a;
-  --color-pink-03: #e2c5c4;
-  --color-blue-01: #7f9aa8;
-  --color-black-03: #45423e;
-  --color-black-05: #6b6762;
-  --color-link: #5f87c0;
-  --color-bg-warm: #faf6ef;
-  --color-border-soft: #e0d8ce;
-  --color-border-softer: #e8e4dc;
-  --color-surface-01: #f5f0e8;
-  --color-surface-02: #ede8df;
-  --color-surface-hover: #e4dfd4;
-  --color-marker-warm: #f0e4d4;
-  --color-footer-bg: #44403c;
+@layer foundation {
+  :root {
+    --color-pink-01: #fb6b6a;
+    --color-pink-03: #e2c5c4;
+    --color-blue-01: #7f9aa8;
+    --color-black-03: #45423e;
+    --color-black-05: #6b6762;
+    --color-link: #5f87c0;
+    --color-bg-warm: #faf6ef;
+    --color-border-soft: #e0d8ce;
+    --color-border-softer: #e8e4dc;
+    --color-surface-01: #f8f5ef;
+    --color-surface-02: #ede8df;
+    --color-surface-hover: #e4dfd4;
+    --color-marker-warm: #f0e4d4;
+    --color-footer-bg: #44403c;
 
-  --font-family-base: "Zen Kaku Gothic New", sans-serif;
+    --font-family-base: "Zen Kaku Gothic New", sans-serif;
 
-  --page-max-width: 960px;
-  --page-gutter: 24px;
-  --page-shell-max-width: 1008px;
+    --container-max-width: 1008px;
+    --page-gutter: 24px;
+    --section-padding-block-start-default: 88px;
+    --section-padding-block-end-default: 56px;
 
-  /* 横レスの md 基準（AGENTS.md: 768px = md） */
-  --bp-md: 768px;
+    /* Breakpoints（JS用数値。CSSは custom-media.css の定義名を使う） */
+    --bp-md: 768px;
+    --bp-lg: 1024px;
 
-  --radius-full: 9999px;
-  --radius-lg: 0.5rem;
+    --radius-full: 9999px;
+    --radius-lg: 0.5rem;
+    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.05);
 
-  --z-header: 50;
+    --z-header: 50;
+
+    /**
+     * アンカー・ページ内スクロール時の上オフセット（sticky ヘッダー分）。
+     * Header の inline script が実測で document.documentElement に上書きする。
+     */
+    --scroll-padding-top: 4.5rem;
+  }
+
+  @media (--bp-md-up) {
+    :root {
+      --section-padding-block-start-default: 130px;
+      --section-padding-block-end-default: 80px;
+      /* ロゴ 60px + inner 上下 padding 0.75rem×2 程度 */
+      --scroll-padding-top: 5.375rem;
+    }
+  }
 }

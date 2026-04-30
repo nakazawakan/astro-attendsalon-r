@@ -1,0 +1,32 @@
+---
+import type { DocumentBreadcrumbItem } from '../lib/document-page';
+
+interface Props {
+  items: DocumentBreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="c-breadcrumb">
+  <nav class="c-breadcrumb__nav" aria-label="パンくず">
+    <ol class="c-breadcrumb__list">
+      {
+        items.map((item: DocumentBreadcrumbItem, index: number) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li class="c-breadcrumb__item" aria-current={isLast ? 'page' : undefined}>
+              {item.href ? (
+                <a href={item.href} class="c-breadcrumb__link">
+                  {item.label}
+                </a>
+              ) : (
+                item.label
+              )}
+            </li>
+          );
+        })
+      }
+    </ol>
+  </nav>
+</div>

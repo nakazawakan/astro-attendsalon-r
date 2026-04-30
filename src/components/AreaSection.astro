@@ -1,0 +1,259 @@
+---
+import SectionHeading from './SectionHeading.astro';
+---
+<section id="area" class="l-section p-area-section" data-reveal>
+  <div class="l-container">
+    <SectionHeading label="AREA" title="対応エリア" />
+
+    <div class="p-area-section__content">
+      <figure class="p-area-section__figure">
+        <img
+          src="/images/area-map-japan.png"
+          alt="対応エリアを示す日本地図のイラスト"
+          width="1024"
+          height="1024"
+          class="p-area-section__image"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="p-area-section__text">
+        <p class="p-area-section__lead">
+          全国の事業者さまを対象に、研修内容や課題に合わせたご提案を行っています。
+        </p>
+        <p class="p-area-section__body">
+          対面開催は地域や日程を確認のうえ個別に調整し、オンライン形式にも柔軟に対応可能です。まずは現場状況をお聞かせください。
+        </p>
+        <ul class="p-area-section__list">
+          <li>全国対応（訪問・オンライン）</li>
+          <li>業種・組織規模に合わせたカスタマイズ</li>
+          <li>導入前の無料相談にも対応</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="p-area-section__types">
+      <article class="p-area-type-card">
+        <h3 class="p-area-type-card__title">
+          <span class="p-area-type-card__pattern">開催パターン1</span>
+          <span class="p-area-type-card__title-text">対面研修</span>
+        </h3>
+        <!-- <figure class="p-area-type-card__figure" aria-hidden="true">
+          <img
+            src="/images/area-type-face-to-face.png"
+            alt=""
+            width="1024"
+            height="819"
+            class="p-area-type-card__art p-area-type-card__art--face-to-face"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure> -->
+        <p class="p-area-type-card__description">
+          会場の雰囲気を活かしながら、参加者同士の対話と演習を交えた実践的な研修を行います。
+        </p>
+      </article>
+
+      <article class="p-area-type-card">
+        <h3 class="p-area-type-card__title">
+          <span class="p-area-type-card__pattern">開催パターン2</span>
+          <span class="p-area-type-card__title-text">
+            ハイブリッド研修
+            <span class="p-area-type-card__title-sub">（対面+リモート）</span>
+          </span>
+        </h3>
+        <!--
+          将来的に再利用する可能性があるため画像タグは保持
+          <figure class="p-area-type-card__figure" aria-hidden="true">
+            <img
+              src="/images/area-type-hybrid.png"
+              alt=""
+              width="1024"
+              height="819"
+              class="p-area-type-card__art p-area-type-card__art--hybrid"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        -->
+        <p class="p-area-type-card__description">
+          会場参加とオンライン参加を組み合わせ、複数拠点でも同じ内容を一体感を持って受講できる形式です。
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .p-area-section {
+    background: #fff;
+  }
+
+  .p-area-section__content {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .p-area-section__figure {
+    margin: 0;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .p-area-section__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.25rem;
+  }
+
+  .p-area-section__text {
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+  }
+
+  .p-area-section__lead {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    font-weight: 700;
+  }
+
+  .p-area-section__body {
+    margin: 0.75rem 0 0;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .p-area-section__list {
+    margin: 1rem 0 0;
+    padding-left: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.8;
+  }
+
+  .p-area-section__types {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+
+  .p-area-type-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    padding: 1rem;
+    background: var(--color-bg-warm);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .p-area-type-card__title {
+    margin: 0;
+    display: grid;
+    gap: 0.3125rem;
+    justify-items: center;
+    align-content: start;
+    text-align: center;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
+  .p-area-type-card__pattern {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-pink-01);
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  .p-area-type-card__pattern::before,
+  .p-area-type-card__pattern::after {
+    content: "";
+    width: 1.25rem;
+    height: 2px;
+    background: var(--color-pink-03);
+  }
+
+  .p-area-type-card__title-text {
+    display: block;
+  }
+
+  .p-area-type-card__title-sub {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 0.8125em;
+    line-height: 1.45;
+    font-weight: 700;
+    color: var(--color-black-05);
+  }
+
+  .p-area-type-card__figure {
+    margin: 0.875rem 0 0;
+  }
+
+  .p-area-type-card__art {
+    display: block;
+    width: 100%;
+    max-width: 14rem;
+    height: auto;
+    margin-inline: auto;
+    color: var(--color-black-03);
+  }
+
+  .p-area-type-card__description {
+    margin: 0.875rem 0 0;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 0.9375rem;
+    line-height: 1.8;
+  }
+
+  @media (--bp-md-up) {
+    .p-area-section__content {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .p-area-section__figure {
+      padding: 1rem;
+    }
+
+    .p-area-section__types {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.25rem;
+    }
+
+    .p-area-type-card {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .p-area-type-card__title {
+      font-size: 1.125rem;
+      /* 2枚並びで見出しブロックの高さを揃える（SP は縦積みのため min-height なし） */
+      min-height: 4.5rem;
+    }
+
+    .p-area-type-card__pattern {
+      font-size: 0.875rem;
+    }
+
+    .p-area-type-card__art--face-to-face {
+      max-width: calc(14rem * 1.4);
+    }
+
+    .p-area-type-card__art--hybrid {
+      max-width: calc(14rem * 1.4);
+    }
+  }
+</style>

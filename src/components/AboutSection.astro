@@ -1,4 +1,6 @@
 ---
+import ChevronPillCtaLink from './ChevronPillCtaLink.astro';
+
 const gridImages = [
   { src: '/images/about-grid-1.jpg', alt: '介護の現場で利用者の手を取り、笑顔で向き合う様子' },
   { src: '/images/about-grid-2.jpg', alt: 'ヘッドセットを装着し、パソコンで対応するコールセンター業務の様子' },
@@ -15,12 +17,11 @@ const industries = [
   { label: '営業', icon: '/images/about-icon-eigyo.svg' },
 ];
 ---
-<section id="about" class="p-about" data-reveal>
-  <div class="l-page-shell">
-    <div class="l-page-inner">
-    <div class="p-about__intro">
+<section id="about" class="l-section l-section--wave-bottom-flat p-about-section" data-reveal>
+  <div class="l-container">
+    <div class="p-about-section__intro">
       <div
-        class="p-about__grid"
+        class="p-about-section__grid"
       >
         {gridImages.map(({ src, alt }, i) => (
           <img
@@ -28,77 +29,65 @@ const industries = [
             alt={alt}
             width="194"
             height="148"
-            class="p-about__grid-image"
+            class="p-about-section__grid-image"
             loading={i < 2 ? 'eager' : 'lazy'}
             decoding="async"
           />
         ))}
       </div>
 
-      <div class="p-about__copy">
-        <h2 class="p-about__title">
-          <span class="p-about__title-row">
-            <span class="p-about__title-main">
-              <span class="p-about__title-main-text">アテンドサロンR</span>
+      <div class="p-about-section__copy">
+        <h2 class="p-about-section__title">
+          <span class="p-about-section__title-row">
+            <span class="p-about-section__title-main">
+              <span class="p-about-section__title-main-text">アテンドサロンR</span>
               <span
-                class="p-about__title-marker"
+                class="p-about-section__title-marker"
                 aria-hidden="true"
               />
             </span>
-            <span class="p-about__title-tail">は</span>
+            <span class="p-about-section__title-tail">は</span>
           </span>
         </h2>
 
-        <p class="p-about__lead-strong">
+        <p class="p-about-section__lead-strong">
           感情労働の現場経験、指導経験を活かした<br />
           実効性のある(現場で使える)研修を<br>
           提供します
         </p>
 
-        <p class="p-about__lead-normal">
+        <p class="p-about-section__lead-normal">
           働く現場の感情を適切に管理し、感情→行動→組織をつなぎ、個人、組織の相互支援（心理的安全性）の実現を提案します。
         </p>
 
-        <a
-          href="/#features"
-          class="p-about__cta"
-        >
-          <img
-            src="/images/about-chevron-cta.svg"
-            alt=""
-            width="10"
-            height="10"
-            class="p-about__cta-icon"
-            aria-hidden="true"
-            decoding="async"
-          />
-          <span class="p-about__cta-label">私たちが選ばれる理由</span>
-        </a>
+        <div class="p-about-section__cta-wrap">
+          <ChevronPillCtaLink href="/comming-soon/">私たちが選ばれる理由</ChevronPillCtaLink>
+        </div>
       </div>
     </div>
 
-    <div class="p-about__panel">
-      <div class="p-about__panel-content">
-        <div class="p-about__panel-head">
-          <div class="p-about__panel-bar" aria-hidden="true" />
-          <p class="p-about__panel-title">感情労働とは？</p>
+    <div class="p-about-section__panel">
+      <div class="p-about-section__panel-content">
+        <div class="p-about-section__panel-head">
+          <div class="p-about-section__panel-bar" aria-hidden="true" />
+          <p class="p-about-section__panel-title">感情労働とは？</p>
         </div>
 
-        <div class="p-about__panel-body">
-          <div class="p-about__panel-copy">
-            <p class="p-about__panel-text">
+        <div class="p-about-section__panel-body">
+          <div class="p-about-section__panel-copy">
+            <p class="p-about-section__panel-text">
               感情労働とは、仕事上の役割に応じて感情をコントロールし、適切な態度や振る舞いを求められる労働です。感情を抑えたり演出したりするため、精神的な負担が生じやすい特徴があります。
             </p>
             <a
-              href="/kanjorodou/"
-              class="p-about__panel-link"
+              href="/column/about-emotional-labor"
+              class="p-about-section__panel-link"
             >
               <img
                 src="/images/about-chevron-link.svg"
                 alt=""
                 width="10"
                 height="10"
-                class="p-about__panel-link-icon"
+                class="p-about-section__panel-link-icon"
                 aria-hidden="true"
                 decoding="async"
               />
@@ -106,45 +95,43 @@ const industries = [
             </a>
           </div>
 
-          <div class="p-about__industry-grid">
+          <div class="p-about-section__industry-grid">
             {industries.map(({ label, icon }) => (
               <div
-                class="p-about__industry-item"
+                class="p-about-section__industry-item"
               >
                 <img
                   src={icon}
                   alt=""
                   width="28"
                   height="28"
-                  class="p-about__industry-icon"
+                  class="p-about-section__industry-icon"
                   loading="lazy"
                   decoding="async"
                   aria-hidden="true"
                 />
-                <span class="p-about__industry-label">{label}</span>
+                <span class="p-about-section__industry-label">{label}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
     </div>
-    </div>
   </div>
 </section>
 
 <style>
-  .p-about {
-    padding-top: 3rem;
-    padding-bottom: 80px;
+  .p-about-section {
+    --section-padding-block-start: 3rem;
   }
 
-  .p-about__intro {
+  .p-about-section__intro {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
   }
 
-  .p-about__grid {
+  .p-about-section__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
@@ -153,26 +140,26 @@ const industries = [
     flex-shrink: 0;
   }
 
-  .p-about__grid-image {
+  .p-about-section__grid-image {
     width: 100%;
     aspect-ratio: 194 / 148;
     object-fit: cover;
     border-radius: 5px;
   }
 
-  .p-about__copy {
+  .p-about-section__copy {
     flex: 1;
     min-width: 0;
     width: 100%;
     max-width: none;
   }
 
-  .p-about__title {
+  .p-about-section__title {
     margin: 0;
     color: var(--color-black-03);
   }
 
-  .p-about__title-row {
+  .p-about-section__title-row {
     position: relative;
     display: inline-flex;
     flex-wrap: wrap;
@@ -180,7 +167,7 @@ const industries = [
     gap: 0.125rem;
   }
 
-  .p-about__title-main {
+  .p-about-section__title-main {
     position: relative;
     display: inline-block;
     padding-bottom: 0.25rem;
@@ -189,12 +176,12 @@ const industries = [
     font-weight: 700;
   }
 
-  .p-about__title-main-text {
+  .p-about-section__title-main-text {
     position: relative;
     z-index: 10;
   }
 
-  .p-about__title-marker {
+  .p-about-section__title-marker {
     position: absolute;
     left: 0;
     bottom: 0.25rem;
@@ -206,23 +193,21 @@ const industries = [
     background: #ffddd2;
   }
 
-  .p-about__title-tail {
+  .p-about-section__title-tail {
     font-size: 1.125rem;
     line-height: 1.25;
     font-weight: 700;
   }
 
-  .p-about__lead-strong {
+  .p-about-section__lead-strong {
     margin: 0;
     color: var(--color-black-03);
     font-size: 1rem;
     line-height: 1.7;
     font-weight: 700;
   }
-  @media (max-width: 640px) {
-  }
 
-  .p-about__lead-normal {
+  .p-about-section__lead-normal {
     margin: 1rem 0 0;
     color: var(--color-black-03);
     font-size: 1rem;
@@ -230,64 +215,32 @@ const industries = [
     font-weight: 400;
   }
 
-  .p-about__cta {
+  .p-about-section__cta-wrap {
     margin-top: 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.625rem;
-    min-width: min(100%, 300px);
-    max-width: 100%;
-    padding: 1.3rem 1.5rem;
-    border-radius: 9999px;
-    background: var(--color-pink-01);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1;
-    transition: opacity 0.2s ease;
   }
 
-  .p-about__cta:hover {
-    opacity: 0.9;
-  }
-
-  .p-about__cta-icon {
-    width: 0.625rem;
-    height: 0.625rem;
-    flex-shrink: 0;
-    transform: rotate(180deg);
-  }
-
-  .p-about__cta-label {
-    line-height: 1.1;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .p-about__panel {
+  .p-about-section__panel {
     margin-top: 2.5rem;
     width: 100%;
-    border: 1px solid var(--color-border-softer);
     border-radius: 0.5rem;
     background: #fff;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    box-shadow: var(--shadow-soft);
     padding: 1.5rem 1.25rem;
   }
 
-  .p-about__panel-content {
+  .p-about-section__panel-content {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .p-about__panel-head {
+  .p-about-section__panel-head {
     display: flex;
     align-items: flex-start;
     gap: 7px;
   }
 
-  .p-about__panel-bar {
+  .p-about-section__panel-bar {
     width: 6px;
     height: 2rem;
     flex-shrink: 0;
@@ -295,7 +248,7 @@ const industries = [
     background: var(--color-blue-01);
   }
 
-  .p-about__panel-title {
+  .p-about-section__panel-title {
     margin: 0;
     padding-top: 0.125rem;
     color: var(--color-black-03);
@@ -304,20 +257,20 @@ const industries = [
     font-weight: 700;
   }
 
-  .p-about__panel-body {
+  .p-about-section__panel-body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  .p-about__panel-copy {
+  .p-about-section__panel-copy {
     flex: 1;
     min-width: 0;
     width: 100%;
     max-width: none;
   }
 
-  .p-about__panel-text {
+  .p-about-section__panel-text {
     margin: 0 0 1.5rem;
     color: var(--color-black-03);
     font-size: 0.9375rem;
@@ -325,7 +278,7 @@ const industries = [
     font-weight: 400;
   }
 
-  .p-about__panel-link {
+  .p-about-section__panel-link {
     display: inline-flex;
     align-items: center;
     gap: 0.625rem;
@@ -337,18 +290,18 @@ const industries = [
     transition: opacity 0.2s ease;
   }
 
-  .p-about__panel-link:hover {
+  .p-about-section__panel-link:hover {
     opacity: 0.8;
   }
 
-  .p-about__panel-link-icon {
+  .p-about-section__panel-link-icon {
     width: 0.625rem;
     height: 0.625rem;
     flex-shrink: 0;
     transform: rotate(180deg);
   }
 
-  .p-about__industry-grid {
+  .p-about-section__industry-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
@@ -356,7 +309,7 @@ const industries = [
     flex-shrink: 0;
   }
 
-  .p-about__industry-item {
+  .p-about-section__industry-item {
     display: flex;
     align-items: center;
     gap: 0.375rem;
@@ -369,14 +322,14 @@ const industries = [
     overflow: hidden;
   }
 
-  .p-about__industry-icon {
+  .p-about-section__industry-icon {
     width: 1.75rem;
     height: 1.75rem;
     flex-shrink: 0;
     object-fit: contain;
   }
 
-  .p-about__industry-label {
+  .p-about-section__industry-label {
     color: var(--color-black-03);
     font-size: 0.875rem;
     line-height: 1;
@@ -386,68 +339,68 @@ const industries = [
     text-overflow: ellipsis;
   }
 
-  @media (min-width: 640px) {
-    .p-about__industry-grid {
+  @media (--bp-md-up) {
+    .p-about-section__industry-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
-  @media (min-width: 768px) {
-    .p-about {
-      padding-top: 130px;
+  @media (--bp-md-up) {
+    .p-about-section {
+      --section-padding-block-start: var(--section-padding-block-start-default);
     }
 
-    .p-about__intro {
+    .p-about-section__intro {
       flex-direction: row;
       align-items: flex-start;
       justify-content: space-between;
       gap: 2rem;
     }
 
-    .p-about__grid {
+    .p-about-section__grid {
       flex: 1;
       min-width: 0;
     }
 
-    .p-about__copy {
+    .p-about-section__copy {
       max-width: 500px;
       margin-left: auto;
     }
 
-    .p-about__title-main {
+    .p-about-section__title-main {
       font-size: 34px;
     }
 
-    .p-about__title-tail {
+    .p-about-section__title-tail {
       font-size: 22px;
     }
 
-    .p-about__lead-strong {
+    .p-about-section__lead-strong {
       font-size: 19px;
     }
 
-    .p-about__lead-normal {
+    .p-about-section__lead-normal {
       font-size: 0.9375rem;
       line-height: 1.6;
       font-weight: 400;
       color: var(--color-black-03);
     }
 
-    .p-about__panel {
+    .p-about-section__panel {
       padding: 1.5rem 25px;
     }
 
-    .p-about__panel-body {
+    .p-about-section__panel-body {
       flex-direction: row;
       align-items: flex-start;
       justify-content: space-between;
     }
 
-    .p-about__panel-copy {
+    .p-about-section__panel-copy {
       max-width: 370px;
     }
 
-    .p-about__industry-grid {
+    .p-about-section__industry-grid {
       width: auto;
       max-width: 500px;
     }

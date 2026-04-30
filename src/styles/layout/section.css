@@ -1,0 +1,116 @@
+@layer layout {
+  .l-section {
+    --z-section-bg: 0;
+    --z-section-wave: 1;
+    --z-section-mark: 2;
+    --z-section-content: 3;
+
+    position: relative;
+    isolation: isolate;
+    padding-block:
+      var(--section-padding-block-start, var(--section-padding-block-start-default))
+      var(--section-padding-block-end, var(--section-padding-block-end-default));
+  }
+
+  .l-section > .l-container {
+    position: relative;
+    z-index: var(--z-section-content);
+  }
+
+  .l-section--wave-bottom-flat,
+  .l-section--wave-top-flat {
+    --section-wave-height: 42px;
+    --section-wave-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 C120 42 250 70 395 42 C545 12 660 0 912 32 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
+    position: relative;
+    isolation: isolate;
+  }
+
+  .l-section--wave-bottom-flat {
+    padding-bottom: calc(var(--section-padding-block-end, var(--section-padding-block-end-default)) + var(--section-wave-height));
+  }
+
+  .l-section--wave-bottom-flat::after,
+  .l-section--wave-top-flat::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--section-wave-height);
+    background: #fff;
+    mask: var(--section-wave-mask) center / 100% 100% no-repeat;
+    -webkit-mask: var(--section-wave-mask) center / 100% 100% no-repeat;
+    pointer-events: none;
+    z-index: var(--z-section-wave);
+  }
+
+  .l-section--wave-bottom-flat::after {
+    bottom: 0;
+    transform: translateY(1px);
+  }
+
+  .l-section--wave-top-flat::before {
+    top: 0;
+    transform: translateY(-1px) scaleY(-1);
+  }
+
+  @media (--bp-md-up) {
+    .l-section--wave-bottom-flat,
+    .l-section--wave-top-flat {
+      --section-wave-height: 62px;
+    }
+  }
+
+  .l-section--wave-bottom-flat > *,
+  .l-section--wave-top-flat > * {
+    position: relative;
+    z-index: var(--z-section-content);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .l-section--wave-motion.l-section--wave-bottom-flat::after {
+      animation: l-wave-swell-bottom 2.4s ease-in-out infinite;
+      transform-origin: 50% 100%;
+      will-change: transform;
+    }
+
+    .l-section--wave-motion.l-section--wave-top-flat::before {
+      animation: l-wave-swell-top 2.4s ease-in-out infinite;
+      transform-origin: 50% 0;
+      will-change: transform;
+    }
+  }
+
+  @keyframes l-wave-swell-bottom {
+    from {
+      transform: translateY(1px) scaleY(1);
+    }
+
+    50% {
+      transform: translateY(-0.5px) scaleY(1.2);
+    }
+
+    to {
+      transform: translateY(1px) scaleY(1);
+    }
+  }
+
+  @keyframes l-wave-swell-top {
+    from {
+      transform: translateY(-1px) scaleY(-1);
+    }
+
+    50% {
+      transform: translateY(0.5px) scaleY(-1.2);
+    }
+
+    to {
+      transform: translateY(-1px) scaleY(-1);
+    }
+  }
+
+  .l-section--article {
+    --section-padding-block-start: 2rem;
+    --section-padding-block-end: 2rem;
+  }
+}
