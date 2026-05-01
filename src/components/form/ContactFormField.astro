@@ -1,0 +1,17 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  required?: boolean;
+}
+
+const { id, label, required = false } = Astro.props;
+---
+
+<div class="p-contact-form__field">
+  <label class="p-contact-form__label" for={id}>
+    {label}
+    {required && <span class="p-contact-form__req">必須</span>}
+  </label>
+  <slot />
+</div>

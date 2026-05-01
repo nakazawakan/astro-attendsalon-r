@@ -1,0 +1,43 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  whiteBackground?: boolean;
+  withBottomMargin?: boolean;
+}
+
+const {
+  id,
+  label,
+  title,
+  whiteBackground = false,
+  withBottomMargin = false,
+} = Astro.props;
+
+---
+
+<section
+  class:list={['l-section', whiteBackground && 'p-service-detail-section--white']}
+  aria-labelledby={id}
+>
+  <div class="l-container">
+    <SectionHeading
+      id={id}
+      label={label}
+      title={title}
+      withBottomMargin={withBottomMargin}
+    >
+      <slot name="intro" slot="intro" />
+    </SectionHeading>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .p-service-detail-section--white {
+    background: #fff;
+  }
+</style>

@@ -1,17 +1,11 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import { listPublishedColumnEntries } from '../../lib/content-entries';
 
 const columnThumbFallback = '/images/column-thumbnail-placeholder.png';
 
-const articles: CollectionEntry<'column'>[] = (await getCollection(
-  'column',
-  (entry: CollectionEntry<'column'>) => !entry.data.draft,
-)).sort(
-  (a: CollectionEntry<'column'>, b: CollectionEntry<'column'>) =>
-    b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
-);
+const articles: CollectionEntry<'column'>[] = await listPublishedColumnEntries();
 const formatDate = new Intl.DateTimeFormat('ja-JP', {
   timeZone: 'Asia/Tokyo',
   year: 'numeric',

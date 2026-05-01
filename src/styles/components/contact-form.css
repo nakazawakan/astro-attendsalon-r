@@ -1,0 +1,102 @@
+@layer components {
+  .p-contact-form-shell {
+    padding-bottom: 2rem;
+  }
+
+  .p-contact-form {
+    box-sizing: border-box;
+    max-width: 36rem;
+    margin-inline: auto;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: var(--shadow-soft);
+  }
+
+  @media (--bp-md-up) {
+    .p-contact-form {
+      padding: 2rem;
+    }
+  }
+
+  .p-contact-form__field {
+    margin-bottom: 1.25rem;
+  }
+
+  .p-contact-form__field:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+
+  .p-contact-form__label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  .p-contact-form__req {
+    margin-inline-start: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-pink-01);
+  }
+
+  .p-contact-form__control {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    color: var(--color-black-03);
+    background: #fff;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .p-contact-form__control:focus {
+    outline: none;
+    border-color: var(--color-blue-01);
+    box-shadow: 0 0 0 2px rgb(127 154 168 / 0.25);
+  }
+
+  .p-contact-form__control--select {
+    padding-block: 0.5rem;
+    cursor: pointer;
+  }
+
+  .p-contact-form__control--textarea {
+    display: block;
+    resize: vertical;
+    min-height: 8rem;
+    line-height: 1.6;
+  }
+
+  .p-contact-form__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .p-contact-form__submit {
+    width: 100%;
+    max-width: 22rem;
+    text-align: center;
+  }
+
+  @media (--bp-md-up) {
+    .p-contact-form__submit {
+      width: auto;
+      max-width: none;
+      min-width: min(100%, 20rem);
+    }
+  }
+}

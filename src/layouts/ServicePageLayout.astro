@@ -1,0 +1,180 @@
+---
+import BreadcrumbNav from '../components/BreadcrumbNav.astro';
+import HeroEmotionalRipple from '../components/HeroEmotionalRipple.astro';
+import SectionMarkDecor from '../components/SectionMarkDecor.astro';
+import SiteChrome from './SiteChrome.astro';
+import { buildBreadcrumbJsonLd, type DocumentBreadcrumbItem } from '../lib/document-page';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** h1 直下のリード文（複数段落は配列） */
+  heroLead?: string | string[];
+  canonicalPath: string;
+  /** 各 `pages/service/.../_ServicePageContent.astro` をインポートして渡す（`_` でページルート化を防止） */
+  Content: (_props: Record<string, never>) => unknown;
+  breadcrumbItems?: DocumentBreadcrumbItem[];
+  topSpacing?: 'default' | 'belowHeader';
+  titleAlign?: 'start' | 'center';
+  titleSpacing?: 'default' | 'loose';
+  additionalJsonLd?: Record<string, unknown>[];
+  robots?: string;
+}
+
+const {
+  title,
+  description,
+  heroLead,
+  canonicalPath,
+  Content,
+  breadcrumbItems: breadcrumbItemsProp,
+  topSpacing = 'default',
+  titleAlign = 'start',
+  titleSpacing = 'default',
+  additionalJsonLd = [],
+  robots,
+} = Astro.props;
+
+const heroLeadParagraphs = heroLead ? (Array.isArray(heroLead) ? heroLead : [heroLead]) : [];
+
+const site = Astro.site ?? new URL('https://attendsalon-r.com');
+const pageUrl = new URL(canonicalPath, site).toString();
+
+const breadcrumbItems: DocumentBreadcrumbItem[] =
+  breadcrumbItemsProp ?? [{ label: 'ホーム', href: '/' }, { label: title }];
+
+const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbItems, site, pageUrl);
+
+const webPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  ...(description ? { description } : {}),
+  inLanguage: 'ja',
+  url: pageUrl,
+};
+
+const introSectionClassList = [
+  'l-section',
+  'l-section--service-page-intro',
+  'p-hero-section--soft-enter',
+  topSpacing === 'belowHeader' && 'l-section--below-header',
+];
+---
+
+<SiteChrome
+  title={`${title}｜アテンドサロンR`}
+  description={description}
+  canonicalPath={canonicalPath}
+  ogImage="/images/logo.png"
+  robots={robots}
+  jsonLd={[breadcrumbJsonLd, webPageJsonLd, ...additionalJsonLd]}
+>
+  <section class:list={introSectionClassList} aria-label="ページ見出し">
+    <!-- トップ `HeroSection` と同じ装飾「R」＋2カラム（左: 見出し / 右: リップル） -->
+    <SectionMarkDecor anchor="tl" variant="hero" />
+
+    <div class="l-container p-hero-section__inner">
+      <div
+        class:list={[
+          'p-hero-section__copy',
+          titleAlign === 'center' && 'p-service-page-hero__copy--center',
+        ]}
+      >
+        <BreadcrumbNav items={breadcrumbItems} />
+        <p class="p-service-page-hero__specialty">
+          <span class="p-service-page-hero__specialty-text">感情労働特化</span>
+        </p>
+        <h1
+          id="service-page-title"
+          class:list={[
+            'p-hero-section__heading-sub',
+            'p-service-page-hero__title',
+            titleSpacing === 'loose' && 'p-service-page-hero__title--loose',
+          ]}
+        >
+          {title}
+        </h1>
+        {
+          heroLeadParagraphs.length > 0 && (
+            <div class="p-service-page-hero__lead">
+              {heroLeadParagraphs.map((paragraph) => (
+                <p class="p-service-page-hero__lead-p">{paragraph}</p>
+              ))}
+            </div>
+          )
+        }
+      </div>
+
+      <figure class="p-hero-section__visual" aria-hidden="true">
+        <HeroEmotionalRipple />
+      </figure>
+    </div>
+  </section>
+  <Content />
+  <slot name="pre-footer" slot="pre-footer" />
+</SiteChrome>
+
+<style>
+  /* 研修サービス下位ページ: イントロの縦パディングは `l-section` + `section.css` の修飾子。ここは見出し周りのみ */
+
+  .p-service-page-hero__copy--center {
+    text-align: center;
+  }
+
+  .p-service-page-hero__title {
+    white-space: normal;
+  }
+
+  .p-service-page-hero__title--loose {
+    margin-bottom: 2.5rem;
+  }
+
+  .p-service-page-hero__lead {
+    margin-top: 0.75rem;
+    max-width: 42em;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 0.9rem;
+    line-height: 1.85;
+    font-weight: 400;
+  }
+
+  .p-service-page-hero__lead-p {
+    margin: 0;
+  }
+
+  .p-service-page-hero__lead-p + .p-service-page-hero__lead-p {
+    margin-top: 0.2em;
+  }
+
+  .p-service-page-hero__specialty {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 1.25rem 0 0.4rem;
+  }
+
+  .p-service-page-hero__specialty::before {
+    content: "";
+    width: 4px;
+    height: 1.35em;
+    flex-shrink: 0;
+    border-radius: 2px;
+    background: var(--color-pink-01);
+  }
+
+  .p-service-page-hero__specialty-text {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-black-03);
+  }
+
+  @media (--bp-md-up) {
+
+    .p-service-page-hero__specialty-text {
+      letter-spacing: 0.16em;
+    }
+  }
+</style>

@@ -1,15 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import { listPublishedNewsEntries } from '../../lib/content-entries';
 
-const items: CollectionEntry<'news'>[] = (await getCollection(
-  'news',
-  (entry: CollectionEntry<'news'>) => !entry.data.draft,
-)).sort(
-  (a: CollectionEntry<'news'>, b: CollectionEntry<'news'>) =>
-    b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
-);
+const items: CollectionEntry<'news'>[] = await listPublishedNewsEntries();
 
 const formatDate = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Asia/Tokyo',

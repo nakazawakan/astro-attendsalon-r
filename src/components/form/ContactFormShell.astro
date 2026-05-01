@@ -1,0 +1,34 @@
+---
+interface Props {
+  formId: string;
+  formName: string;
+  submitLabel: string;
+  thanksPath: string;
+}
+
+const { formId, formName, submitLabel, thanksPath } = Astro.props;
+const formSelector = `#${formId}`;
+---
+
+<div class="p-contact-form-shell">
+  <form id={formId} class="p-contact-form" name={formName} method="post" action="#">
+    <slot />
+    <div class="p-contact-form__actions">
+      <button type="submit" class="c-button c-button--solid-pink p-contact-form__submit">{submitLabel}</button>
+    </div>
+  </form>
+</div>
+
+<script define:vars={{ formSelector, thanksPath }}>
+  const form = document.querySelector(formSelector);
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      window.location.assign(thanksPath);
+    });
+  }
+</script>

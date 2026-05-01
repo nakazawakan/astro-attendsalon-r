@@ -10,6 +10,8 @@
     --color-border-soft: #e0d8ce;
     --color-border-softer: #e8e4dc;
     --color-surface-01: #f8f5ef;
+    /** センシティブ／ネガティブ文脈のカード用（blue-01 を薄く混ぜたクールトーン） */
+    --color-surface-blue-soft: #eef3f6;
     --color-surface-02: #ede8df;
     --color-surface-hover: #e4dfd4;
     --color-marker-warm: #f0e4d4;

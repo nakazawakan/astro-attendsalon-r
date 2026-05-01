@@ -1,13 +1,11 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import { listPublishedNewsEntries } from '../../lib/content-entries';
+import { buildArticleJsonLd } from '../../lib/structured-data';
 
 export async function getStaticPaths() {
-  const items: CollectionEntry<'news'>[] = await getCollection(
-    'news',
-    (entry: CollectionEntry<'news'>) => !entry.data.draft,
-  );
+  const items: CollectionEntry<'news'>[] = await listPublishedNewsEntries();
 
   return items.map((item) => ({
     params: { slug: item.slug },
@@ -28,29 +26,14 @@ const publishedIso = item.data.publishedAt.toISOString();
 const modifiedDate = item.data.updatedAt ?? item.data.publishedAt;
 const modifiedIso = modifiedDate.toISOString();
 
-const articleJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: item.data.title,
+const articleJsonLd = buildArticleJsonLd({
+  title: item.data.title,
   description: item.data.description,
-  datePublished: publishedIso,
-  dateModified: modifiedIso,
-  inLanguage: 'ja',
-  mainEntityOfPage: pageUrl,
-  author: {
-    '@type': 'Organization',
-    name: 'アテンドサロンR',
-    url: site.toString(),
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'アテンドサロンR',
-    logo: {
-      '@type': 'ImageObject',
-      url: new URL('/images/logo.png', site).toString(),
-    },
-  },
-};
+  pageUrl,
+  site,
+  publishedIso,
+  modifiedIso,
+});
 
 // 本文: bodyProse でラッパーに p-document-page-section__body--prose を付与（DocumentPageLayout）
 ---

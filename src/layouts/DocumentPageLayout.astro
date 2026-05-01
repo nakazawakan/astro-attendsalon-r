@@ -62,7 +62,7 @@ const introSectionClassList = [
   'l-section--article',
   'p-document-page-section',
   'p-document-page-section--intro',
-  topSpacing === 'belowHeader' && 'p-document-page-section--below-header',
+  topSpacing === 'belowHeader' && 'l-section--below-header',
 ];
 
 const mainSectionClassList = ['l-section', 'l-section--article', 'p-document-page-section', 'p-document-page-section--main'];
@@ -114,10 +114,6 @@ const mainSectionClassList = ['l-section', 'l-section--article', 'p-document-pag
 
 <style>
   /* Project: ドキュメント系下位ページ（セクション背景・見出し・本文パネル） */
-
-  .p-document-page-section--below-header {
-    --section-padding-block-start: 130px;
-  }
 
   /* 見出しセクションと本文セクションの境目で l-section の下余白を重ねない */
   .p-document-page-section--intro {

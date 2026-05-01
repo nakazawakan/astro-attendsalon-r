@@ -1,0 +1,20 @@
+---
+import ServicePageLayout from '../../../layouts/ServicePageLayout.astro';
+import ServicePageContent from './_ServicePageContent.astro';
+
+const title = 'ハラスメント研修';
+const description =
+  '東京エリアを中心に、職場のハラスメント防止・コンプライアンスに関する研修のご案内ページです。';
+const heroLead = [
+  '注意や指導がパワハラと言われないか不安、声かけに迷いがある――。',
+  'ハラスメントは悪意よりも「認識のズレ」や「伝え方」で起こりやすい問題です。',
+  '本研修では、法令の基礎だけでなくグレー事例の判断軸と、相談を受けたときの初期対応まで、現場で使える形で整理し、安心して育成できる職場づくりを支援します。',
+];
+---
+<ServicePageLayout
+  title={title}
+  description={description}
+  heroLead={heroLead}
+  canonicalPath="/service/harassment/"
+  Content={ServicePageContent}
+/>

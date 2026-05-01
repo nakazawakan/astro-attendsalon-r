@@ -1,5 +1,6 @@
 ---
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import { serviceOfferings } from '../../data/service-offerings';
 
 const title = '運営者情報';
 const description =
@@ -30,15 +31,15 @@ const description =
           <th scope="row">事業内容</th>
           <td>
             <ul class="p-company-services">
-              <li>
-                <a href="/comming-soon/" class="c-link">ハラスメント研修</a>
-              </li>
-              <li>
-                <a href="/comming-soon/" class="c-link">メンタルヘルス研修</a>
-              </li>
-              <li>
-                <a href="/comming-soon/" class="c-link">アンガーマネジメント研修</a>
-              </li>
+              {
+                serviceOfferings.map((service) => (
+                  <li>
+                    <a href={service.detailPath} class="c-link">
+                      {service.title}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
           </td>
         </tr>
@@ -66,7 +67,7 @@ const description =
         <tr>
           <th scope="row">取引形態</th>
           <td>
-            法人向け研修のご提案、無料相談、資料請求に基づく個別見積・契約（準備中の連絡手段については<a
+            事業所向け研修のご提案、無料相談、資料請求に基づく個別見積・契約（準備中の連絡手段については<a
               href="/contact/">研修の無料相談ページ</a
             >をご確認ください）
           </td>

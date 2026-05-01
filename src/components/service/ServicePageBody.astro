@@ -1,0 +1,80 @@
+---
+import ServiceSectionBlock from './ServiceSectionBlock.astro';
+import ServiceSubheadingCards from './ServiceSubheadingCards.astro';
+import type { ServiceStepItem, ServiceSyllabusColumn } from './ServiceSubheadingCards.astro';
+import ServiceWorries from './ServiceWorries.astro';
+
+export interface ServicePageTrailingSection {
+  key: 'feature' | 'voice' | 'plan' | 'instructor' | 'flow';
+  label: 'FEATURE' | 'VOICE' | 'PLAN' | 'INSTRUCTOR' | 'FLOW';
+  title: string;
+  whiteBackground: boolean;
+  intro?: string;
+}
+
+interface Props {
+  idPrefix: string;
+  aboutTitle: string;
+  aboutIntroParagraphs: string[];
+  aboutSyllabus: ServiceSyllabusColumn[];
+  worries: string[];
+  worryLead: string;
+  worryParagraphs: string[];
+  trailingSections: ServicePageTrailingSection[];
+  aboutSteps?: ServiceStepItem[];
+}
+
+const DEFAULT_ABOUT_STEPS: ServiceStepItem[] = [
+  { title: '知識提供' },
+  { title: '行動変容' },
+  { title: '職場改善' },
+];
+
+const {
+  idPrefix,
+  aboutTitle,
+  aboutIntroParagraphs,
+  aboutSyllabus,
+  worries,
+  worryLead,
+  worryParagraphs,
+  trailingSections,
+  aboutSteps = DEFAULT_ABOUT_STEPS,
+} = Astro.props;
+---
+
+<ServiceWorries id={`${idPrefix}-worries-title`} worries={worries} lead={worryLead} paragraphs={worryParagraphs} />
+
+<ServiceSectionBlock
+  id={`${idPrefix}-about-title`}
+  label="ABOUT"
+  title={aboutTitle}
+  withBottomMargin
+>
+  <Fragment slot="intro">
+    {
+      aboutIntroParagraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))
+    }
+  </Fragment>
+  <ServiceSubheadingCards
+    stepsSectionTitle="現場で活かす3つのステップ"
+    steps={aboutSteps}
+    syllabusSectionTitle="研修内容"
+    syllabusColumns={aboutSyllabus}
+  />
+</ServiceSectionBlock>
+
+{
+  trailingSections.map((section) => (
+    <ServiceSectionBlock
+      id={`${idPrefix}-${section.key}-title`}
+      label={section.label}
+      title={section.title}
+      whiteBackground={section.whiteBackground}
+    >
+      {section.intro && <p slot="intro">{section.intro}</p>}
+    </ServiceSectionBlock>
+  ))
+}

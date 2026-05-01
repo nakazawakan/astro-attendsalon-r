@@ -1,82 +1,38 @@
 ---
 import SectionHeading from './SectionHeading.astro';
+import SectionMarkDecor from './SectionMarkDecor.astro';
 import ServiceCard from './ServiceCard.astro';
-
-const services = [
-  {
-    id: 'service-mental-health',
-    title: 'メンタルヘルス研修',
-    body: '不調の早期発見とセルフケア、相談しやすい職場づくりを支援します',
-    bodyTone: 'dark' as const,
-    icon: '/images/service-icon-heart.png',
-    iconSize: 'large' as const,
-    ctaLabel: '研修詳細へ',
-  },
-  {
-    id: 'service-anger-management',
-    title: 'アンガーマネジメント研修',
-    body: '怒りを抑えるのではなく、上手に扱い、冷静に対処できる力を身につけます',
-    bodyTone: 'muted' as const,
-    icon: '/images/service-icon-fire.png',
-    iconSize: 'large' as const,
-    ctaLabel: '研修詳細へ',
-  },
-  {
-    id: 'service-harassment',
-    title: 'ハラスメント研修',
-    body: 'ハラスメントによるトラブルに対して、ひとりで抱え込まない対応と組織としての線引きを学びます',
-    bodyTone: 'muted' as const,
-    icon: '/images/service-icon-prohibited.png',
-    iconSize: 'large' as const,
-    ctaLabel: '研修詳細へ',
-  },
-];
+import { serviceOfferings } from '../data/service-offerings';
 
 const serviceUseCaseGroups = [
   {
-    title: '新入社員向け',
+    audience: '新入社員向け',
+    catchphrase: '社会人としての働くこころの整え方',
+    description: '無理をため込まず、長く働き続けるための土台作りを支援します',
+    items: ['新しい環境でも戸惑わないためのセルフケア', '自信をもって対応する'],
+  },
+  {
+    audience: '管理者向け',
+    catchphrase: '人を育てる力を磨く',
+    description:
+      '部下の成長に適切に関わり、管理者自身の心の負担を軽くすることでチーム全体の安定を支えます',
     items: [
-      '新しい環境でも戸惑わないセルフケア',
-      '自己肯定感を上げるためのビジネスマナー研修',
+      '部下の変化に気づいて早期に改善、解決するためのラインケア',
+      '納得感のある人事評価（フィードバック）面談研修',
+      '日常的に働きかけ、指示指導だけで終わらない傾聴体験',
     ],
   },
   {
-    title: '管理者向け',
-    items: [
-      '部下の変化に気づくラインケア',
-      '管理者のためのフィードバック（人事評価）面談研修',
-      '傾聴体験講座',
-    ],
-  },
-  {
-    title: '個別向け',
-    items: ['個別（個人対象）カウンセリング', '個別キャリアコンサルティング（キャリア形成支援）'],
+    audience: '個別向け',
+    catchphrase: '一人ひとりが安心して話せる相談サポート',
+    description:
+      '今つらいことの整理からこれからの働き方への行動化を促します　また研修後の個別フォローとしても活用できます',
+    items: ['（個人対象）カウンセリング', 'キャリアコンサルティング（キャリア形成支援）'],
   },
 ] as const;
 ---
 <section id="services" class="l-section p-service-section" data-reveal>
-  <div class="p-section-mark p-section-mark--anchor-br p-section-mark--service" aria-hidden="true">
-    <svg
-      class="p-section-mark__svg"
-      viewBox="0 0 1440 1152"
-      xmlns="http://www.w3.org/2000/svg"
-      role="presentation"
-    >
-      <text
-        class="p-section-mark__text"
-        x="0"
-        y="1095"
-        fill="currentColor"
-        font-size="1296"
-        font-weight="900"
-        font-family="'Ruika 09', 'Ruika', 'Rubik', sans-serif"
-        letter-spacing="-0.04em"
-        dominant-baseline="alphabetic"
-      >
-        R
-      </text>
-    </svg>
-  </div>
+  <SectionMarkDecor anchor="br" variant="service" />
 
   <div class="l-container">
       <SectionHeading
@@ -84,10 +40,10 @@ const serviceUseCaseGroups = [
         title="研修サービス一覧"
         decoLoading="eager"
       >
-        <div slot="intro">
+        <Fragment slot="intro">
           <p>感情労働で働く皆さまがイキイキと働くために、３つの研修をご用意しています</p>
           <p>課題に合わせて、研修内容はカスタマイズいたします</p>
-        </div>
+        </Fragment>
       </SectionHeading>
 
       <!-- SP のみ: カルーセル操作域のため親の左右ガターを相殺。PCでは非表示のためレイアウト仕様書のフルブリード禁止に該当しない -->
@@ -103,9 +59,17 @@ const serviceUseCaseGroups = [
           >
             <div id="service-section-carousel-container" class="p-service-section__embla-container">
               {
-                services.map((s) => (
+                serviceOfferings.map((service) => (
                   <div class="p-service-section__embla-slide">
-                    <ServiceCard {...s} />
+                    <ServiceCard
+                      title={service.title}
+                      body={service.summary}
+                      bodyTone={service.bodyTone}
+                      icon={service.icon}
+                      iconSize={service.iconSize}
+                      ctaLabel={service.ctaLabel}
+                      href={service.detailPath}
+                    />
                   </div>
                 ))
               }
@@ -121,9 +85,18 @@ const serviceUseCaseGroups = [
         aria-label="研修サービス一覧"
       >
         {
-          services.map((s) => (
+          serviceOfferings.map((service) => (
             <div class="p-service-section__grid-cell">
-              <ServiceCard {...s} anchorId={s.id} />
+              <ServiceCard
+                title={service.title}
+                body={service.summary}
+                bodyTone={service.bodyTone}
+                icon={service.icon}
+                iconSize={service.iconSize}
+                ctaLabel={service.ctaLabel}
+                href={service.detailPath}
+                anchorId={service.homeAnchorId}
+              />
             </div>
           ))
         }
@@ -142,8 +115,24 @@ const serviceUseCaseGroups = [
         <div class="p-service-section__use-cases-grid">
           {
             serviceUseCaseGroups.map((group) => (
-              <div class="p-service-section__use-cases-group">
-                <h4 class="p-service-section__use-cases-group-title">{group.title}</h4>
+              <div
+                class="p-service-section__use-cases-group"
+                role="group"
+                aria-label={`${group.audience}の研修活用事例`}
+              >
+                <div class="p-service-section__use-cases-meta">
+                  <div class="p-service-section__use-cases-lead">
+                    <p class="p-service-section__use-cases-line p-service-section__use-cases-line--audience">
+                      {group.audience}
+                    </p>
+                    <p class="p-service-section__use-cases-line p-service-section__use-cases-line--catch">
+                      {group.catchphrase}
+                    </p>
+                  </div>
+                  <p class="p-service-section__use-cases-line p-service-section__use-cases-line--desc">
+                    {group.description}
+                  </p>
+                </div>
                 <ul class="p-service-section__use-cases-list">
                   {group.items.map((item) => (
                     <li>{item}</li>
@@ -319,11 +308,16 @@ const serviceUseCaseGroups = [
     .p-service-section__use-cases-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.5rem 1.75rem;
-      align-items: start;
+      align-items: stretch;
     }
   }
 
   .p-service-section__use-cases-group {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
     margin: 0;
     min-width: 0;
     padding: 1rem 1rem 1.125rem;
@@ -339,25 +333,129 @@ const serviceUseCaseGroups = [
     }
   }
 
-  .p-service-section__use-cases-group-title {
+  /* 説明＋上段リード。リード外は左揃えのまま読みやすく */
+  .p-service-section__use-cases-meta {
     margin: 0 0 0.75rem;
-    padding-left: 0.75rem;
-    border-left: 4px solid var(--color-blue-01);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-section__use-cases-meta {
+      margin-bottom: 0.875rem;
+      gap: 0.65rem;
+    }
+  }
+
+  /* 誰向け＋キャッチを1塊で中央 */
+  .p-service-section__use-cases-lead {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    margin: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-section__use-cases-lead {
+      gap: 0.5625rem;
+    }
+  }
+
+  .p-service-section__use-cases-line {
+    margin: 0;
+    max-width: 100%;
     font-family: var(--font-family-base);
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.65;
+    letter-spacing: 0.02em;
+    text-wrap: pretty;
+    color: var(--color-black-03);
+  }
+
+  @media (--bp-md-up) {
+    .p-service-section__use-cases-line {
+      font-size: 0.875rem;
+      letter-spacing: 0.025em;
+    }
+  }
+
+  .p-service-section__use-cases-line--audience {
+    width: 100%;
+    font-size: 0.8125rem;
     font-weight: 700;
-    line-height: 1.5;
+    line-height: 1.45;
+    letter-spacing: 0.06em;
+    text-wrap: balance;
     color: var(--color-blue-01);
   }
 
   @media (--bp-md-up) {
-    .p-service-section__use-cases-group-title {
-      font-size: 1rem;
-      margin-bottom: 0.875rem;
+    .p-service-section__use-cases-line--audience {
+      font-size: 0.875rem;
+      letter-spacing: 0.07em;
     }
   }
 
+  /* キャッチ：固定高さの装飾ブロック内で縦横中央（高さは従来比 2/3） */
+  .p-service-section__use-cases-line--catch {
+    --service-catch-block-height: calc(5.375rem * 2 / 3);
+
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    height: var(--service-catch-block-height);
+    min-height: var(--service-catch-block-height);
+    margin: 0;
+    padding: 0.5rem 0.85rem;
+    border-radius: 0.5rem;
+    background:
+      linear-gradient(
+        125deg,
+        rgb(127 154 168 / 0.14) 0%,
+        rgb(251 107 106 / 0.09) 48%,
+        rgb(127 154 168 / 0.08) 100%
+      ),
+      rgb(255 255 255 / 0.45);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.55;
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-wrap: balance;
+    color: var(--color-black-03);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  }
+
+  @media (--bp-md-up) {
+    .p-service-section__use-cases-line--catch {
+      --service-catch-block-height: calc(5.875rem * 2 / 3);
+
+      padding-inline: 1rem;
+      font-size: 0.875rem;
+      letter-spacing: 0.045em;
+    }
+  }
+
+  .p-service-section__use-cases-line--desc {
+    font-weight: 500;
+    color: var(--color-black-03);
+    text-align: start;
+  }
+
   .p-service-section__use-cases-list {
+    flex: 1 1 auto;
+    min-height: 0;
     margin: 0;
     padding: 0;
     list-style: none;

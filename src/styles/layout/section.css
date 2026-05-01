@@ -17,6 +17,14 @@
     z-index: var(--z-section-content);
   }
 
+  .l-section-heading {
+    margin-bottom: 2.5rem;
+  }
+
+  .l-section-heading--content {
+    margin-bottom: 2.5rem;
+  }
+
   .l-section--wave-bottom-flat,
   .l-section--wave-top-flat {
     --section-wave-height: 42px;
@@ -55,6 +63,14 @@
   }
 
   @media (--bp-md-up) {
+    .l-section-heading {
+      margin-bottom: 54px;
+    }
+
+    .l-section-heading--content {
+      margin-bottom: 3rem;
+    }
+
     .l-section--wave-bottom-flat,
     .l-section--wave-top-flat {
       --section-wave-height: 62px;
@@ -112,5 +128,28 @@
   .l-section--article {
     --section-padding-block-start: 2rem;
     --section-padding-block-end: 2rem;
+  }
+
+  /**
+   * 固定ヘッダー下で先頭が被らないよう上余白を 130px に固定
+   *（`DocumentPageLayout` / `ServicePageLayout` の `topSpacing: belowHeader`）
+   */
+  .l-section--below-header {
+    --section-padding-block-start: 130px;
+  }
+
+  /**
+   * サービス下位ページのイントロ帯（縦パディングはトークン既定のまま）
+   */
+  .l-section--service-page-intro {
+    overflow-x: clip;
+    background: var(--color-bg-warm);
+    min-height: 520px;
+  }
+
+  @media (--bp-md-up) {
+    .l-section--service-page-intro {
+      min-height: 0;
+    }
   }
 }

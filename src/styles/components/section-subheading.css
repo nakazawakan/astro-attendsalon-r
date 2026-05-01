@@ -1,0 +1,23 @@
+@layer components {
+  /**
+   * セクション内の小見出し（h2/h3 等）。左にピンクのアクセント線。
+   * サービスページ以外のセクションでも再利用可。
+   */
+  .c-section-subheading {
+    margin: 0 0 1rem;
+    padding-left: 0.75rem;
+    border-left: 6px solid var(--color-pink-01);
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  @media (--bp-md-up) {
+    .c-section-subheading {
+      margin-bottom: 1.125rem;
+      font-size: 1.2rem;
+    }
+  }
+}

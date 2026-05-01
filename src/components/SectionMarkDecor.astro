@@ -1,0 +1,38 @@
+---
+interface Props {
+  anchor: 'tl' | 'br';
+  variant: 'hero' | 'service' | 'feature';
+}
+
+const { anchor, variant } = Astro.props;
+---
+
+<div
+  class:list={[
+    'p-section-mark',
+    anchor === 'tl' ? 'p-section-mark--anchor-tl' : 'p-section-mark--anchor-br',
+    `p-section-mark--${variant}`,
+  ]}
+  aria-hidden="true"
+>
+  <svg
+    class="p-section-mark__svg"
+    viewBox="0 0 1440 1152"
+    xmlns="http://www.w3.org/2000/svg"
+    role="presentation"
+  >
+    <text
+      class="p-section-mark__text"
+      x="0"
+      y="1095"
+      fill="currentColor"
+      font-size="1296"
+      font-weight="900"
+      font-family="'Ruika 09', 'Ruika', 'Rubik', sans-serif"
+      letter-spacing="-0.04em"
+      dominant-baseline="alphabetic"
+    >
+      R
+    </text>
+  </svg>
+</div>

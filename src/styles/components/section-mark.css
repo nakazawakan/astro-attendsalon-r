@@ -32,6 +32,12 @@
     --section-mark-color: var(--color-bg-warm);
   }
 
+  .p-section-mark--feature {
+    --section-mark-width: clamp(280px, 58vw, 860px);
+    --section-mark-transform: translate(calc(12% - 10px), calc(122% - 12px)) rotate(45deg) scale(1.02);
+    --section-mark-color: #fff;
+  }
+
   .p-section-mark__svg {
     display: block;
     width: 100%;
@@ -48,6 +54,11 @@
     .p-section-mark--hero {
       --section-mark-width: clamp(320px, 86vw, 1480px);
       --section-mark-transform: translate(3%, -34%) rotate(45deg) scale(0.85);
+    }
+
+    .p-section-mark--feature {
+      --section-mark-width: clamp(520px, 52vw, 1320px);
+      --section-mark-transform: translate(calc(10% - 24px), calc(68% - 8px)) rotate(45deg) scale(0.92);
     }
   }
 }

@@ -1,0 +1,98 @@
+---
+import ServiceSectionBlock from './ServiceSectionBlock.astro';
+
+interface Props {
+  id: string;
+  worries: string[];
+  lead: string;
+  paragraphs: string[];
+  label?: string;
+  title?: string;
+  whiteBackground?: boolean;
+}
+
+const {
+  id,
+  worries,
+  lead,
+  paragraphs,
+  label = 'WORRIES',
+  title = '職場でこんな「困った」は\nありませんか？',
+  whiteBackground = true,
+} = Astro.props;
+---
+
+<ServiceSectionBlock id={id} label={label} title={title} whiteBackground={whiteBackground}>
+  <div class="p-service-worries">
+    <ul class="p-service-worries__list">
+      {worries.map((worry) => <li>{worry}</li>)}
+    </ul>
+    <div class="p-service-worries__body">
+      <p class="p-service-worries__lead">{lead}</p>
+      {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </div>
+</ServiceSectionBlock>
+
+<style>
+  .p-service-worries {
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .p-service-worries__list {
+    margin: 0;
+    padding: 1.125rem 1.125rem 1.125rem 2.4rem;
+    border-radius: 14px;
+    background: var(--color-surface-blue-soft);
+    border: 1px solid var(--color-border-soft);
+    display: grid;
+    gap: 0.75rem;
+    color: var(--color-black-03);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    font-weight: 500;
+  }
+
+  .p-service-worries__body {
+    display: grid;
+    gap: 0.9rem;
+    color: var(--color-black-03);
+    line-height: 1.95;
+    font-size: 0.95rem;
+  }
+
+  .p-service-worries__body p {
+    margin: 0;
+  }
+
+  .p-service-worries__lead {
+    color: var(--color-pink-01);
+    font-weight: 700;
+  }
+
+  :global(h2[id$='-worries-title']) {
+    white-space: pre-line;
+  }
+
+  @media (--bp-md-up) {
+    :global(h2[id$='-worries-title']) {
+      white-space: normal;
+    }
+
+    .p-service-worries {
+      margin-top: 2rem;
+      gap: 1.5rem;
+    }
+
+    .p-service-worries__list {
+      padding: 1.25rem 1.25rem 1.25rem 2.65rem;
+      font-size: 1rem;
+    }
+
+    .p-service-worries__body {
+      font-size: 1rem;
+    }
+  }
+</style>

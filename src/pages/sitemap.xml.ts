@@ -1,6 +1,5 @@
 import type { APIContext } from 'astro';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import { listPublishedColumnEntries, listPublishedNewsEntries } from '../lib/content-entries';
 import { SITEMAP_XML_STATIC_PATHS } from '../lib/sitemap-urls';
 
 type SitemapUrl = { path: string; lastmod?: string };
@@ -20,19 +19,13 @@ const escapeXml = (value: string) =>
 export async function GET({ site }: APIContext) {
   const baseUrl = site ?? new URL('https://attendsalon-r.com');
 
-  const articles: CollectionEntry<'column'>[] = await getCollection(
-    'column',
-    (entry: CollectionEntry<'column'>) => !entry.data.draft,
-  );
+  const articles = await listPublishedColumnEntries();
   const articlePaths: SitemapUrl[] = articles.map((article) => ({
     path: `/column/${article.slug}/`,
     lastmod: (article.data.updatedAt ?? article.data.publishedAt).toISOString().slice(0, 10),
   }));
 
-  const newsItems: CollectionEntry<'news'>[] = await getCollection(
-    'news',
-    (entry: CollectionEntry<'news'>) => !entry.data.draft,
-  );
+  const newsItems = await listPublishedNewsEntries();
   const newsPaths: SitemapUrl[] = newsItems.map((item) => ({
     path: `/news/${item.slug}/`,
     lastmod: (item.data.updatedAt ?? item.data.publishedAt).toISOString().slice(0, 10),

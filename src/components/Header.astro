@@ -2,13 +2,17 @@
 import IconChatConsult from './IconChatConsult.astro';
 import IconDocumentRequest from './IconDocumentRequest.astro';
 import IconChevronCtaPink from './IconChevronCtaPink.astro';
+import { serviceOfferings } from '../data/service-offerings';
+
+const serviceNavLinks: { href: string; label: string }[] = serviceOfferings.map(({ detailPath, title }) => ({
+  href: detailPath,
+  label: title,
+}));
 
 const mobileNavLinks: { href: string; label: string }[] = [
-  { href: '/comming-soon', label: '選ばれる理由' },
+  { href: '/#about', label: '選ばれる理由' },
   { href: '/column/about-emotional-labor', label: '感情労働とは' },
-  { href: '/comming-soon/', label: 'メンタルヘルス研修' },
-  { href: '/comming-soon/', label: 'アンガーマネジメント研修' },
-  { href: '/comming-soon/', label: 'ハラスメント研修' },
+  ...serviceNavLinks,
   { href: '/company/', label: '運営者情報' },
   { href: '/trainer/', label: '講師紹介' },
 ];
@@ -58,18 +62,13 @@ const mobileNavLinks: { href: string; label: string }[] = [
           aria-label="研修サービス"
         >
           <div class="c-site-header__mega-menu">
-            <a
-              href="/#service-mental-health"
-              class="c-site-header__mega-link"
-              >メンタルヘルス研修</a>
-            <a
-              href="/#service-anger-management"
-              class="c-site-header__mega-link"
-              >アンガーマネジメント研修</a>
-            <a
-              href="/#service-harassment"
-              class="c-site-header__mega-link"
-              >ハラスメント研修</a>
+            {
+              serviceOfferings.map((service) => (
+                <a href={service.detailPath} class="c-site-header__mega-link">
+                  {service.title}
+                </a>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -199,10 +198,18 @@ const mobileNavLinks: { href: string; label: string }[] = [
 
   .c-site-header__desktop-link,
   .c-site-header__mega-trigger {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0;
+    line-height: 1.25;
     color: var(--color-black-03);
     font-size: 15px;
     font-weight: 700;
     transition: color 0.2s ease;
+  }
+
+  .c-site-header__desktop-link {
+    text-decoration: none;
   }
 
   .c-site-header__mega-caret {
@@ -223,13 +230,12 @@ const mobileNavLinks: { href: string; label: string }[] = [
   }
 
   .c-site-header__mega-trigger {
-    display: inline-flex;
-    align-items: center;
     gap: 0.25rem;
     border: 0;
     background: transparent;
-    padding: 0.25rem 0;
     cursor: pointer;
+    /* UA の button 用フォントを避ける。`font: inherit` は font-weight も親に戻すため使わない */
+    font-family: inherit;
   }
 
   .c-site-header__mega-panel {

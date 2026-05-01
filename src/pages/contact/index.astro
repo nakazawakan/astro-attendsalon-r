@@ -1,5 +1,7 @@
 ---
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+import ContactFormField from '../../components/form/ContactFormField.astro';
+import ContactFormShell from '../../components/form/ContactFormShell.astro';
 
 const title = '研修の無料相談';
 const description =
@@ -60,241 +62,102 @@ const prefectures = [...prefectureFirst, ...prefectureRest];
   canonicalPath="/contact/"
   eyebrow="Contact"
 >
-  <div class="p-contact-subpage">
+  <ContactFormShell
+    formId="contact-inquiry-form"
+    formName="contact"
+    submitLabel="研修の無料相談を送信"
+    thanksPath="/contact/thanks/"
+  >
+    <ContactFormField id="contact-company" label="事業所名" required>
+      <input
+        class="p-contact-form__control"
+        id="contact-company"
+        name="company"
+        type="text"
+        autocomplete="organization"
+        required
+        maxlength="200"
+      />
+    </ContactFormField>
 
-    <form id="contact-inquiry-form" class="p-contact-form" name="contact" method="post" action="#">
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-company">
-          会社名 <span class="p-contact-form__req">必須</span>
-        </label>
-        <input
-          class="p-contact-form__control"
-          id="contact-company"
-          name="company"
-          type="text"
-          autocomplete="organization"
-          required
-          maxlength="200"
-        />
-      </div>
+    <ContactFormField id="contact-company-url" label="事業所URL">
+      <input
+        class="p-contact-form__control"
+        id="contact-company-url"
+        name="company_url"
+        type="url"
+        autocomplete="url"
+        inputmode="url"
+        placeholder="https://"
+        maxlength="500"
+      />
+    </ContactFormField>
 
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-company-url">会社URL</label>
-        <input
-          class="p-contact-form__control"
-          id="contact-company-url"
-          name="company_url"
-          type="url"
-          autocomplete="url"
-          inputmode="url"
-          placeholder="https://"
-          maxlength="500"
-        />
-      </div>
+    <ContactFormField id="contact-prefecture" label="都道府県" required>
+      <select class="p-contact-form__control p-contact-form__control--select" id="contact-prefecture" name="prefecture" required>
+        <option value="" disabled selected hidden>選択してください</option>
+        {prefectures.map((name) => <option value={name}>{name}</option>)}
+      </select>
+    </ContactFormField>
 
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-prefecture">
-          都道府県 <span class="p-contact-form__req">必須</span>
-        </label>
-        <select class="p-contact-form__control p-contact-form__control--select" id="contact-prefecture" name="prefecture" required>
-          <option value="" disabled selected hidden>選択してください</option>
-          {prefectures.map((name) => <option value={name}>{name}</option>)}
-        </select>
-      </div>
+    <ContactFormField id="contact-address" label="所在地" required>
+      <input
+        class="p-contact-form__control"
+        id="contact-address"
+        name="address"
+        type="text"
+        autocomplete="street-address"
+        required
+        maxlength="300"
+      />
+    </ContactFormField>
 
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-address">
-          所在地 <span class="p-contact-form__req">必須</span>
-        </label>
-        <input
-          class="p-contact-form__control"
-          id="contact-address"
-          name="address"
-          type="text"
-          autocomplete="street-address"
-          required
-          maxlength="300"
-        />
-      </div>
+    <ContactFormField id="contact-name" label="担当者名" required>
+      <input
+        class="p-contact-form__control"
+        id="contact-name"
+        name="contact_name"
+        type="text"
+        autocomplete="name"
+        required
+        maxlength="100"
+      />
+    </ContactFormField>
 
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-name">
-          担当者名 <span class="p-contact-form__req">必須</span>
-        </label>
-        <input
-          class="p-contact-form__control"
-          id="contact-name"
-          name="contact_name"
-          type="text"
-          autocomplete="name"
-          required
-          maxlength="100"
-        />
-      </div>
+    <ContactFormField id="contact-email" label="担当者メールアドレス" required>
+      <input
+        class="p-contact-form__control"
+        id="contact-email"
+        name="contact_email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        required
+        maxlength="254"
+      />
+    </ContactFormField>
 
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-email">
-          担当者メールアドレス <span class="p-contact-form__req">必須</span>
-        </label>
-        <input
-          class="p-contact-form__control"
-          id="contact-email"
-          name="contact_email"
-          type="email"
-          autocomplete="email"
-          inputmode="email"
-          required
-          maxlength="254"
-        />
-      </div>
+    <ContactFormField id="contact-tel" label="担当者電話番号" required>
+      <input
+        class="p-contact-form__control"
+        id="contact-tel"
+        name="contact_tel"
+        type="tel"
+        autocomplete="tel"
+        inputmode="tel"
+        required
+        maxlength="30"
+      />
+    </ContactFormField>
 
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-tel">
-          担当者電話番号 <span class="p-contact-form__req">必須</span>
-        </label>
-        <input
-          class="p-contact-form__control"
-          id="contact-tel"
-          name="contact_tel"
-          type="tel"
-          autocomplete="tel"
-          inputmode="tel"
-          required
-          maxlength="30"
-        />
-      </div>
-
-      <div class="p-contact-form__field">
-        <label class="p-contact-form__label" for="contact-message">
-          ご相談内容 <span class="p-contact-form__req">必須</span>
-        </label>
-        <textarea
-          class="p-contact-form__control p-contact-form__control--textarea"
-          id="contact-message"
-          name="message"
-          rows="8"
-          required
-          maxlength="8000"></textarea>
-      </div>
-
-      <div class="p-contact-form__actions">
-        <button type="submit" class="c-button c-button--solid-pink p-contact-form__submit">研修の無料相談を送信</button>
-      </div>
-    </form>
-  </div>
+    <ContactFormField id="contact-message" label="ご相談内容" required>
+      <textarea
+        class="p-contact-form__control p-contact-form__control--textarea"
+        id="contact-message"
+        name="message"
+        rows="8"
+        required
+        maxlength="8000"></textarea>
+    </ContactFormField>
+  </ContactFormShell>
 </DocumentPageLayout>
-
-<script>
-  const form = document.querySelector<HTMLFormElement>('#contact-inquiry-form');
-  form?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-    window.location.assign('/contact/thanks/');
-  });
-</script>
-
-<style>
-  .p-contact-subpage {
-    padding-bottom: 2rem;
-  }
-
-  .p-contact-form {
-    box-sizing: border-box;
-    max-width: 36rem;
-    margin-inline: auto;
-    padding: 1.5rem;
-    border: 1px solid var(--color-border-soft);
-    border-radius: 1rem;
-    background: #fff;
-    box-shadow: var(--shadow-soft);
-  }
-
-  @media (--bp-md-up) {
-    .p-contact-form {
-      padding: 2rem;
-    }
-  }
-
-  .p-contact-form__field {
-    margin-bottom: 1.25rem;
-  }
-
-  .p-contact-form__field:last-of-type {
-    margin-bottom: 1.5rem;
-  }
-
-  .p-contact-form__label {
-    display: block;
-    margin-bottom: 0.375rem;
-    font-family: var(--font-family-base);
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--color-black-03);
-  }
-
-  .p-contact-form__req {
-    margin-inline-start: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--color-pink-01);
-  }
-
-  .p-contact-form__control {
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 0;
-    margin: 0;
-    padding: 0.625rem 0.75rem;
-    border: 1px solid var(--color-border-soft);
-    border-radius: var(--radius-lg);
-    font-family: var(--font-family-base);
-    font-size: 0.875rem;
-    color: var(--color-black-03);
-    background: #fff;
-    transition:
-      border-color 0.15s ease,
-      box-shadow 0.15s ease;
-  }
-
-  .p-contact-form__control:focus {
-    outline: none;
-    border-color: var(--color-blue-01);
-    box-shadow: 0 0 0 2px rgb(127 154 168 / 0.25);
-  }
-
-  .p-contact-form__control--select {
-    padding-block: 0.5rem;
-    cursor: pointer;
-  }
-
-  .p-contact-form__control--textarea {
-    display: block;
-    resize: vertical;
-    min-height: 8rem;
-    line-height: 1.6;
-  }
-
-  .p-contact-form__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 0.5rem;
-  }
-
-  .p-contact-form__submit {
-    width: 100%;
-    max-width: 22rem;
-    text-align: center;
-  }
-
-  @media (--bp-md-up) {
-    .p-contact-form__submit {
-      width: auto;
-      max-width: none;
-      min-width: min(100%, 20rem);
-    }
-  }
-</style>

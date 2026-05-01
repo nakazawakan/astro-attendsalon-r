@@ -30,11 +30,11 @@ const instructors = instructorsForCards;
             title="講師紹介"
             bottomMarginStyle="content"
           >
-            <div slot="intro">
+            <Fragment slot="intro">
               <p>私たちは長年にわたり、客室乗務員として感情労働の最前線で働き、<br class="u-only-pc">
               管理職として人財育成や相談対応を担ってきました</p>
               <p>感情を扱う現場で起こる、実情に即した研修をご提案し、感情に振り回されない働き方、イキイキ働くチーム作りを支援します</p>
-            </div>
+            </Fragment>
           </SectionHeading>
           <InstructorCardsRow instructors={instructors} />
           <p class="p-instructor-section__trainer-more">
@@ -62,38 +62,6 @@ const instructors = instructorsForCards;
   .p-instructor-section__embed {
     position: relative;
     z-index: var(--z-section-content, 3);
-  }
-
-  .l-wave {
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: var(--wave-height);
-    z-index: var(--section-wave-z-index, var(--z-section-wave, 1));
-    pointer-events: none;
-    background: #fff;
-  }
-
-  .l-wave--top {
-    top: 0;
-    transform: translateY(-1px) scaleY(-1);
-    transform-origin: 50% 50%;
-  }
-
-  .l-wave--bottom {
-    bottom: 0;
-    transform: translateY(1px);
-  }
-
-  .l-wave--pattern-gentle-a {
-    mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
-    -webkit-mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
-  }
-
-  .l-wave--pattern-gentle-b {
-    mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
-    -webkit-mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
   }
 
   .p-instructor-section--embedded {

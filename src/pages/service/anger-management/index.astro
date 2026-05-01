@@ -1,0 +1,17 @@
+---
+import ServicePageLayout from '../../../layouts/ServicePageLayout.astro';
+import ServicePageContent from './_ServicePageContent.astro';
+
+const title = 'アンガーマネジメント研修';
+const description =
+  '東京エリアを中心に、アンガーマネジメントに関する研修のご案内ページです。';
+const heroLead =
+  '感情に振り回されず冷静に対処できる職場づくりを目指し、怒りの仕組みを理解して適切に扱う力を身につけることで、ハラスメント予防と組織力向上につなげる実践型アンガーマネジメント研修';
+---
+<ServicePageLayout
+  title={title}
+  description={description}
+  heroLead={heroLead}
+  canonicalPath="/service/anger-management/"
+  Content={ServicePageContent}
+/>

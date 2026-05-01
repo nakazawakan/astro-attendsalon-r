@@ -1,23 +1,13 @@
 ---
 import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
 import { faqs, FAQ_CATEGORY_ORDER } from '../../data/faqs';
+import { buildFaqPageJsonLd } from '../../lib/structured-data';
 
 const title = 'よくある質問';
 const description =
   'アテンドサロンRの研修・お見積り・実施形式など、よくいただくご質問と回答をまとめました。';
 
-const faqPageJsonLd: Record<string, unknown> = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map(({ q, a }) => ({
-    '@type': 'Question',
-    name: q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: a.replace(/\s+/g, ' ').trim(),
-    },
-  })),
-};
+const faqPageJsonLd = buildFaqPageJsonLd(faqs, { normalizeAnswerWhitespace: true });
 
 const faqGroups = FAQ_CATEGORY_ORDER.map((category) => ({
   category,

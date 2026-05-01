@@ -1,0 +1,17 @@
+---
+import ServicePageLayout from '../../../layouts/ServicePageLayout.astro';
+import ServicePageContent from './_ServicePageContent.astro';
+
+const title = 'メンタルヘルス研修';
+const description =
+  '東京エリアを中心に、職場のメンタルヘルス・ストレスマネジメントに関する研修のご案内ページです。';
+const heroLead =
+  '不調が表面化する前に気づきと支える力を育み、ストレスの正体を理解してセルフケアとラインケアを身につけることで、休職や離職を防ぎ安心して働き続けられる職場づくりにつなげる実践型メンタルヘルス研修';
+---
+<ServicePageLayout
+  title={title}
+  description={description}
+  heroLead={heroLead}
+  canonicalPath="/service/mental-health/"
+  Content={ServicePageContent}
+/>

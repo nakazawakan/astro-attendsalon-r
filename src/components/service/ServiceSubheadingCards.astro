@@ -1,0 +1,237 @@
+---
+export interface ServiceStepItem {
+  title: string;
+}
+
+export interface ServiceSyllabusColumn {
+  tag: string;
+  subheads: string[];
+  bullets: string[];
+}
+
+interface Props {
+  stepsSectionTitle: string;
+  steps: ServiceStepItem[];
+  syllabusSectionTitle: string;
+  syllabusColumns: ServiceSyllabusColumn[];
+}
+
+const { stepsSectionTitle, steps, syllabusSectionTitle, syllabusColumns } = Astro.props;
+
+const stepLabel = (index: number) => `STEP ${String(index + 1).padStart(2, '0')}`;
+---
+
+<div class="p-service-subheading-cards">
+  <section class="p-service-subheading-cards__section" aria-labelledby="service-steps-heading">
+    <h3 class="c-section-subheading" id="service-steps-heading">
+      {stepsSectionTitle}
+    </h3>
+    <ol class="p-service-subheading-cards__steps">
+      {
+        steps.map((item, index) => (
+          <li class="p-service-subheading-cards__step">
+            <span class="p-service-subheading-cards__step-label" aria-hidden="true">
+              {stepLabel(index)}
+            </span>
+            <span class="p-service-subheading-cards__step-title">{item.title}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="p-service-subheading-cards__section" aria-labelledby="service-syllabus-heading">
+    <h3 class="c-section-subheading" id="service-syllabus-heading">
+      {syllabusSectionTitle}
+    </h3>
+    <div class="p-service-subheading-cards__syllabus">
+      {
+        syllabusColumns.map((col) => (
+          <article class="p-service-subheading-cards__column">
+            <p class="p-service-subheading-cards__tag">{col.tag}</p>
+            <div class="p-service-subheading-cards__column-body">
+              {col.subheads.map((line) => (
+                <p class="p-service-subheading-cards__subhead">{line}</p>
+              ))}
+              <ul class="p-service-subheading-cards__bullets">
+                {col.bullets.map((b) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</div>
+
+<style>
+  .p-service-subheading-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 1.75rem;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards {
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+  }
+
+  .p-service-subheading-cards__section {
+    margin: 0;
+  }
+
+  /* --- 3 steps --- */
+  .p-service-subheading-cards__steps {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+  }
+
+  .p-service-subheading-cards__step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 8px;
+    background: #fff;
+    padding: 1rem 1.125rem;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__step {
+      padding: 1.125rem 1.25rem;
+    }
+  }
+
+  .p-service-subheading-cards__step-label {
+    color: var(--color-blue-01);
+    font-family: Lato, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__step-label {
+      font-size: 0.875rem;
+    }
+  }
+
+  .p-service-subheading-cards__step-title {
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__step-title {
+      font-size: 1.0625rem;
+    }
+  }
+
+  /* --- syllabus 3 columns --- */
+  .p-service-subheading-cards__syllabus {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__syllabus {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: stretch;
+    }
+  }
+
+  .p-service-subheading-cards__column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 8px;
+    background: #fff;
+    padding: 1rem 1.125rem;
+    min-width: 0;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__column {
+      padding: 1.125rem 1.25rem;
+    }
+  }
+
+  .p-service-subheading-cards__tag {
+    align-self: flex-start;
+    margin: 0;
+    border-radius: var(--radius-full);
+    background: var(--color-surface-blue-soft);
+    padding: 0.35rem 0.85rem;
+    color: var(--color-blue-01);
+    font-family: var(--font-family-base);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__tag {
+      font-size: 0.875rem;
+      padding: 0.4rem 0.95rem;
+    }
+  }
+
+  .p-service-subheading-cards__column-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .p-service-subheading-cards__subhead {
+    margin: 0;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .p-service-subheading-cards__bullets {
+    margin: 0.125rem 0 0;
+    padding-left: 1.25rem;
+    color: var(--color-black-05);
+    font-family: var(--font-family-base);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.65;
+  }
+
+  @media (--bp-md-up) {
+    .p-service-subheading-cards__bullets {
+      font-size: 0.9375rem;
+    }
+  }
+
+  .p-service-subheading-cards__bullets li + li {
+    margin-top: 0.35rem;
+  }
+</style>

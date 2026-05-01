@@ -1,0 +1,21 @@
+---
+interface Props {
+  lead: string;
+  note: string;
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref: string;
+  secondaryLabel: string;
+}
+
+const { lead, note, primaryHref, primaryLabel, secondaryHref, secondaryLabel } = Astro.props;
+---
+
+<div class="p-thanks-page">
+  <p class="p-thanks-page__lead">{lead}</p>
+  <p class="p-thanks-page__note">{note}</p>
+  <p class="p-thanks-page__actions">
+    <a href={primaryHref} class="c-button c-button--outline-pink">{primaryLabel}</a>
+    <a href={secondaryHref} class="c-button c-button--solid-pink">{secondaryLabel}</a>
+  </p>
+</div>

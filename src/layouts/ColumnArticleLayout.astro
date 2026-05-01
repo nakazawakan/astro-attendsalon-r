@@ -1,8 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
 import BreadcrumbNav from '../components/BreadcrumbNav.astro';
 import { buildBreadcrumbJsonLd, type DocumentBreadcrumbItem } from '../lib/document-page';
+import { listPublishedColumnEntries } from '../lib/content-entries';
+import { buildArticleJsonLd, buildFaqPageJsonLd } from '../lib/structured-data';
+import { serviceOfferings } from '../data/service-offerings';
 import SiteChrome from './SiteChrome.astro';
 
 interface Props {
@@ -14,19 +16,14 @@ type Faq = CollectionEntry<'column'>['data']['faqs'][number];
 
 const { article, canonicalPath } = Astro.props;
 
-const recommendedSeminars = [
-  { href: '/comming-soon/', label: 'ハラスメント研修' },
-  { href: '/comming-soon/', label: 'メンタルヘルス研修' },
-  { href: '/comming-soon/', label: 'アンガーマネジメント研修' },
-] as const;
+const recommendedSeminars = serviceOfferings.map(({ detailPath, title }) => ({
+  href: detailPath,
+  label: title,
+}));
 
-const relatedArticles: CollectionEntry<'column'>[] = (
-  await getCollection('column', (entry: CollectionEntry<'column'>) => !entry.data.draft)
-)
+const relatedArticles: CollectionEntry<'column'>[] = (await listPublishedColumnEntries())
   .filter((entry) => entry.slug !== article.slug)
-  .sort(
-    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
-  );
+;
 const { data } = article;
 const site = Astro.site ?? new URL('https://attendsalon-r.com');
 const articleUrl = new URL(canonicalPath, site).toString();
@@ -49,45 +46,19 @@ const modifiedDisplayDate = data.updatedAt
     }).format(data.updatedAt)
   : null;
 
-const articleJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: data.title,
+const articleJsonLd = buildArticleJsonLd({
+  title: data.title,
   description: data.description,
-  datePublished: publishedIso,
-  dateModified: modifiedIso,
-  inLanguage: 'ja',
-  mainEntityOfPage: articleUrl,
-  image: [articleImage],
+  pageUrl: articleUrl,
+  site,
+  publishedIso,
+  modifiedIso,
+  imageUrl: articleImage,
   keywords: data.keyword,
-  author: {
-    '@type': 'Organization',
-    name: 'アテンドサロンR',
-    url: site.toString(),
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'アテンドサロンR',
-    logo: {
-      '@type': 'ImageObject',
-      url: new URL('/images/logo.png', site).toString(),
-    },
-  },
-};
+});
 
 const faqJsonLd = data.faqs.length
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: data.faqs.map(({ question, answer }: Faq) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: answer,
-        },
-      })),
-    }
+  ? buildFaqPageJsonLd(data.faqs)
   : null;
 const breadcrumbItems: DocumentBreadcrumbItem[] = [
   { label: 'ホーム', href: '/' },

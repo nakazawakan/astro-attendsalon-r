@@ -1,5 +1,6 @@
 ---
 import DocumentPageLayout from '../../../layouts/DocumentPageLayout.astro';
+import FormThanksMessage from '../../../components/form/FormThanksMessage.astro';
 
 const title = '資料請求完了';
 const description = '資料請求の送信が完了しました。';
@@ -16,54 +17,12 @@ const description = '資料請求の送信が完了しました。';
     { label: title },
   ]}
 >
-  <div class="p-thanks-page">
-    <p class="p-thanks-page__lead">
-      資料請求を受け付けました。ご入力のメールアドレス宛に、概要資料などをお送りします。
-    </p>
-    <p class="p-thanks-page__note">
-      送信処理のバックエンド接続前の場合、自動返信やメール送信は行われないことがあります。
-    </p>
-    <p class="p-thanks-page__actions">
-      <a href="/" class="c-button c-button--outline-pink">トップへ戻る</a>
-      <a href="/request/" class="c-button c-button--solid-pink">資料請求へ戻る</a>
-    </p>
-  </div>
+  <FormThanksMessage
+    lead="資料請求を受け付けました。ご入力のメールアドレス宛に、概要資料などをお送りします。"
+    note="送信処理のバックエンド接続前の場合、自動返信やメール送信は行われないことがあります。"
+    primaryHref="/"
+    primaryLabel="トップへ戻る"
+    secondaryHref="/request/"
+    secondaryLabel="資料請求へ戻る"
+  />
 </DocumentPageLayout>
-
-<style>
-  .p-thanks-page {
-    max-width: 36rem;
-    margin-inline: auto;
-    padding-bottom: 1rem;
-    font-family: var(--font-family-base);
-    color: var(--color-black-03);
-  }
-
-  .p-thanks-page__lead {
-    margin: 0 0 1rem;
-    font-size: 0.9375rem;
-    line-height: 1.7;
-  }
-
-  .p-thanks-page__note {
-    margin: 0 0 2rem;
-    font-size: 0.8125rem;
-    line-height: 1.6;
-    color: var(--color-black-05);
-  }
-
-  .p-thanks-page__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  @media (--bp-md-up) {
-    .p-thanks-page__actions {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
-</style>

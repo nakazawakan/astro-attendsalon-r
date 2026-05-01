@@ -6,11 +6,12 @@ export interface Props {
   icon: string;
   iconSize?: 'default' | 'large';
   ctaLabel: string;
+  href: string;
   /** デスクトップグリッドでアンカー用。SP カルーセルでは重複 id を避けて省略 */
   anchorId?: string;
 }
 
-const { title, body, bodyTone, icon, iconSize = 'default', ctaLabel, anchorId } = Astro.props;
+const { title, body, bodyTone, icon, iconSize = 'default', ctaLabel, href, anchorId } = Astro.props;
 const isLargeIcon = iconSize === 'large';
 const iconPixelSize = isLargeIcon ? 48 : 32;
 ---
@@ -43,7 +44,7 @@ const iconPixelSize = isLargeIcon ? 48 : 32;
   >
     {body}
   </p>
-  <a href="/comming-soon/" class="p-service-card__cta">
+  <a href={href} class="p-service-card__cta">
     <img
       src="/images/about-chevron-cta.svg"
       alt=""

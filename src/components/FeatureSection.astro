@@ -1,6 +1,7 @@
 ---
 import NoImagePlaceholder from './NoImagePlaceholder.astro';
 import SectionHeading from './SectionHeading.astro';
+import SectionMarkDecor from './SectionMarkDecor.astro';
 
 const features = [
   {
@@ -25,28 +26,7 @@ const features = [
 ---
 <section id="features" class="l-section p-feature-section" data-reveal>
   <div class="l-wave l-wave--top l-wave--pattern-gentle-a" aria-hidden="true"></div>
-  <div class="p-section-mark p-section-mark--anchor-tl p-section-mark--feature" aria-hidden="true">
-    <svg
-      class="p-section-mark__svg"
-      viewBox="0 0 1440 1152"
-      xmlns="http://www.w3.org/2000/svg"
-      role="presentation"
-    >
-      <text
-        class="p-section-mark__text"
-        x="0"
-        y="1095"
-        fill="currentColor"
-        font-size="1296"
-        font-weight="900"
-        font-family="'Ruika 09', 'Ruika', 'Rubik', sans-serif"
-        letter-spacing="-0.04em"
-        dominant-baseline="alphabetic"
-      >
-        R
-      </text>
-    </svg>
-  </div>
+  <SectionMarkDecor anchor="tl" variant="feature" />
   <div class="p-feature-section__bg-haze" aria-hidden="true"></div>
   <div class="l-container">
     <SectionHeading label="FEATURE" title="アテンドサロンRの特徴" />
@@ -128,12 +108,6 @@ const features = [
     transform: translate3d(0, 0, 0) scale(1.02);
   }
 
-  .p-feature-section .p-section-mark--feature {
-    --section-mark-width: clamp(280px, 58vw, 860px);
-    --section-mark-transform: translate(calc(12% - 10px), calc(122% - 12px)) rotate(45deg) scale(1.02);
-    --section-mark-color: #fff;
-  }
-
   .p-feature-section.is-visible .p-feature-section__bg-haze {
     animation: p-feature-section-bg-sway 10s ease-in-out infinite alternate;
   }
@@ -141,38 +115,6 @@ const features = [
   .p-feature-section > .l-container {
     position: relative;
     z-index: var(--z-section-content, 3);
-  }
-
-  .l-wave {
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: var(--wave-height);
-    z-index: var(--section-wave-z-index, var(--z-section-wave, 1));
-    pointer-events: none;
-    background: #fff;
-  }
-
-  .l-wave--top {
-    top: 0;
-    transform: translateY(-1px) scaleY(-1);
-    transform-origin: 50% 50%;
-  }
-
-  .l-wave--bottom {
-    bottom: 0;
-    transform: translateY(1px);
-  }
-
-  .l-wave--pattern-gentle-a {
-    mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
-    -webkit-mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
-  }
-
-  .l-wave--pattern-gentle-b {
-    mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
-    -webkit-mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
   }
 
   @keyframes p-feature-section-bg-sway {
@@ -278,11 +220,6 @@ const features = [
   @media (--bp-md-up) {
     .p-feature-section {
       --wave-height: 62px;
-    }
-
-    .p-feature-section .p-section-mark--feature {
-      --section-mark-width: clamp(520px, 52vw, 1320px);
-      --section-mark-transform: translate(calc(10% - 24px), calc(68% - 8px)) rotate(45deg) scale(0.92);
     }
 
     .p-feature-section__list {

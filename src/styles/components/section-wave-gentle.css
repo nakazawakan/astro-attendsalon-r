@@ -1,0 +1,33 @@
+@layer components {
+  .l-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--wave-height);
+    z-index: var(--section-wave-z-index, var(--z-section-wave, 1));
+    pointer-events: none;
+    background: #fff;
+  }
+
+  .l-wave--top {
+    top: 0;
+    transform: translateY(-1px) scaleY(-1);
+    transform-origin: 50% 50%;
+  }
+
+  .l-wave--bottom {
+    bottom: 0;
+    transform: translateY(1px);
+  }
+
+  .l-wave--pattern-gentle-a {
+    mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
+    -webkit-mask: var(--wave-mask-gentle-a) center / 100% 100% no-repeat;
+  }
+
+  .l-wave--pattern-gentle-b {
+    mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
+    -webkit-mask: var(--wave-mask-gentle-b) center / 100% 100% no-repeat;
+  }
+}

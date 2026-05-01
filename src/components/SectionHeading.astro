@@ -1,12 +1,17 @@
 ---
 /**
- * Figma セクション見出し（例: `294:720`）— 英字ラベル + 左装飾 + Zen 32px 見出しで統一
+ * Figma セクション見出し（例: `294:720`）— 英字ラベル + 左装飾 + Zen 32px 見出しで統一。
+ * 既定はセクション用 h2。`headingLevel={1}` でページ見出しの h1 にも流用可。
  */
 interface Props {
   label: string;
   title: string;
-  /** h2 の id（アンカー・アクセシビリティ用） */
+  /** 見出しの id（アンカー・アクセシビリティ用） */
   id?: string;
+  /** 1: ページ H1（下位ページ見出し）。未指定は 2（セクション h2） */
+  headingLevel?: 1 | 2;
+  /** 見出しブロックの字揃え（未指定は左） */
+  align?: 'start' | 'center';
   /** 見出しブロック下の余白（デフォルト: セクション標準） */
   withBottomMargin?: boolean;
   /** 次要素との余白バリエーション */
@@ -14,22 +19,29 @@ interface Props {
   /** ファーストビュー付近なら eager */
   decoLoading?: 'eager' | 'lazy';
 }
+
 const {
   label,
   title,
   id,
+  headingLevel = 2,
+  align = 'start',
   withBottomMargin = true,
   bottomMarginStyle = 'section',
   decoLoading = 'lazy',
 } = Astro.props;
+
 const rootClass = [
   'c-section-heading',
-  withBottomMargin && 'c-section-heading--with-margin',
-  withBottomMargin && bottomMarginStyle === 'content' && 'c-section-heading--with-content-margin',
+  align === 'center' && 'c-section-heading--align-center',
+  withBottomMargin && 'l-section-heading',
+  withBottomMargin && bottomMarginStyle === 'content' && 'l-section-heading--content',
 ]
   .filter(Boolean)
   .join(' ');
-const hasIntro = Astro.slots.has('intro');
+/** `slots.has` だけでは空の intro ラッパーが出ることがあるため、実体の有無で判定する */
+const introMarkup = Astro.slots.has('intro') ? await Astro.slots.render('intro') : '';
+const hasIntroContent = introMarkup.trim().length > 0;
 ---
 <div class={rootClass}>
   <!-- 装飾の基準は英字ラベル＋h2。必要なら intro も同一コンポーネントで受ける -->
@@ -46,16 +58,22 @@ const hasIntro = Astro.slots.has('intro');
     />
     <div class="c-section-heading__content">
       <p class="c-section-heading__label">{label}</p>
-      <h2 id={id} class="c-section-heading__title">
-        {title}
-      </h2>
+      {
+        headingLevel === 1 ? (
+          <h1 id={id} class="c-section-heading__title">
+            {title}
+          </h1>
+        ) : (
+          <h2 id={id} class="c-section-heading__title">
+            {title}
+          </h2>
+        )
+      }
     </div>
   </div>
   {
-    hasIntro && (
-      <div class="c-section-heading__intro">
-        <slot name="intro" />
-      </div>
+    hasIntroContent && (
+      <div class="c-section-heading__intro" set:html={introMarkup} />
     )
   }
 </div>
@@ -67,12 +85,12 @@ const hasIntro = Astro.slots.has('intro');
     text-align: left;
   }
 
-  .c-section-heading--with-margin {
-    margin-bottom: 2.5rem;
+  .c-section-heading--align-center {
+    text-align: center;
   }
 
-  .c-section-heading--with-content-margin {
-    margin-bottom: 2.5rem;
+  .c-section-heading--align-center .c-section-heading__inner {
+    text-align: center;
   }
 
   .c-section-heading__inner {
@@ -108,7 +126,7 @@ const hasIntro = Astro.slots.has('intro');
 
   .c-section-heading__title {
     margin: 0;
-    font-size: 1.75rem;
+    font-size: 1.6rem;
     line-height: 1.3;
     font-weight: 700;
     color: var(--color-black-03);
@@ -128,18 +146,10 @@ const hasIntro = Astro.slots.has('intro');
   }
 
   .c-section-heading__intro :global(p + p) {
-    margin-top: 0;
+    margin-top: 0.75em;
   }
 
   @media (--bp-md-up) {
-    .c-section-heading--with-margin {
-      margin-bottom: 54px;
-    }
-
-    .c-section-heading--with-content-margin {
-      margin-bottom: 3rem;
-    }
-
     .c-section-heading__deco {
       left: 0;
       width: 114px;

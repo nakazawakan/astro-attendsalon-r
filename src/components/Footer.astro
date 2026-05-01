@@ -1,12 +1,10 @@
 ---
+import { serviceOfferings } from '../data/service-offerings';
+
 const secondaryGroups = [
   {
     heading: 'サービス',
-    links: [
-      { href: '/comming-soon/', label: 'ハラスメント研修' },
-      { href: '/comming-soon/', label: 'メンタルヘルス研修' },
-      { href: '/comming-soon/', label: 'アンガーマネジメント研修' },
-    ],
+    links: serviceOfferings.map(({ detailPath, title }) => ({ href: detailPath, label: title })),
   },
   {
     heading: '研修について',
