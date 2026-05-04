@@ -5,15 +5,17 @@ import InstructorCardsRow from './InstructorCardsRow.astro';
 import { instructorsForCards } from '../data/instructors';
 
 interface Props {
+  /** セクションDOM id（未指定時はトップページ互換の `instructors`） */
+  id?: string;
   /** サブページでは見出し・リード・装飾を出さず、カード行のみ（親が l-container を持つ想定） */
   embedded?: boolean;
 }
-const { embedded = false } = Astro.props;
+const { id = 'instructors', embedded = false } = Astro.props;
 
 const instructors = instructorsForCards;
 ---
 <section
-  id="instructors"
+  id={id}
   class:list={['l-section', 'p-instructor-section', embedded && 'p-instructor-section--embedded']}
   {...(!embedded ? { 'data-reveal': true } : {})}
 >
@@ -38,7 +40,7 @@ const instructors = instructorsForCards;
           </SectionHeading>
           <InstructorCardsRow instructors={instructors} />
           <p class="p-instructor-section__trainer-more">
-            <ChevronPillCtaLink href="/trainer/">講師のプロフィール・写真を見る</ChevronPillCtaLink>
+            <ChevronPillCtaLink href="/trainer/">講師のプロフィール詳細</ChevronPillCtaLink>
           </p>
       </div>
     )

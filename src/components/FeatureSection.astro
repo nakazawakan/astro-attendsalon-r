@@ -31,7 +31,7 @@ const features = [
   <div class="l-container">
     <SectionHeading label="FEATURE" title="アテンドサロンRの特徴" />
 
-    <div class="p-feature-section__list">
+    <div class="l-stack l-stack--wide p-feature-section__list">
       {features.map(({ layout, num, title, body }) => (
         <div
           class:list={[
@@ -138,12 +138,6 @@ const features = [
     }
   }
 
-  .p-feature-section__list {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-
   .p-feature-section__item {
     display: flex;
     flex-direction: column;
@@ -213,17 +207,13 @@ const features = [
     margin: 0;
     color: var(--color-black-03);
     font-size: 0.875rem;
-    line-height: 1.8;
+    line-height: var(--line-height-base);
     font-weight: 500;
   }
 
   @media (--bp-md-up) {
     .p-feature-section {
       --wave-height: 62px;
-    }
-
-    .p-feature-section__list {
-      gap: 3rem;
     }
 
     .p-feature-section__item {

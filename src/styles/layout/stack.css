@@ -1,0 +1,20 @@
+@layer layout {
+  .l-stack {
+    display: grid;
+    row-gap: var(--stack-gap, 1.25rem);
+  }
+
+  .l-stack--wide {
+    --stack-gap: var(--stack-gap-wide, 2.5rem);
+  }
+
+  .l-stack > * {
+    min-width: 0;
+  }
+
+  @media (--bp-md-up) {
+    .l-stack--wide {
+      --stack-gap: var(--stack-gap-wide-md, 3rem);
+    }
+  }
+}

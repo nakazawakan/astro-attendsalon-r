@@ -1,0 +1,220 @@
+---
+import ServiceSectionBlock from './ServiceSectionBlock.astro';
+
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  whiteBackground?: boolean;
+}
+
+const { id, label, title, whiteBackground = true } = Astro.props;
+---
+
+<ServiceSectionBlock
+  id={id}
+  label={label}
+  title={title}
+  whiteBackground={whiteBackground}
+  withBottomMargin
+>
+  <div class="p-service-area-section__content">
+    <figure class="p-service-area-section__figure">
+      <img
+        src="/images/area-map-japan.png"
+        alt="対応エリアを示す日本地図のイラスト"
+        width="1024"
+        height="1024"
+        class="p-service-area-section__image"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+
+    <div class="p-service-area-section__text">
+      <p class="p-service-area-section__lead">
+        全国の事業者さまに向けて、感情労働に特化した研修を対面・オンラインで提供しています。
+      </p>
+      <p class="p-service-area-section__body">
+        首都圏・関西圏を中心に訪問研修へ対応し、遠方エリアはオンラインまたはハイブリッド形式で柔軟に実施可能です。現場状況やご希望日程を伺い、最適な開催方法をご提案します。
+      </p>
+      <ul class="p-service-area-section__list">
+        <li>全国対応（訪問・オンライン）</li>
+        <li>対象人数や業種に合わせた研修設計</li>
+        <li>導入前ヒアリング・お見積り無料</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="p-service-area-section__types">
+    <article class="p-service-area-type-card">
+      <h3 class="p-service-area-type-card__title">
+        <span class="p-service-area-type-card__pattern">開催パターン1</span>
+        <span class="p-service-area-type-card__title-text">対面研修</span>
+      </h3>
+      <p class="p-service-area-type-card__description">
+        現場の空気感を確認しながら、対話と演習を取り入れた実践型の研修を実施します。
+      </p>
+    </article>
+
+    <article class="p-service-area-type-card">
+      <h3 class="p-service-area-type-card__title">
+        <span class="p-service-area-type-card__pattern">開催パターン2</span>
+        <span class="p-service-area-type-card__title-text">
+          ハイブリッド研修
+          <span class="p-service-area-type-card__title-sub">（対面+オンライン）</span>
+        </span>
+      </h3>
+      <p class="p-service-area-type-card__description">
+        複数拠点の参加者が同じ内容を受講できるよう、会場参加とオンライン参加を組み合わせて運営します。
+      </p>
+    </article>
+  </div>
+</ServiceSectionBlock>
+
+<style>
+  .p-service-area-section__content {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .p-service-area-section__figure {
+    margin: 0;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .p-service-area-section__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.25rem;
+  }
+
+  .p-service-area-section__text {
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+  }
+
+  .p-service-area-section__lead {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: var(--line-height-base);
+    font-weight: 700;
+  }
+
+  .p-service-area-section__body {
+    margin: 0.75rem 0 0;
+    font-size: 1rem;
+    line-height: var(--line-height-base);
+  }
+
+  .p-service-area-section__list {
+    margin: 1rem 0 0;
+    padding-left: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: var(--line-height-base);
+  }
+
+  .p-service-area-section__types {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+
+  .p-service-area-type-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    padding: 1rem;
+    background: var(--color-bg-warm);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .p-service-area-type-card__title {
+    margin: 0;
+    display: grid;
+    gap: 0.3125rem;
+    justify-items: center;
+    align-content: start;
+    text-align: center;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
+  .p-service-area-type-card__pattern {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-pink-01);
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  .p-service-area-type-card__pattern::before,
+  .p-service-area-type-card__pattern::after {
+    content: "";
+    width: 1.25rem;
+    height: 2px;
+    background: var(--color-pink-03);
+  }
+
+  .p-service-area-type-card__title-text {
+    display: block;
+  }
+
+  .p-service-area-type-card__title-sub {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 0.8125em;
+    line-height: 1.45;
+    font-weight: 700;
+    color: var(--color-black-03);
+  }
+
+  .p-service-area-type-card__description {
+    margin: 0.875rem 0 0;
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+    font-size: 0.9375rem;
+    line-height: var(--line-height-base);
+  }
+
+  @media (--bp-md-up) {
+    .p-service-area-section__content {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .p-service-area-section__figure {
+      padding: 1rem;
+    }
+
+    .p-service-area-section__types {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.25rem;
+    }
+
+    .p-service-area-type-card {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .p-service-area-type-card__title {
+      font-size: 1.125rem;
+      min-height: 4.5rem;
+    }
+
+    .p-service-area-type-card__pattern {
+      font-size: 0.875rem;
+    }
+  }
+</style>

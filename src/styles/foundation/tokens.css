@@ -12,12 +12,15 @@
     --color-surface-01: #f8f5ef;
     /** センシティブ／ネガティブ文脈のカード用（blue-01 を薄く混ぜたクールトーン） */
     --color-surface-blue-soft: #eef3f6;
+    /** サービス下位ページのグレーバリエーション背景 */
+    --color-surface-gray-soft: #f2f4f7;
     --color-surface-02: #ede8df;
     --color-surface-hover: #e4dfd4;
     --color-marker-warm: #f0e4d4;
     --color-footer-bg: #44403c;
 
     --font-family-base: "Zen Kaku Gothic New", sans-serif;
+    --line-height-base: 1.6;
 
     --container-max-width: 1008px;
     --page-gutter: 24px;

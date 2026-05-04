@@ -1,17 +1,38 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import { faqsForHome } from '../data/faqs';
+import { faqsForHome, type FaqItem } from '../data/faqs';
+
+export type FaqSectionItem = Pick<FaqItem, 'q' | 'a' | 'cta'>;
+
+interface Props {
+  id?: string;
+  label?: string;
+  title?: string;
+  items?: FaqSectionItem[];
+  whiteBackground?: boolean;
+}
+
+const {
+  id = 'faq',
+  label = 'FAQ',
+  title = 'よくある質問',
+  items = faqsForHome,
+  whiteBackground = true,
+} = Astro.props;
+
+const headingId = `${id}-title`;
 ---
 <section
-  id="faq"
-  class="l-section p-faq-section"
+  id={id}
+  class:list={['l-section', 'p-faq-section', whiteBackground && 'p-faq-section--white']}
+  aria-labelledby={headingId}
   data-reveal
 >
   <div class="l-container">
-      <SectionHeading label="FAQ" title="よくある質問" />
+      <SectionHeading id={headingId} label={label} title={title} />
       <div class="p-faq-section__list">
         {
-          faqsForHome.map(({ q, a, cta }) => (
+          items.map(({ q, a, cta }) => (
             <details class="p-faq-section__item">
               <summary class="p-faq-section__summary">
                 <span class="p-faq-section__question">{q}</span>
@@ -63,7 +84,7 @@ import { faqsForHome } from '../data/faqs';
 </section>
 
 <style>
-  .p-faq-section {
+  .p-faq-section--white {
     background: #fff;
   }
 
@@ -115,15 +136,10 @@ import { faqsForHome } from '../data/faqs';
   .p-faq-section__question {
     min-width: 0;
     text-align: left;
-    font-size: 1rem;
+    font-size: .9rem;
     line-height: 1.4;
   }
 
-  @media (--bp-md-up) {
-    .p-faq-section__question {
-      font-size: 1.125rem;
-    }
-  }
 
   .p-faq-section__chevron {
     flex-shrink: 0;
@@ -164,7 +180,7 @@ import { faqsForHome } from '../data/faqs';
     padding: 0.75rem 1rem 1rem;
     font-family: var(--font-family-base);
     font-size: 0.875rem;
-    line-height: 1.625;
+    line-height: var(--line-height-base);
     color: var(--color-black-03);
   }
 

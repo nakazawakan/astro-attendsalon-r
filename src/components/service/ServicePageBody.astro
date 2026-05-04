@@ -1,27 +1,84 @@
 ---
-import ServiceSectionBlock from './ServiceSectionBlock.astro';
+import BottomCtaSection from '../BottomCtaSection.astro';
+import FaqSection, { type FaqSectionItem } from '../FaqSection.astro';
+import VoiceSection, { type VoiceSectionCase } from '../VoiceSection.astro';
+import ServiceAreaSection from './ServiceAreaSection.astro';
+import ServiceFeatureSection, { type ServiceFeatureItem } from './ServiceFeatureSection.astro';
+import ServiceFlowSection, { type ServiceFlowStep } from './ServiceFlowSection.astro';
+import ServiceInstructorSection from './ServiceInstructorSection.astro';
+import ServicePlanSection, { type ServicePlanData } from './ServicePlanSection.astro';
+import ServiceSectionBlock, { type ServiceSectionBackground } from './ServiceSectionBlock.astro';
 import ServiceSubheadingCards from './ServiceSubheadingCards.astro';
-import type { ServiceStepItem, ServiceSyllabusColumn } from './ServiceSubheadingCards.astro';
+import type { ServiceStepItem, ServiceSyllabusGroup } from './ServiceSubheadingCards.astro';
 import ServiceWorries from './ServiceWorries.astro';
 
-export interface ServicePageTrailingSection {
-  key: 'feature' | 'voice' | 'plan' | 'instructor' | 'flow';
-  label: 'FEATURE' | 'VOICE' | 'PLAN' | 'INSTRUCTOR' | 'FLOW';
+export type { ServiceFeatureItem };
+export type { ServicePlanData };
+export type { VoiceSectionCase };
+export type { FaqSectionItem };
+export type { ServiceSectionBackground };
+
+interface ServicePageTrailingSectionBase {
   title: string;
   whiteBackground: boolean;
   intro?: string;
 }
 
+interface ServicePageFeatureSection extends ServicePageTrailingSectionBase {
+  key: 'feature';
+  label: 'FEATURE';
+  /** `key: 'feature'` かつ指定時、トップ `FeatureSection` と同型の3カードブロックを表示 */
+  features?: ServiceFeatureItem[];
+}
+
+interface ServicePageVoiceSection extends ServicePageTrailingSectionBase {
+  key: 'voice';
+  label: 'VOICE';
+  /** `key: 'voice'` かつ指定時、サービス別のお客様の声に差し替える。未指定ならトップと同じ既定データを表示 */
+  voices?: VoiceSectionCase[];
+}
+
+interface ServicePageSimpleSection extends ServicePageTrailingSectionBase {
+  key: 'instructor';
+  label: 'INSTRUCTOR';
+}
+
+interface ServicePageAreaSection extends Omit<ServicePageTrailingSectionBase, 'intro'> {
+  key: 'area';
+  label: 'AREA';
+}
+
+interface ServicePageFlowSection extends ServicePageTrailingSectionBase {
+  key: 'flow';
+  label: 'FLOW';
+  /** 指定時、`FLOW` セクションの導入ステップ文言をサービス別に差し替える */
+  steps?: ServiceFlowStep[];
+}
+
+interface ServicePagePlanSection extends ServicePageTrailingSectionBase {
+  key: 'plan';
+  label: 'PLAN';
+  /** 指定時、`PLAN` セクションに「研修ラインナップ・料金」カードを描画 */
+  plan?: ServicePlanData;
+}
+
+export type ServicePageTrailingSection =
+  ServicePageFeatureSection | ServicePageVoiceSection | ServicePagePlanSection | ServicePageSimpleSection | ServicePageAreaSection | ServicePageFlowSection;
+
 interface Props {
   idPrefix: string;
   aboutTitle: string;
   aboutIntroParagraphs: string[];
-  aboutSyllabus: ServiceSyllabusColumn[];
+  aboutSyllabus: ServiceSyllabusGroup[];
   worries: string[];
   worryLead: string;
   worryParagraphs: string[];
+  /** WORRIES セクション背景（default / white / surface / gray / blueSoft） */
+  worriesBackground?: ServiceSectionBackground;
   trailingSections: ServicePageTrailingSection[];
   aboutSteps?: ServiceStepItem[];
+  aboutStepsSectionTitle?: string;
+  faqItems?: FaqSectionItem[];
 }
 
 const DEFAULT_ABOUT_STEPS: ServiceStepItem[] = [
@@ -38,17 +95,43 @@ const {
   worries,
   worryLead,
   worryParagraphs,
+  worriesBackground,
   trailingSections,
   aboutSteps = DEFAULT_ABOUT_STEPS,
+  aboutStepsSectionTitle = '現場で活かす3つのステップ',
+  faqItems = [],
 } = Astro.props;
+
+const orderedTrailingSections = (() => {
+  const planIndex = trailingSections.findIndex((section) => section.key === 'plan');
+  const instructorIndex = trailingSections.findIndex((section) => section.key === 'instructor');
+
+  if (planIndex === -1 || instructorIndex === -1 || instructorIndex < planIndex) {
+    return trailingSections;
+  }
+
+  const sections = [...trailingSections];
+  const [instructorSection] = sections.splice(instructorIndex, 1);
+  sections.splice(planIndex, 0, instructorSection);
+  return sections;
+})();
+
+const hasFlowSection = orderedTrailingSections.some((section) => section.key === 'flow');
 ---
 
-<ServiceWorries id={`${idPrefix}-worries-title`} worries={worries} lead={worryLead} paragraphs={worryParagraphs} />
+<ServiceWorries
+  id={`${idPrefix}-worries-title`}
+  worries={worries}
+  lead={worryLead}
+  paragraphs={worryParagraphs}
+  background={worriesBackground ?? 'blueSoft'}
+/>
 
 <ServiceSectionBlock
   id={`${idPrefix}-about-title`}
   label="ABOUT"
   title={aboutTitle}
+  background="white"
   withBottomMargin
 >
   <Fragment slot="intro">
@@ -59,22 +142,97 @@ const {
     }
   </Fragment>
   <ServiceSubheadingCards
-    stepsSectionTitle="現場で活かす3つのステップ"
+    idPrefix={idPrefix}
+    stepsSectionTitle={aboutStepsSectionTitle}
     steps={aboutSteps}
     syllabusSectionTitle="研修内容"
-    syllabusColumns={aboutSyllabus}
+    syllabusGroups={aboutSyllabus}
   />
 </ServiceSectionBlock>
 
 {
-  trailingSections.map((section) => (
-    <ServiceSectionBlock
-      id={`${idPrefix}-${section.key}-title`}
-      label={section.label}
-      title={section.title}
-      whiteBackground={section.whiteBackground}
-    >
-      {section.intro && <p slot="intro">{section.intro}</p>}
-    </ServiceSectionBlock>
-  ))
+  orderedTrailingSections.map((section) =>
+    section.key === 'voice' ? (
+      <VoiceSection
+        id={`${idPrefix}-${section.key}-title`}
+        label={section.label}
+        title={section.title}
+        voices={section.voices}
+      />
+    ) : section.key === 'feature' && section.features && section.features.length > 0 ? (
+      <ServiceFeatureSection
+        id={`${idPrefix}-${section.key}-title`}
+        label={section.label}
+        title={section.title}
+        intro={section.intro ?? ''}
+        features={section.features}
+      />
+    ) : section.key === 'plan' && section.plan ? (
+      <ServicePlanSection
+        id={`${idPrefix}-${section.key}-title`}
+        label={section.label}
+        title={section.title}
+        data={section.plan}
+        whiteBackground={section.whiteBackground}
+      />
+    ) : section.key === 'instructor' ? (
+      <ServiceInstructorSection
+        id={`${idPrefix}-${section.key}-title`}
+        label={section.label}
+        title={section.title}
+        whiteBackground={section.whiteBackground}
+      />
+    ) : section.key === 'area' ? (
+      <ServiceAreaSection
+        id={`${idPrefix}-${section.key}-title`}
+        label={section.label}
+        title={section.title}
+        whiteBackground={section.whiteBackground}
+      />
+    ) : section.key === 'flow' ? (
+      <>
+        <ServiceFlowSection
+          id={`${idPrefix}-${section.key}-title`}
+          label={section.label}
+          title={section.title}
+          whiteBackground={section.whiteBackground}
+          steps={section.steps}
+        />
+        {faqItems.length > 0 && (
+          <FaqSection
+            id={`${idPrefix}-faq`}
+            label="FAQ"
+            title="よくある質問"
+            items={faqItems}
+          />
+        )}
+        <BottomCtaSection />
+      </>
+    ) : (
+      <ServiceSectionBlock
+        id={`${idPrefix}-${section.key}-title`}
+        label={section.label}
+        title={section.title}
+        whiteBackground={section.whiteBackground}
+      >
+        {section.intro && <p slot="intro">{section.intro}</p>}
+      </ServiceSectionBlock>
+    ),
+  )
+}
+
+{
+  !hasFlowSection && (
+    <>
+      {faqItems.length > 0 && (
+        <FaqSection
+          id={`${idPrefix}-faq`}
+          label="FAQ"
+          title="よくある質問"
+          items={faqItems}
+        />
+      )}
+      <BottomCtaSection />
+    </>
+  )
 }

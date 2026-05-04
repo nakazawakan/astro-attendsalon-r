@@ -10,8 +10,17 @@ import AreaSection from '../components/AreaSection.astro';
 import FlowSection from '../components/FlowSection.astro';
 import FaqSection from '../components/FaqSection.astro';
 import BottomCtaSection from '../components/BottomCtaSection.astro';
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '../lib/structured-data';
+
+const site = Astro.site ?? new URL('https://attendsalon-r.com');
+const organizationJsonLd = buildOrganizationJsonLd({ site });
+const websiteJsonLd = buildWebSiteJsonLd({ site });
 ---
-<SiteChrome title="アテンドサロンR | 感情労働の職場向け研修支援" canonicalPath="/">
+<SiteChrome
+  title="アテンドサロンR | 感情労働の職場向け研修支援"
+  canonicalPath="/"
+  jsonLd={[organizationJsonLd, websiteJsonLd]}
+>
   <HeroSection />
   <AboutSection />
   <ServiceSection />

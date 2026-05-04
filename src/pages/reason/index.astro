@@ -1,0 +1,323 @@
+---
+import BottomCtaSection from '../../components/BottomCtaSection.astro';
+import NoImagePlaceholder from '../../components/NoImagePlaceholder.astro';
+import DocumentPageLayout from '../../layouts/DocumentPageLayout.astro';
+
+const title = '選ばれる理由';
+const description =
+  'アテンドサロンRが選ばれる理由として、感情労働の現場経験、組織構築の実績、国家資格に基づく専門性をご紹介します。';
+
+const reasonSections = [
+  {
+    id: 'field-experience',
+    pointNo: '01',
+    title: '感情労働の現場経験',
+    subheading: '机上の理論ではなく、現場で起こる感情の揺れを知っていること。',
+    paragraphs: [
+      '接客、医療、介護、教育、窓口対応など、感情を扱う現場では、正しい知識だけでは解決できない負担が日常的に起こります。アテンドサロンRは、客室乗務員・乗務管理職としてクレーム対応、チーム育成、感情コントロールに向き合ってきた経験をもとに、現場で実際に起こる悩みに即した研修を設計します。',
+      '受講者が自分ごととして捉えられる事例やワークを取り入れ、研修後の声かけ、判断、関わり方に落とし込める内容を大切にしています。',
+    ],
+    points: [
+      '客室乗務員として感情労働の最前線を経験',
+      'クレーム対応・接遇・チーム育成に基づく実践知',
+      '現場ヒアリングを踏まえたケース設計',
+    ],
+  },
+  {
+    id: 'organizational-track-record',
+    pointNo: '02',
+    title: '組織構築の実績',
+    subheading: '個人の努力だけに頼らず、相談しやすい職場の仕組みを整える。',
+    paragraphs: [
+      '感情労働の課題は、個人のメンタルやコミュニケーションだけで完結するものではありません。日常相談スペースやセルフキャリアドックの立ち上げなど、相談導線や支援体制を整えてきた経験を活かし、研修を組織づくりの一部として設計します。',
+      'メンタルヘルス、アンガーマネジメント、ハラスメント予防を分断せず、職場の実態に合わせてつなげることで、心理的安全性と指導・対話の質を両立させます。',
+    ],
+    points: [
+      '日常相談スペースの立ち上げ経験',
+      'セルフキャリアドック・キャリア相談の知見',
+      '研修後の行動変容と職場定着を見据えた設計',
+    ],
+  },
+  {
+    id: 'national-certifications',
+    pointNo: '03',
+    title: '豊富な国家資格',
+    subheading: '心理・キャリア・産業領域の専門性で、個人と組織の両面から支援する。',
+    paragraphs: [
+      '公認心理師、1級キャリアコンサルティング技能士、キャリアコンサルタント、産業カウンセラーなどの専門資格を持つ講師が、感情労働の負荷を心理面・キャリア面・組織面から整理します。',
+      '資格に基づく知識をそのまま伝えるのではなく、現場経験と組み合わせて、管理職にも従業員にも理解しやすい言葉で実践に変換します。個人の不調予防だけでなく、相談しやすい関係性や組織全体の支援体制づくりまで見据えます。',
+    ],
+    points: [
+      '公認心理師、1級キャリアコンサルティング技能士などの専門性',
+      '産業カウンセラー・キャリアコンサルタントとしての相談支援',
+      '感情・行動・組織をつなぐ研修設計',
+    ],
+  },
+] as const;
+---
+
+<DocumentPageLayout title={title} description={description} canonicalPath="/reason/" eyebrow="Reason">
+  <div class="p-reason-page">
+    <div class="p-reason-page__lead">
+      <p>
+        アテンドサロンRの研修は、知識を伝えるだけの研修ではありません。感情労働の現場を知る講師が、組織の実情に合わせて「明日から使える」形に落とし込み、個人と組織の両面から働きやすさを整えます。
+      </p>
+      <p>
+        現場経験、組織構築の実績、国家資格に基づく専門性を組み合わせ、感情に振り回されない働き方と、安心して対話できる職場づくりを支援します。
+      </p>
+    </div>
+
+    <div class="p-reason-page__sections">
+      {
+        reasonSections.map((section) => (
+          <section class="p-reason-page__section" aria-labelledby={`reason-${section.id}`}>
+            <div class="p-reason-page__point-heading">
+              <div class="p-reason-page__point-heading-main">
+                <div class="p-reason-page__point-meta">
+                  <p class="p-reason-page__point-label">POINT</p>
+                  <p class="p-reason-page__point-number" aria-hidden="true">
+                    {section.pointNo}
+                  </p>
+                </div>
+                <h2 id={`reason-${section.id}`} class="p-reason-page__heading">
+                  {section.title}
+                </h2>
+              </div>
+              <p class="p-reason-page__subheading">{section.subheading}</p>
+            </div>
+
+            <div class="p-reason-page__point-body">
+              <div class="p-reason-page__visual">
+                <NoImagePlaceholder class="p-reason-page__noimage" />
+              </div>
+
+              <div class="p-reason-page__content">
+                <div class="p-reason-page__paragraphs">
+                  {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+                </div>
+
+                <ul class="p-reason-page__points">
+                  {section.points.map((point) => <li>{point}</li>)}
+                </ul>
+              </div>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+  <BottomCtaSection slot="pre-footer" />
+</DocumentPageLayout>
+
+<style>
+  .p-reason-page {
+    color: var(--color-black-03);
+    font-family: var(--font-family-base);
+  }
+
+  .p-reason-page__lead {
+    margin: 0 0 2.5rem;
+    font-size: 0.9375rem;
+    line-height: var(--line-height-base);
+  }
+
+  .p-reason-page__lead p {
+    margin: 0;
+  }
+
+  .p-reason-page__lead p + p {
+    margin-top: 0.875rem;
+  }
+
+  .p-reason-page__sections {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .p-reason-page__section {
+    position: relative;
+    border: 1px solid rgb(69 66 62 / 0.12);
+    border-radius: 1.25rem;
+    background:
+      radial-gradient(120% 120% at 86% 18%, rgb(251 107 106 / 0.1) 0%, rgb(251 107 106 / 0.02) 42%, rgb(251 107 106 / 0) 70%),
+      radial-gradient(110% 110% at 14% 86%, rgb(127 154 168 / 0.1) 0%, rgb(127 154 168 / 0.02) 45%, rgb(127 154 168 / 0) 72%),
+      #fffdf9;
+    box-shadow: var(--shadow-soft);
+    padding: 1.25rem;
+    overflow: hidden;
+  }
+
+  .p-reason-page__point-heading {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .p-reason-page__point-heading-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.75rem .5rem;
+  }
+
+  .p-reason-page__point-meta {
+    display: grid;
+    gap: 0.15rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .p-reason-page__point-label {
+    margin: 0;
+    color: #65bab1;
+    font-family: Lato, var(--font-family-base);
+    font-size: 0.875rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    line-height: 1;
+  }
+
+  .p-reason-page__point-number {
+    margin: 0;
+    color: transparent;
+    font-family: Lato, var(--font-family-base);
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 0.92;
+    -webkit-text-stroke: 1.5px rgb(69 66 62 / 0.58);
+  }
+
+  .p-reason-page__point-body {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .p-reason-page__visual {
+    min-width: 0;
+    border-radius: 1rem;
+  }
+
+  .p-reason-page__visual :global(.c-no-image-placeholder) {
+    border-radius: 0.9rem;
+    background-color: rgb(214 211 209 / 0.8);
+  }
+
+  .p-reason-page__visual :global(.p-reason-page__noimage) {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+
+  .p-reason-page__content {
+    min-width: 0;
+  }
+
+  .p-reason-page__heading {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+  }
+
+  .p-reason-page__subheading {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: var(--line-height-base);
+    color: rgb(69 66 62 / 0.92);
+  }
+
+  .p-reason-page__paragraphs {
+    margin-top: 0.75rem;
+  }
+
+  .p-reason-page__paragraphs p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: var(--line-height-base);
+  }
+
+  .p-reason-page__paragraphs p + p {
+    margin-top: 0.75rem;
+  }
+
+  .p-reason-page__points {
+    margin: 0.95rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .p-reason-page__points li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .p-reason-page__points li::before {
+    content: '✦';
+    position: absolute;
+    top: 0.06rem;
+    left: 0;
+    color: #65bab1;
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+
+  @media (--bp-md-up) {
+    .p-reason-page__lead {
+      margin-bottom: 3rem;
+      font-size: 1rem;
+    }
+
+    .p-reason-page__sections {
+      gap: 2.25rem;
+    }
+
+    .p-reason-page__section {
+      padding: 1.65rem 1.75rem;
+    }
+
+    .p-reason-page__point-heading {
+      gap: 0.9rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .p-reason-page__point-heading-main {
+      gap: 1.2rem;
+    }
+
+    .p-reason-page__point-label {
+      font-size: 0.9375rem;
+    }
+
+    .p-reason-page__point-number {
+      font-size: 4rem;
+      -webkit-text-stroke-width: 1.8px;
+    }
+
+    .p-reason-page__point-body {
+      grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+      align-items: start;
+      gap: 1.5rem 1.75rem;
+    }
+
+    .p-reason-page__visual {
+      padding: 0.85rem;
+    }
+
+    .p-reason-page__heading {
+      font-size: 1.8rem;
+    }
+
+    .p-reason-page__subheading {
+      font-size: 1.05rem;
+    }
+
+    .p-reason-page__points li {
+      font-size: 0.9375rem;
+    }
+  }
+</style>

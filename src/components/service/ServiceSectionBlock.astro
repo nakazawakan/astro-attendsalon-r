@@ -1,10 +1,13 @@
 ---
 import SectionHeading from '../SectionHeading.astro';
 
+export type ServiceSectionBackground = 'default' | 'white' | 'surface' | 'gray' | 'blueSoft';
+
 interface Props {
   id: string;
   label: string;
   title: string;
+  background?: ServiceSectionBackground;
   whiteBackground?: boolean;
   withBottomMargin?: boolean;
 }
@@ -13,14 +16,27 @@ const {
   id,
   label,
   title,
+  background,
   whiteBackground = false,
   withBottomMargin = false,
 } = Astro.props;
 
+const resolvedBackground: ServiceSectionBackground = background
+  ?? (whiteBackground ? 'white' : 'default');
+
+const backgroundClass = resolvedBackground === 'white'
+  ? 'p-service-detail-section--white'
+  : resolvedBackground === 'surface'
+    ? 'p-service-detail-section--surface'
+    : resolvedBackground === 'gray'
+      ? 'p-service-detail-section--gray'
+      : resolvedBackground === 'blueSoft'
+        ? 'p-service-detail-section--blue-soft'
+    : undefined;
 ---
 
 <section
-  class:list={['l-section', whiteBackground && 'p-service-detail-section--white']}
+  class:list={['l-section', backgroundClass]}
   aria-labelledby={id}
 >
   <div class="l-container">
@@ -39,5 +55,17 @@ const {
 <style>
   .p-service-detail-section--white {
     background: #fff;
+  }
+
+  .p-service-detail-section--surface {
+    background: var(--color-surface-01);
+  }
+
+  .p-service-detail-section--gray {
+    background: var(--color-surface-gray-soft);
+  }
+
+  .p-service-detail-section--blue-soft {
+    background: var(--color-surface-blue-soft);
   }
 </style>

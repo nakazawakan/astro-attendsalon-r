@@ -2,6 +2,7 @@
 import BreadcrumbNav from '../components/BreadcrumbNav.astro';
 import SiteChrome from './SiteChrome.astro';
 import { buildBreadcrumbJsonLd, type DocumentBreadcrumbItem } from '../lib/document-page';
+import { buildWebPageJsonLd } from '../lib/structured-data';
 
 interface Props {
   title: string;
@@ -48,14 +49,11 @@ const breadcrumbItems: DocumentBreadcrumbItem[] =
 
 const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbItems, site, pageUrl);
 
-const webPageJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: title,
-  ...(description ? { description } : {}),
-  inLanguage: 'ja',
-  url: pageUrl,
-};
+const webPageJsonLd = buildWebPageJsonLd({
+  title,
+  pageUrl,
+  description,
+});
 
 const introSectionClassList = [
   'l-section',
@@ -167,7 +165,7 @@ const mainSectionClassList = ['l-section', 'l-section--article', 'p-document-pag
     color: var(--color-black-03);
     font-family: var(--font-family-base);
     font-size: 1rem;
-    line-height: 1.9;
+    line-height: var(--line-height-base);
   }
 
   .p-document-page-section__body--prose :global(*:first-child),
@@ -244,7 +242,7 @@ const mainSectionClassList = ['l-section', 'l-section--article', 'p-document-pag
     color: var(--color-black-03);
     font-family: var(--font-family-base);
     font-size: 1rem;
-    line-height: 1.9;
+    line-height: var(--line-height-base);
   }
 
   @media (--bp-md-up) {

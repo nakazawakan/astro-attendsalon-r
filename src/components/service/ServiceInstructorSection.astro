@@ -1,0 +1,37 @@
+---
+import ChevronPillCtaLink from '../ChevronPillCtaLink.astro';
+import InstructorCardsRow from '../InstructorCardsRow.astro';
+import { instructorsForCards } from '../../data/instructors';
+import ServiceSectionBlock from './ServiceSectionBlock.astro';
+
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  whiteBackground?: boolean;
+}
+
+const { id, label, title, whiteBackground = false } = Astro.props;
+
+const instructors = instructorsForCards;
+---
+
+<ServiceSectionBlock
+  id={id}
+  label={label}
+  title={title}
+  whiteBackground={whiteBackground}
+  withBottomMargin
+>
+  <InstructorCardsRow instructors={instructors} />
+  <p class="p-service-instructor-section__trainer-more">
+    <ChevronPillCtaLink href="/trainer/">講師のプロフィール詳細</ChevronPillCtaLink>
+  </p>
+</ServiceSectionBlock>
+
+<style>
+  .p-service-instructor-section__trainer-more {
+    margin: 1.75rem 0 0;
+    text-align: center;
+  }
+</style>

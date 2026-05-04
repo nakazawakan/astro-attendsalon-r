@@ -6,10 +6,10 @@
  */
 
 /** `sitemap.xml` に含める静的パス（thanks・sitemap 自身・準備中ページも含む。末尾スラッシュ統一） */
-export const SITEMAP_XML_STATIC_PATHS: readonly string[] = ["/", "/trainer/", "/faq/", "/company/", "/contact/", "/contact/thanks/", "/request/", "/request/thanks/", "/news/", "/column/", "/philosophy/", "/privacy-policy/", "/comming-soon/", "/sitemap/"] as const;
+export const SITEMAP_XML_STATIC_PATHS: readonly string[] = ["/", "/reason/", "/trainer/", "/faq/", "/company/", "/contact/", "/contact/thanks/", "/request/", "/request/thanks/", "/news/", "/column/", "/philosophy/", "/privacy-policy/", "/comming-soon/", "/sitemap/"] as const;
 
 /** `/sitemap/` ページのリンク一覧に出すパスのみ（個別記事・サンクスは載せない） */
-export const HTML_SITEMAP_NAV_PATHS: readonly string[] = ["/", "/trainer/", "/faq/", "/company/", "/contact/", "/request/", "/news/", "/column/", "/philosophy/", "/privacy-policy/"] as const;
+export const HTML_SITEMAP_NAV_PATHS: readonly string[] = ["/", "/reason/", "/trainer/", "/faq/", "/company/", "/contact/", "/request/", "/news/", "/column/", "/philosophy/", "/privacy-policy/"] as const;
 
 export interface SitemapNavEntry {
   path: string;
@@ -18,6 +18,7 @@ export interface SitemapNavEntry {
 
 const NAV_LABELS: Record<string, string> = {
   "/": "トップ",
+  "/reason/": "選ばれる理由",
   "/trainer/": "講師紹介",
   "/faq/": "よくある質問",
   "/company/": "運営者情報",

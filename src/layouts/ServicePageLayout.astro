@@ -4,6 +4,7 @@ import HeroEmotionalRipple from '../components/HeroEmotionalRipple.astro';
 import SectionMarkDecor from '../components/SectionMarkDecor.astro';
 import SiteChrome from './SiteChrome.astro';
 import { buildBreadcrumbJsonLd, type DocumentBreadcrumbItem } from '../lib/document-page';
+import { buildServiceJsonLd, buildWebPageJsonLd } from '../lib/structured-data';
 
 interface Props {
   title: string;
@@ -45,14 +46,18 @@ const breadcrumbItems: DocumentBreadcrumbItem[] =
 
 const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbItems, site, pageUrl);
 
-const webPageJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: title,
-  ...(description ? { description } : {}),
-  inLanguage: 'ja',
-  url: pageUrl,
-};
+const webPageJsonLd = buildWebPageJsonLd({
+  title,
+  pageUrl,
+  description,
+});
+
+const serviceJsonLd = buildServiceJsonLd({
+  title,
+  description: description ?? `${title}のご案内ページです。`,
+  pageUrl,
+  site,
+});
 
 const introSectionClassList = [
   'l-section',
@@ -68,7 +73,7 @@ const introSectionClassList = [
   canonicalPath={canonicalPath}
   ogImage="/images/logo.png"
   robots={robots}
-  jsonLd={[breadcrumbJsonLd, webPageJsonLd, ...additionalJsonLd]}
+  jsonLd={[breadcrumbJsonLd, webPageJsonLd, serviceJsonLd, ...additionalJsonLd]}
 >
   <section class:list={introSectionClassList} aria-label="ページ見出し">
     <!-- トップ `HeroSection` と同じ装飾「R」＋2カラム（左: 見出し / 右: リップル） -->
@@ -136,7 +141,7 @@ const introSectionClassList = [
     color: var(--color-black-03);
     font-family: var(--font-family-base);
     font-size: 0.9rem;
-    line-height: 1.85;
+    line-height: var(--line-height-base);
     font-weight: 400;
   }
 

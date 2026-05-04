@@ -1,92 +1,188 @@
 ---
 import SectionHeading from './SectionHeading.astro';
+
+export interface VoiceSectionImage {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+
+export interface VoiceSectionDetailRow {
+  label: string;
+  value: string;
+  note?: string;
+}
+
+export interface VoiceSectionCompareCard {
+  label: string;
+  body: string[];
+}
+
+export interface VoiceSectionCase {
+  quoteTitleLines: string[];
+  quoteItems: string[];
+  images: VoiceSectionImage[];
+  details: VoiceSectionDetailRow[];
+  compareCards: VoiceSectionCompareCard[];
+}
+
+interface Props {
+  id?: string;
+  label?: string;
+  title?: string;
+  voices?: VoiceSectionCase[];
+  reveal?: boolean;
+}
+
+const DEFAULT_VOICE_CASES: VoiceSectionCase[] = [
+  {
+    quoteTitleLines: ['食べる×休むで整う', 'メンタルヘルス向上セミナー'],
+    quoteItems: [
+      '空に関わる仕事をしていくためには、体調管理はもちろん、メンタルヘルスについてもコントロールできなければと思っていました。今回の研修で、食事や休養がメンタルヘルスに与える影響について学ぶことができました。',
+      'ご自身の経験も踏まえたお話はとても参考になりましたし、最後に自分の言葉で発表した実行宣言は、明日からの決意を表明できました。',
+    ],
+    images: [
+      {
+        src: '/images/voice-01.png',
+        alt: 'メンタルヘルス研修の様子（写真1枚目）',
+        width: 536,
+        height: 402,
+      },
+      {
+        src: '/images/voice-02.png',
+        alt: 'メンタルヘルス研修の様子（写真2枚目）',
+        width: 536,
+        height: 402,
+      },
+    ],
+    details: [
+      {
+        label: '導入団体',
+        value: '一般社団法人 日本女性航空協会',
+        note: '女性パイロット、管制官等で構成される日本の航空界で唯一の女性のための公益法人',
+      },
+      {
+        label: '研修名',
+        value: '「食べる×休むで整うメンタルヘルス向上セミナー」',
+      },
+    ],
+    compareCards: [
+      {
+        label: '研修前（課題）',
+        body: [
+          '空に関わる仕事では、決まった時間に食事を摂ることや、休養することが難しいという環境特性があります。',
+          '効果的に食事や休養をとるためには、どのような考え方や生活習慣が必要なのかあまり意識していない実態があるようでした。',
+        ],
+      },
+      {
+        label: '研修後（成果）',
+        body: [
+          '参加者はココロとからだ、メンタルヘルスの関係を正しく理解し、特に食事や休養についてはこれまで自分が意識して実施してきたことを否定することなく、新たに研修で学んだことを明日からの実行宣言として発表することで自分事としてとらえることができていたできているようでした。',
+          'また、他の方の宣言を聞くことにより、参加者同士の良好なコミュニケーションにもつながったようでした。',
+        ],
+      },
+    ],
+  },
+];
+
+const {
+  id,
+  label = 'VOICE',
+  title = 'お客様の声',
+  voices = DEFAULT_VOICE_CASES,
+  reveal = true,
+} = Astro.props;
 ---
 <section
   class="l-section p-voice-section"
-  data-reveal
+  aria-labelledby={id}
+  aria-label={id ? undefined : title}
+  data-reveal={reveal ? true : undefined}
 >
   <div class="l-container">
-      <SectionHeading label="VOICE" title="お客様の声" />
+      <SectionHeading id={id} label={label} title={title} />
 
-      <article class="p-voice-section__panel">
+      {
+        voices.map((voice) => (
+      <article class="l-stack p-voice-section__panel">
+        <div class="p-voice-section__quote">
+          <h3 class="p-voice-section__quote-title">
+            {voice.quoteTitleLines.map((line, lineIndex) => (
+              <>
+                {line}
+                {lineIndex < voice.quoteTitleLines.length - 1 && <br />}
+              </>
+            ))}
+          </h3>
+          <ul class="l-stack p-voice-section__quote-list">
+            {voice.quoteItems.map((item) => (
+              <li class="p-voice-section__quote-item">
+                <span class="p-voice-section__bullet" aria-hidden="true">・</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div class="p-voice-section__top">
           <div class="p-voice-section__photo-row">
-            <div class="p-voice-section__photo">
-              <img
-                src="/images/voice-01.png"
-                alt="メンタルヘルス研修の様子（写真1枚目）"
-                class="p-voice-section__img"
-                width="536"
-                height="402"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="p-voice-section__photo">
-              <img
-                src="/images/voice-02.png"
-                alt="メンタルヘルス研修の様子（写真2枚目）"
-                class="p-voice-section__img"
-                width="536"
-                height="402"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+            {voice.images.map((image) => (
+              <div class="p-voice-section__photo">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  class="p-voice-section__img"
+                  width={image.width}
+                  height={image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
           </div>
           <div class="p-voice-section__table-wrap">
             <table class="p-voice-section__table">
               <tbody>
-                <tr class="p-voice-section__tr">
-                  <th class="p-voice-section__th">導入団体</th>
-                  <td class="p-voice-section__td">一般社団法人 日本女性航空協会<br><span style="font-size: .8em; line-height: 1;">女性パイロット、管制官等で構成される日本の航空界で唯一の女性のための公益法人</span></td>
-                </tr>
-                <tr class="p-voice-section__tr">
-                  <th class="p-voice-section__th">研修名</th>
-                  <td class="p-voice-section__td">「食べる×休むで整うメンタルヘルス向上セミナー」</td>
-                </tr>
+                {voice.details.map((detail) => (
+                  <tr class="p-voice-section__tr">
+                    <th class="p-voice-section__th">{detail.label}</th>
+                    <td class="p-voice-section__td">
+                      {detail.value}
+                      {
+                        detail.note && (
+                          <>
+                            <br />
+                            <span class="p-voice-section__td-note">{detail.note}</span>
+                          </>
+                        )
+                      }
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="p-voice-section__quote">
-          <h3 class="p-voice-section__quote-title">
-            食べる×休むで整う<br />
-            メンタルヘルス向上セミナー
-          </h3>
-          <ul class="p-voice-section__quote-list">
-            <li class="p-voice-section__quote-item">
-              <span class="p-voice-section__bullet" aria-hidden="true">・</span>
-              <span>
-                空に関わる仕事をしていくためには、体調管理はもちろん、メンタルヘルスについてもコントロールできなければと思っていました。今回の研修で、食事や休養がメンタルヘルスに与える影響について学ぶことができました。
-              </span>
-            </li>
-            <li class="p-voice-section__quote-item">
-              <span class="p-voice-section__bullet" aria-hidden="true">・</span>
-              <span>
-                ご自身の経験も踏まえたお話はとても参考になりましたし、最後に自分の言葉で発表した実行宣言は、明日からの決意を表明できました。
-              </span>
-            </li>
-          </ul>
-        </div>
-
         <div class="p-voice-section__compare">
-          <div class="p-voice-section__compare-card">
-            <p class="p-voice-section__compare-label">研修前（課題）</p>
-            <p class="p-voice-section__compare-body">
-              空に関わる仕事では、決まった時間に食事を摂ることや、休養することが難しいという環境特性があります。<br>効果的に食事や休養をとるためには、どのような考え方や生活習慣が必要なのかあまり意識していない実態があるようでした。
-            </p>
-          </div>
-          <div class="p-voice-section__compare-card">
-            <p class="p-voice-section__compare-label">研修後（成果）</p>
-            <p class="p-voice-section__compare-body">
-              参加者はココロとからだ、メンタルヘルスの関係を正しく理解し、特に食事や休養についてはこれまで自分が意識して実施してきたことを否定することなく、新たに研修で学んだことを明日からの実行宣言として発表することで自分事としてとらえることができていたできているようでした。<br>
-              また、他の方の宣言を聞くことにより、参加者同士の良好なコミュニケーションにもつながったようでした。
-            </p>
-          </div>
+          {voice.compareCards.map((card) => (
+            <div class="l-stack p-voice-section__compare-card">
+              <p class="p-voice-section__compare-label">{card.label}</p>
+              <p class="p-voice-section__compare-body">
+                {card.body.map((line, lineIndex) => (
+                  <>
+                    {line}
+                    {lineIndex < card.body.length - 1 && <br />}
+                  </>
+                ))}
+              </p>
+            </div>
+          ))}
         </div>
       </article>
+        ))
+      }
   </div>
 </section>
 
@@ -96,6 +192,7 @@ import SectionHeading from './SectionHeading.astro';
   }
 
   .p-voice-section__panel {
+    --stack-gap: 1.5rem;
     overflow-x: clip;
     border: 1px solid var(--color-border-soft);
     border-radius: 0.125rem;
@@ -104,12 +201,15 @@ import SectionHeading from './SectionHeading.astro';
     box-shadow: var(--shadow-soft);
   }
 
+  .p-voice-section__panel + .p-voice-section__panel {
+    margin-top: 2rem;
+  }
+
   .p-voice-section__top {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
   }
 
   .p-voice-section__photo-row {
@@ -171,8 +271,12 @@ import SectionHeading from './SectionHeading.astro';
     vertical-align: top;
   }
 
+  .p-voice-section__td-note {
+    font-size: 0.8em;
+    line-height: 1.4;
+  }
+
   .p-voice-section__quote {
-    margin-bottom: 1.5rem;
     border-radius: 0.125rem;
     background: var(--color-bg-warm);
     padding: 1rem;
@@ -197,9 +301,7 @@ import SectionHeading from './SectionHeading.astro';
     margin: 0;
     padding: 0;
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    --stack-gap: 1rem;
   }
 
   .p-voice-section__quote-item {
@@ -207,7 +309,7 @@ import SectionHeading from './SectionHeading.astro';
     gap: 0.5rem;
     font-family: var(--font-family-base);
     font-size: 0.875rem;
-    line-height: 1.625;
+    line-height: var(--line-height-base);
     color: var(--color-black-03);
   }
 
@@ -224,6 +326,7 @@ import SectionHeading from './SectionHeading.astro';
   }
 
   .p-voice-section__compare-card {
+    --stack-gap: 0.5rem;
     border: 1px solid var(--color-border-soft);
     border-radius: 0.125rem;
     padding: 1rem;
@@ -231,7 +334,7 @@ import SectionHeading from './SectionHeading.astro';
   }
 
   .p-voice-section__compare-label {
-    margin: 0 0 0.5rem;
+    margin: 0;
     font-family: var(--font-family-base);
     font-size: 1.05rem;
     font-weight: 700;
@@ -243,7 +346,7 @@ import SectionHeading from './SectionHeading.astro';
     text-align: left;
     font-family: var(--font-family-base);
     font-size: 0.875rem;
-    line-height: 1.625;
+    line-height: var(--line-height-base);
     color: var(--color-black-03);
   }
 
@@ -273,6 +376,7 @@ import SectionHeading from './SectionHeading.astro';
     .p-voice-section__quote-title {
       font-size: 1.3rem;
       width: 800px;
+      max-width: 100%;
       margin-bottom: 0;
       text-align: left;
     }

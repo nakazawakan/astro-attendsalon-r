@@ -10,7 +10,7 @@ const serviceNavLinks: { href: string; label: string }[] = serviceOfferings.map(
 }));
 
 const mobileNavLinks: { href: string; label: string }[] = [
-  { href: '/#about', label: '選ばれる理由' },
+  { href: '/reason/', label: '選ばれる理由' },
   { href: '/column/about-emotional-labor', label: '感情労働とは' },
   ...serviceNavLinks,
   { href: '/company/', label: '運営者情報' },
@@ -41,7 +41,7 @@ const mobileNavLinks: { href: string; label: string }[] = [
       class="c-site-header__desktop-nav"
       aria-label="メインナビゲーション"
     >
-      <a href="/#about" class="c-site-header__desktop-link">選ばれる理由</a>
+      <a href="/reason/" class="c-site-header__desktop-link">選ばれる理由</a>
       <!-- <a href="/column/about-emotional-labor" class="c-site-header__desktop-link">感情労働とは</a> -->
       <div id="mega-services-wrap" class="c-site-header__mega-wrap">
         <button

@@ -10,14 +10,14 @@
   .p-thanks-page__lead {
     margin: 0 0 1rem;
     font-size: 0.9375rem;
-    line-height: 1.7;
+    line-height: var(--line-height-base);
   }
 
   .p-thanks-page__note {
     margin: 0 0 2rem;
     font-size: 0.8125rem;
-    line-height: 1.6;
-    color: var(--color-black-05);
+    line-height: var(--line-height-base);
+    color: var(--color-black-03);
   }
 
   .p-thanks-page__actions {

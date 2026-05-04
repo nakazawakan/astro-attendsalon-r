@@ -1,8 +1,20 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+import SectionHeading from '../SectionHeading.astro';
 
-/** 段落1つなら文字列、改行したいときは文字列の配列（各要素が1段落の `<p>`） */
-const steps: { title: string; body: string | string[] }[] = [
+export interface ServiceFlowStep {
+  title: string;
+  body: string | string[];
+}
+
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  whiteBackground?: boolean;
+  steps?: ServiceFlowStep[];
+}
+
+const DEFAULT_FLOW_STEPS: ServiceFlowStep[] = [
   {
     title: '現状把握',
     body: [
@@ -35,26 +47,35 @@ const steps: { title: string; body: string | string[] }[] = [
     ],
   },
 ];
+
+const {
+  id,
+  label,
+  title,
+  whiteBackground = false,
+  steps: providedSteps,
+} = Astro.props;
+
+const steps = providedSteps && providedSteps.length > 0 ? providedSteps : DEFAULT_FLOW_STEPS;
 ---
+
 <section
-  id="flow"
-  class="l-section p-flow-section"
-  data-reveal
+  class:list={['l-section', 'p-service-flow-section', whiteBackground && 'p-service-flow-section--white']}
+  aria-labelledby={id}
 >
-  <div class="l-wave l-wave--top l-wave--pattern-gentle-a" aria-hidden="true"></div>
   <div class="l-container">
-      <SectionHeading label="FLOW" title="研修導入までの流れ" />
-      <div class="p-flow-section__steps">
-        {steps.map(({ title, body }, i) => {
+    <SectionHeading id={id} label={label} title={title} />
+
+    <div class="p-flow-section__steps">
+      {
+        steps.map(({ title: stepTitle, body }, index) => {
           const paragraphs = Array.isArray(body) ? body : [body];
           return (
             <div class="p-flow-section__card">
               <div class="p-flow-section__row">
-                <span class="p-flow-section__step-num">
-                  {i + 1}
-                </span>
+                <span class="p-flow-section__step-num">{index + 1}</span>
                 <div class="p-flow-section__text-block">
-                  <h3 class="p-flow-section__title">{title}</h3>
+                  <h3 class="p-flow-section__title">{stepTitle}</h3>
                   <div class="p-flow-section__body">
                     {paragraphs.map((text) => (
                       <p class="p-flow-section__para">{text}</p>
@@ -64,27 +85,19 @@ const steps: { title: string; body: string | string[] }[] = [
               </div>
             </div>
           );
-        })}
-      </div>
+        })
+      }
+    </div>
   </div>
-  <div class="l-wave l-wave--bottom l-wave--pattern-gentle-b" aria-hidden="true"></div>
 </section>
 
 <style>
-  .p-flow-section {
-    --wave-height: 40px;
-    --wave-mask-gentle-a: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 C96 -4 192 -4 288 10 C384 24 480 24 576 10 C688 -4 800 -4 912 12 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
-    --wave-mask-gentle-b: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 14 C120 0 240 0 360 14 C450 28 540 28 630 14 C724 0 818 0 912 10 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    padding-top: calc(var(--section-padding-block-start, var(--section-padding-block-start-default)) + var(--wave-height));
-    padding-bottom: calc(var(--section-padding-block-end, var(--section-padding-block-end-default)) + var(--wave-height));
+  .p-service-flow-section {
+    background: var(--color-bg-warm);
   }
 
-  .p-flow-section > .l-container {
-    position: relative;
-    z-index: var(--z-section-content, 3);
+  .p-service-flow-section--white {
+    background: #fff;
   }
 
   .p-flow-section__steps {
@@ -121,8 +134,8 @@ const steps: { title: string; body: string | string[] }[] = [
     background: var(--color-blue-01);
     font-family: Lato, sans-serif;
     font-size: 0.875rem;
-    font-weight: 700;
     line-height: 1;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
     color: #fff;
   }
@@ -134,10 +147,10 @@ const steps: { title: string; body: string | string[] }[] = [
   .p-flow-section__title {
     margin: 0 0 0.5rem;
     font-family: var(--font-family-base);
+    color: var(--color-black-03);
     font-size: 1.125rem;
     font-weight: 700;
     line-height: 1.5;
-    color: var(--color-black-03);
   }
 
   .p-flow-section__body {
@@ -152,10 +165,6 @@ const steps: { title: string; body: string | string[] }[] = [
   }
 
   @media (--bp-md-up) {
-    .p-flow-section {
-      --wave-height: 62px;
-    }
-
     .p-flow-section__steps {
       gap: 1.25rem;
     }
