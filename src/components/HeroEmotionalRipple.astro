@@ -1,17 +1,30 @@
 ---
 /**
- * ヒーロー右ビジュアル：両手でハートを支える水彩イラスト。
+ * ヒーロー右ビジュアル（画像差し替え可）。
+ * トップページ既定は両手でハートを支える水彩イラスト。
  * メッシュ SVG 実装を戻す場合は Git 履歴の本ファイルを参照。
  */
-const imgSrc = '/images/hero-emotional-ripple-watercolor-heart.png';
+interface Props {
+  src?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+}
+
+const {
+  src = '/images/hero-emotional-ripple-watercolor-heart.png',
+  alt = '',
+  width = 800,
+  height = 738,
+} = Astro.props;
 ---
 <div class="c-hero-emotional-ripple">
   <img
-    src={imgSrc}
-    alt=""
+    src={src}
+    alt={alt}
     class="c-hero-emotional-ripple__img"
-    width="800"
-    height="738"
+    width={width}
+    height={height}
     decoding="async"
     loading="eager"
   />

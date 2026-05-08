@@ -269,13 +269,7 @@ const { id, label, title, data, whiteBackground = false } = Astro.props;
     border: 1px solid var(--color-border-soft);
     border-radius: 1rem;
     padding: 1.5rem 1rem;
-    background:
-      linear-gradient(
-        180deg,
-        var(--color-surface-01) 0%,
-        #fff 56%,
-        var(--color-bg-warm) 100%
-      );
+    background: var(--color-bg-warm);
     box-shadow: var(--shadow-soft);
   }
 
@@ -287,9 +281,13 @@ const { id, label, title, data, whiteBackground = false } = Astro.props;
     right: -3.5rem;
     width: 8.5rem;
     aspect-ratio: 1;
-    border-radius: 50%;
-    background: var(--color-surface-02);
-    opacity: 0.72;
+    background: #db816f88;
+    border-radius: 58% 42% 62% 38% / 48% 55% 45% 52%;
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+    transform-origin: 40% 45%;
+    animation: heroBlobA 14s ease-in-out infinite;
     pointer-events: none;
   }
 

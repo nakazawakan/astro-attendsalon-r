@@ -1,6 +1,7 @@
 ---
 import BreadcrumbNav from '../components/BreadcrumbNav.astro';
 import HeroEmotionalRipple from '../components/HeroEmotionalRipple.astro';
+import NoImagePlaceholder from '../components/NoImagePlaceholder.astro';
 import SectionMarkDecor from '../components/SectionMarkDecor.astro';
 import SiteChrome from './SiteChrome.astro';
 import { buildBreadcrumbJsonLd, type DocumentBreadcrumbItem } from '../lib/document-page';
@@ -18,6 +19,13 @@ interface Props {
   topSpacing?: 'default' | 'belowHeader';
   titleAlign?: 'start' | 'center';
   titleSpacing?: 'default' | 'loose';
+  /** 未指定時は NO IMAGE（各サービスページの既定）。指定時のみ `HeroEmotionalRipple` で表示 */
+  heroImage?: {
+    src: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+  };
   additionalJsonLd?: Record<string, unknown>[];
   robots?: string;
 }
@@ -32,6 +40,7 @@ const {
   topSpacing = 'default',
   titleAlign = 'start',
   titleSpacing = 'default',
+  heroImage,
   additionalJsonLd = [],
   robots,
 } = Astro.props;
@@ -112,7 +121,18 @@ const introSectionClassList = [
       </div>
 
       <figure class="p-hero-section__visual" aria-hidden="true">
-        <HeroEmotionalRipple />
+        {
+          heroImage ? (
+            <HeroEmotionalRipple
+              src={heroImage.src}
+              alt={heroImage.alt ?? ''}
+              width={heroImage.width}
+              height={heroImage.height}
+            />
+          ) : (
+            <NoImagePlaceholder class="p-service-page-hero__noimage" />
+          )
+        }
       </figure>
     </div>
   </section>
@@ -121,6 +141,13 @@ const introSectionClassList = [
 </SiteChrome>
 
 <style>
+  /* ヒーロー右：`HeroEmotionalRipple` と同系のアスペクトで NO IMAGE を確保 */
+  .p-hero-section__visual :global(.p-service-page-hero__noimage) {
+    aspect-ratio: 800 / 738;
+    min-height: 180px;
+    width: 100%;
+  }
+
   /* 研修サービス下位ページ: イントロの縦パディングは `l-section` + `section.css` の修飾子。ここは見出し周りのみ */
 
   .p-service-page-hero__copy--center {
