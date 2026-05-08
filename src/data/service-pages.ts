@@ -18,7 +18,7 @@ export interface ServicePageBodyData {
   trailingSections: ServicePageTrailingSection[];
 }
 
-const serviceIconBySlug = (slug: 'mental-health' | 'anger-management' | 'harassment') => {
+const serviceIconBySlug = (slug: "mental-health" | "anger-management" | "harassment") => {
   return serviceOfferings.find((service) => service.slug === slug)?.icon ?? "";
 };
 
@@ -47,17 +47,17 @@ const harassmentPlanData = {
     {
       title: "メンタルヘルス",
       subtitle: "（こころの状態を整える）",
-      imageSrc: serviceIconBySlug('mental-health'),
+      imageSrc: serviceIconBySlug("mental-health"),
     },
     {
       title: "アンガーマネジメント",
       subtitle: "（感情を扱い）",
-      imageSrc: serviceIconBySlug('anger-management'),
+      imageSrc: serviceIconBySlug("anger-management"),
     },
     {
       title: "ハラスメント",
       subtitle: "（行動に落とし込む）",
-      imageSrc: serviceIconBySlug('harassment'),
+      imageSrc: serviceIconBySlug("harassment"),
     },
   ],
   examplesTitle: "パッケージ研修の具体例",
@@ -71,7 +71,7 @@ const harassmentPlanData = {
       descriptionLines: ["「ハラスメントを防ぎ、離職を減らすための感情マネジメント研修プログラム」"],
     },
     {
-      titleLines: ["管理職向け感情マネジメント型", "ハラスメント予防研修"],
+      titleLines: ["管理職者向け感情マネジメント型", "ハラスメント予防研修"],
       descriptionLines: ["指導がハラスメントにならないための管理職の感情マネジメント研修"],
     },
   ],
@@ -95,8 +95,8 @@ const harassmentFaqItems = [
     a: "法令で求められる基礎知識に加え、職場で起こりやすいグレー事例の判断軸、相談を受けた際の初期対応、再発防止のためのコミュニケーションまで、現場で使える内容を扱います。",
   },
   {
-    q: "管理職向けと一般職向けで内容を分けられますか？",
-    a: "はい。対象者の役割に応じて、管理職向けは指導・対応判断を中心に、一般職向けは相談・報告のしやすさや日常コミュニケーションを中心に設計できます。",
+    q: "管理職者向けと一般職向けで内容を分けられますか？",
+    a: "はい。対象者の役割に応じて、管理職者向けは指導・対応判断を中心に、一般職向けは相談・報告のしやすさや日常コミュニケーションを中心に設計できます。",
   },
   {
     q: "現在起きている事例を題材にしてもらえますか？",
@@ -134,7 +134,7 @@ const mentalHealthFaqItems = [
     a: "ストレス反応の理解、セルフケアの基本、管理職のラインケア、相談を受けた際の初期対応などを、現場実務に沿って整理します。",
   },
   {
-    q: "管理職向けのラインケア研修にも対応していますか？",
+    q: "管理職者向けのラインケア研修にも対応していますか？",
     a: "はい。部下の変化への気づき、声かけ、相談導線づくりなど、管理職が日常で実践しやすい内容にカスタマイズできます。",
   },
   {
@@ -174,7 +174,7 @@ export const harassmentServicePageBody: ServicePageBodyData = {
       ],
     },
     {
-      heading: "管理職向け",
+      heading: "管理職者向け",
       cards: [
         {
           tag: "基礎理解",
@@ -271,7 +271,7 @@ export const angerManagementServicePageBody: ServicePageBodyData = {
       ],
     },
     {
-      heading: "管理職向け",
+      heading: "管理職者向け",
       cards: [
         {
           tag: "基礎理解",
@@ -368,7 +368,7 @@ export const mentalHealthServicePageBody: ServicePageBodyData = {
       ],
     },
     {
-      heading: "管理職向け",
+      heading: "管理職者向け",
       cards: [
         {
           tag: "基礎理解",
@@ -393,8 +393,8 @@ export const mentalHealthServicePageBody: ServicePageBodyData = {
       ],
     },
   ],
-  worries: ["休職や離職が続いている", "不調に気づいた時にはすでに限界を超えている", "部下への声かけや初期対応に迷ってしまう", "相談しにくい職場風土になっている"],
-  worryLead: "アテンドサロンRは、感情労働に特化したメンタルヘルス研修を通じて、現場で静かに進行する“不調の芽”を早期に整えます。",
+  worries: ["不調に気づいた時にはすでに限界を超えている", "部下への声かけや初期対応に迷ってしまう", "休職や離職が続いている", "相談しにくい職場風土になっている"],
+  worryLead: "アテンドサロンRは、感情労働に特化したメンタルヘルス研修を通じて現場の“不調の芽”を早期に摘み取ります",
   worryParagraphs: ["介護・医療・接客・教育など、感情を扱い続ける職場では、責任感の強さや我慢強さゆえに、不調が見えにくくなりがちです。私たちは、感情労働の特性と現場のリアルを踏まえ、セルフケアとラインケアの両面から「気づく力」と「支える力」を育てます。", "休職や離職を防ぎ、安心して働き続けられる組織づくりを支援します。"],
   faqItems: mentalHealthFaqItems,
   trailingSections: [

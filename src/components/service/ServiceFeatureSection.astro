@@ -58,6 +58,7 @@ const { id, label, title, intro, features } = Astro.props;
 <style>
   /* `FeatureSection.astro` と同一の見た目（研修サービス下位ページ用に props 化） */
   .p-service-feature-section.p-feature-section {
+    --feature-media-aspect: 3 / 2;
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -128,18 +129,24 @@ const { id, label, title, intro, features } = Astro.props;
   }
 
   .p-service-feature-section .p-feature-section__media {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
     width: 100%;
     flex-shrink: 0;
-    min-height: 200px;
+    aspect-ratio: var(--feature-media-aspect);
+    overflow: hidden;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: var(--color-surface-02);
   }
 
   .p-service-feature-section .p-feature-section__media :global(.c-no-image-placeholder) {
+    position: absolute;
+    inset: 0;
     box-sizing: border-box;
-    flex: 1 1 auto;
     width: 100%;
-    min-height: 200px;
+    height: 100%;
+    min-height: 0;
+    border-radius: 0;
   }
 
   .p-service-feature-section .p-feature-section__card {
@@ -211,11 +218,7 @@ const { id, label, title, intro, features } = Astro.props;
     .p-service-feature-section .p-feature-section__media {
       width: 420px;
       max-width: 48%;
-      min-height: 275px;
-    }
-
-    .p-service-feature-section .p-feature-section__media :global(.c-no-image-placeholder) {
-      min-height: 275px;
+      border-radius: var(--radius-lg);
     }
 
     .p-service-feature-section .p-feature-section__card {

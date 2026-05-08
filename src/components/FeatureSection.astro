@@ -9,6 +9,9 @@ const features = [
     num: '01',
     title: '現場力',
     body: '客室乗務員経験40年以上、管理職経験10年以上、クレーム対応、感情コントロールの最前線で培った圧倒的現場力で、実際の現場で起こる悩みをもとに実情に即した研修を提案します',
+    imageSrc: '/images/feature-01-professional-watercolor-transparent.png',
+    imageAlt:
+      '青いジャケットとスカーフの制服姿の人物の水彩風イラスト。胸に手を当てた丁寧な姿勢。',
   },
   {
     layout: 'image-right' as const,
@@ -21,6 +24,9 @@ const features = [
     num: '03',
     title: '国家資格×実務経験',
     body: '公認心理師、産業カウンセラー、1級キャリアコンサルティング技能士、キャリアコンサルタントなどの専門資格を有し、教育と産業の現場での実務経験を武器に、個人と組織支援の双方にアプローチします',
+    imageSrc: '/images/feature-03-national-qualification-transparent.png',
+    imageAlt:
+      '「国家資格」の文字と署名欄線、上部の金色の装飾、右下の金封印と薄い青色のリボンが描かれた、賞状風の水彩タッチのイラスト。',
   },
 ];
 ---
@@ -32,7 +38,7 @@ const features = [
     <SectionHeading label="FEATURE" title="アテンドサロンRの特徴" />
 
     <div class="l-stack l-stack--wide p-feature-section__list">
-      {features.map(({ layout, num, title, body }) => (
+      {features.map(({ layout, num, title, body, imageSrc, imageAlt }) => (
         <div
           class:list={[
             'p-feature-section__item',
@@ -40,7 +46,17 @@ const features = [
           ]}
         >
           <div class="p-feature-section__media">
-            <NoImagePlaceholder />
+            {imageSrc ? (
+              <img
+                class="p-feature-section__image"
+                src={imageSrc}
+                alt={imageAlt ?? ''}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <NoImagePlaceholder />
+            )}
           </div>
           <article
             class="p-feature-section__card"
@@ -69,6 +85,7 @@ const features = [
 
 <style>
   .p-feature-section {
+    --feature-media-aspect: 3 / 2;
     --wave-height: 40px;
     --wave-mask-gentle-a: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 14 C90 -2 180 -2 270 14 C360 30 450 30 540 14 C630 -2 720 -2 810 14 C844 20 878 20 912 14 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
     --wave-mask-gentle-b: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 16 C118 0 236 0 354 16 C442 31 530 31 618 16 C716 0 814 0 912 12 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
@@ -145,18 +162,34 @@ const features = [
   }
 
   .p-feature-section__media {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
     width: 100%;
     flex-shrink: 0;
-    min-height: 200px;
+    aspect-ratio: var(--feature-media-aspect);
+    overflow: hidden;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   }
 
   .p-feature-section__media :global(.c-no-image-placeholder) {
+    position: absolute;
+    inset: 0;
     box-sizing: border-box;
-    flex: 1 1 auto;
     width: 100%;
-    min-height: 200px;
+    height: 100%;
+    min-height: 0;
+    border-radius: 0;
+  }
+
+  .p-feature-section__image {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
 
   .p-feature-section__card {
@@ -232,11 +265,7 @@ const features = [
     .p-feature-section__media {
       width: 420px;
       max-width: 48%;
-      min-height: 275px;
-    }
-
-    .p-feature-section__media :global(.c-no-image-placeholder) {
-      min-height: 275px;
+      border-radius: var(--radius-lg);
     }
 
     .p-feature-section__card {
