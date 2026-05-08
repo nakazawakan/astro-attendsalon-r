@@ -1,12 +1,20 @@
 ---
 /**
- * 仮プレースホルダ（ヒーロー右ビジュアル差し替え前）。
+ * ヒーロー右ビジュアル：両手でハートを支える水彩イラスト。
  * メッシュ SVG 実装を戻す場合は Git 履歴の本ファイルを参照。
  */
-import NoImagePlaceholder from './NoImagePlaceholder.astro';
+const imgSrc = '/images/hero-emotional-ripple-watercolor-heart.png';
 ---
 <div class="c-hero-emotional-ripple">
-  <NoImagePlaceholder />
+  <img
+    src={imgSrc}
+    alt=""
+    class="c-hero-emotional-ripple__img"
+    width="800"
+    height="738"
+    decoding="async"
+    loading="eager"
+  />
 </div>
 
 <style>
@@ -14,11 +22,15 @@ import NoImagePlaceholder from './NoImagePlaceholder.astro';
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
-    aspect-ratio: 420 / 360;
+    aspect-ratio: 800 / 738;
     min-height: 180px;
   }
 
-  .c-hero-emotional-ripple :global(.c-no-image-placeholder) {
+  .c-hero-emotional-ripple__img {
+    width: 100%;
     height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
   }
 </style>
