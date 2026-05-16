@@ -1,10 +1,48 @@
 ---
 /**
  * ヒーロー右ビジュアル（画像差し替え可）。
- * トップページ既定は両手でハートを支える水彩イラスト。
+ * トップ既定は `top-hero-main`。過去案は top-hero-01〜05。
  * メッシュ SVG 実装を戻す場合は Git 履歴の本ファイルを参照。
  */
+const HERO_EMOTIONAL_RIPPLE_PATTERNS = {
+  'top-hero-main': {
+    src: '/images/top-hero-main.png',
+    width: 1024,
+    height: 576,
+  },
+  'top-hero-01': {
+    src: '/images/top-hero-01.png',
+    width: 800,
+    height: 738,
+  },
+  'top-hero-02': {
+    src: '/images/top-hero-02.png',
+    width: 1024,
+    height: 1024,
+  },
+  'top-hero-03': {
+    src: '/images/top-hero-03.png',
+    width: 1254,
+    height: 1254,
+  },
+  'top-hero-04': {
+    src: '/images/top-hero-04.png',
+    width: 1448,
+    height: 1086,
+  },
+  'top-hero-05': {
+    src: '/images/top-hero-05.png',
+    width: 1527,
+    height: 1080,
+  },
+} as const;
+
+type HeroEmotionalRipplePattern = keyof typeof HERO_EMOTIONAL_RIPPLE_PATTERNS;
+
+const DEFAULT_PATTERN: HeroEmotionalRipplePattern = 'top-hero-main';
+
 interface Props {
+  pattern?: HeroEmotionalRipplePattern;
   src?: string;
   alt?: string;
   width?: number;
@@ -12,19 +50,27 @@ interface Props {
 }
 
 const {
-  src = '/images/hero-emotional-ripple-watercolor-heart.png',
+  pattern = DEFAULT_PATTERN,
+  src,
   alt = '',
-  width = 800,
-  height = 738,
 } = Astro.props;
+
+const selectedPattern =
+  HERO_EMOTIONAL_RIPPLE_PATTERNS[pattern] ?? HERO_EMOTIONAL_RIPPLE_PATTERNS[DEFAULT_PATTERN];
+const imageSrc = src ?? selectedPattern.src;
+const imageWidth = Astro.props.width ?? selectedPattern.width;
+const imageHeight = Astro.props.height ?? selectedPattern.height;
 ---
-<div class="c-hero-emotional-ripple">
+<div
+  class="c-hero-emotional-ripple"
+  style={`--hero-emotional-ripple-aspect: ${imageWidth} / ${imageHeight};`}
+>
   <img
-    src={src}
+    src={imageSrc}
     alt={alt}
     class="c-hero-emotional-ripple__img"
-    width={width}
-    height={height}
+    width={imageWidth}
+    height={imageHeight}
     decoding="async"
     loading="eager"
   />
@@ -35,7 +81,7 @@ const {
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
-    aspect-ratio: 800 / 738;
+    aspect-ratio: var(--hero-emotional-ripple-aspect, 1 / 1);
     min-height: 180px;
   }
 
