@@ -1,15 +1,20 @@
 /**
  * Cloudflare Pages Functions — 静的サイトの前段でレスポンスヘッダを付与。
- * `*.pages.dev`（本番用 *.pages.dev およびブランチのプレビュー URL）では検索エンジンにインデックスさせない。
- * 本番カスタムドメイン（例: attendsalon-r.com）は hostname が異なるため対象外。
+ * `*.pages.dev` および本番カスタムドメイン（attendsalon-r.com）で X-Robots-Tag を付与し、
+ * `<meta name="robots">` と併せてインデックスを抑止する。
  *
  * @param {{ request: Request; next: () => Promise<Response> }}} context
  */
+const NOINDEX_HOSTS = new Set(['attendsalon-r.com', 'www.attendsalon-r.com']);
+
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   const response = await context.next();
 
-  if (!url.hostname.endsWith('.pages.dev')) {
+  const host = url.hostname;
+  const shouldNoindex = host.endsWith('.pages.dev') || NOINDEX_HOSTS.has(host);
+
+  if (!shouldNoindex) {
     return response;
   }
 

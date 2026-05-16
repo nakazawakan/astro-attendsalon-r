@@ -28,7 +28,10 @@ interface Props {
   ogType?: 'website' | 'article';
   ogImage?: string;
   noindex?: boolean;
-  /** 指定時は `noindex` より優先（例: thanks ページの `noindex, nofollow`） */
+  /**
+   * 未指定時はサイト全体デフォルト `noindex, nofollow`。
+   * インデックス許可が必要なら明示的に `robots="index, follow"` 等を渡す。
+   */
   robots?: string;
   publishedTime?: string;
   modifiedTime?: string;
@@ -46,6 +49,7 @@ const {
   modifiedTime,
   jsonLd,
 } = Astro.props;
+const metaRobots = robots ?? (noindex ? 'noindex' : 'noindex, nofollow');
 const site = Astro.site ?? new URL('https://attendsalon-r.com');
 const canonicalUrl = canonicalPath ? new URL(canonicalPath, site).toString() : undefined;
 const ogImageUrl = ogImage ? new URL(ogImage, site).toString() : undefined;
@@ -66,7 +70,7 @@ const safeJsonLd = (item: Record<string, unknown>) =>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {robots ? <meta name="robots" content={robots} /> : noindex && <meta name="robots" content="noindex" />}
+    <meta name="robots" content={metaRobots} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:site_name" content="アテンドサロンR" />
     <meta property="og:title" content={title} />
