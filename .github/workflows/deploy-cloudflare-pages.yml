@@ -25,7 +25,8 @@ jobs:
       - run: npm run build
 
       - name: Upload to Cloudflare Pages
-        # account_id は wrangler.toml。空の CLOUDFLARE_ACCOUNT_ID secret があると上書きされて失敗するため env に含めない
         run: npx wrangler pages deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # Pages の wrangler.toml は account_id 非対応。ID は公開情報のため workflow に直書き（secret 未設定時の CI 失敗回避）
+          CLOUDFLARE_ACCOUNT_ID: b3b5ca3b50c86c3d707da6c629483c49

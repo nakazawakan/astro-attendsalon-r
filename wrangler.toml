@@ -1,5 +1,3 @@
 # Cloudflare Pages — CI と npm run deploy の共通設定
-# account_id は秘密情報ではない（ダッシュボードでも表示される）
 name = "astro-attendsalon-r"
-account_id = "b3b5ca3b50c86c3d707da6c629483c49"
 pages_build_output_dir = "dist"
