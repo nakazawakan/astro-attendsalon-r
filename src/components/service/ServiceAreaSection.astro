@@ -19,17 +19,6 @@ const { id, label, title, whiteBackground = true } = Astro.props;
   withBottomMargin
 >
   <div class="p-service-area-section__content">
-    <figure class="p-service-area-section__figure">
-      <img
-        src="/images/area-map-japan.png"
-        alt="対応エリアを示す日本地図のイラスト"
-        width="1024"
-        height="1024"
-        class="p-service-area-section__image"
-        loading="lazy"
-        decoding="async"
-      />
-    </figure>
 
     <div class="p-service-area-section__text">
       <p class="p-service-area-section__lead">
@@ -44,32 +33,32 @@ const { id, label, title, whiteBackground = true } = Astro.props;
         <li>導入前ヒアリング・お見積り無料</li>
       </ul>
     </div>
+    <div class="p-service-area-section__types">
+      <article class="p-service-area-type-card">
+        <h3 class="p-service-area-type-card__title">
+          <span class="p-service-area-type-card__pattern">開催パターン1</span>
+          <span class="p-service-area-type-card__title-text">対面研修</span>
+        </h3>
+        <p class="p-service-area-type-card__description">
+          現場の空気感を確認しながら、対話と演習を取り入れた実践型の研修を実施します。
+        </p>
+      </article>
+  
+      <article class="p-service-area-type-card">
+        <h3 class="p-service-area-type-card__title">
+          <span class="p-service-area-type-card__pattern">開催パターン2</span>
+          <span class="p-service-area-type-card__title-text">
+            ハイブリッド研修
+            <span class="p-service-area-type-card__title-sub">（対面+オンライン）</span>
+          </span>
+        </h3>
+        <p class="p-service-area-type-card__description">
+          複数拠点の参加者が同じ内容を受講できるよう、会場参加とオンライン参加を組み合わせて運営します。
+        </p>
+      </article>
+    </div>
   </div>
 
-  <div class="p-service-area-section__types">
-    <article class="p-service-area-type-card">
-      <h3 class="p-service-area-type-card__title">
-        <span class="p-service-area-type-card__pattern">開催パターン1</span>
-        <span class="p-service-area-type-card__title-text">対面研修</span>
-      </h3>
-      <p class="p-service-area-type-card__description">
-        現場の空気感を確認しながら、対話と演習を取り入れた実践型の研修を実施します。
-      </p>
-    </article>
-
-    <article class="p-service-area-type-card">
-      <h3 class="p-service-area-type-card__title">
-        <span class="p-service-area-type-card__pattern">開催パターン2</span>
-        <span class="p-service-area-type-card__title-text">
-          ハイブリッド研修
-          <span class="p-service-area-type-card__title-sub">（対面+オンライン）</span>
-        </span>
-      </h3>
-      <p class="p-service-area-type-card__description">
-        複数拠点の参加者が同じ内容を受講できるよう、会場参加とオンライン参加を組み合わせて運営します。
-      </p>
-    </article>
-  </div>
 </ServiceSectionBlock>
 
 <style>
@@ -199,7 +188,6 @@ const { id, label, title, whiteBackground = true } = Astro.props;
     }
 
     .p-service-area-section__types {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.25rem;
       margin-top: 2.25rem;
     }
@@ -210,7 +198,6 @@ const { id, label, title, whiteBackground = true } = Astro.props;
 
     .p-service-area-type-card__title {
       font-size: 1.125rem;
-      min-height: 4.5rem;
     }
 
     .p-service-area-type-card__pattern {

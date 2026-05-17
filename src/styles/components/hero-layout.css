@@ -1,0 +1,51 @@
+/* 研修サービス下位ページの2カラムヒーロー骨格（トップは `TopHeroSection` の `p-top-hero`） */
+
+.p-hero-layout__inner {
+  position: relative;
+}
+
+.p-hero-layout__copy {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-width: 0;
+}
+
+.p-hero-layout__visual {
+  margin: 4rem auto 0;
+  width: 100%;
+  max-width: min(100%, 420px);
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+@media (--bp-md-up) {
+  .p-hero-layout__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .p-hero-layout__copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .p-hero-layout__visual {
+    margin: 0;
+    width: min(380px, 40vw);
+    max-width: 440px;
+  }
+}
+
+@media (--bp-lg-up) {
+  .p-hero-layout__inner {
+    gap: 2rem;
+  }
+
+  .p-hero-layout__visual {
+    width: min(420px, 38vw);
+  }
+}

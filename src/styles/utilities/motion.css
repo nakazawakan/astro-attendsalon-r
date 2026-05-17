@@ -43,7 +43,7 @@
     }
 
     /* ファーストビュー: LCP を守るためスクロール検知ではなく一度きりの keyframes */
-    html.is-reveal-active .p-hero-section--soft-enter {
+    html.is-reveal-active .u-hero-soft-enter {
       animation: u-soft-hero-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
@@ -66,7 +66,7 @@
       transform: none;
     }
 
-    .p-hero-section--soft-enter {
+    .u-hero-soft-enter {
       animation: none;
     }
   }

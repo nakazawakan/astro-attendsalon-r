@@ -7,11 +7,18 @@ const description =
   '東京エリアを中心に、職場のメンタルヘルス・ストレスマネジメントに関する研修のご案内ページです。';
 const heroLead =
   '不調が表面化する前にストレスの正体を理解してセルフケアとラインケアを身につけることで休職や離職を防ぎ、安心して働くことが出来る職場づくりを目指すにつなげる実践型メンタルヘルス研修';
+const heroImage = {
+  src: '/images/service-mental-health-hero-transparent.png',
+  alt: '朝日の街を歩く女性の水彩イラスト',
+  width: 1024,
+  height: 768,
+};
 ---
 <ServicePageLayout
   title={title}
   description={description}
   heroLead={heroLead}
+  heroImage={heroImage}
   canonicalPath="/service/mental-health/"
   Content={ServicePageContent}
 />

@@ -1,5 +1,6 @@
 import type { ServiceStepItem, ServiceSyllabusGroup } from "../components/service/ServiceSubheadingCards.astro";
 import type { FaqSectionItem, ServiceFeatureItem, ServicePlanData, ServiceSectionBackground, ServicePageTrailingSection } from "../components/service/ServicePageBody.astro";
+import { withFeatureSectionMedia } from "./feature-section-media";
 import { serviceOfferings } from "./service-offerings";
 
 export interface ServicePageBodyData {
@@ -9,7 +10,6 @@ export interface ServicePageBodyData {
   aboutSyllabus: ServiceSyllabusGroup[];
   worries: string[];
   worryLead: string;
-  worryParagraphs: string[];
   /** WORRIES セクション背景（default / white / surface / gray / blueSoft） */
   worriesBackground?: ServiceSectionBackground;
   aboutSteps?: ServiceStepItem[];
@@ -157,51 +157,33 @@ export const harassmentServicePageBody: ServicePageBodyData = {
       heading: "従業員向け",
       cards: [
         {
-          tag: "基礎理解",
-          title: "ハラスメントの基礎",
-          bullets: ["ハラスメントの定義（パワハラ／セクハラ／カスハラなど）", "法改正のポイント"],
+          title: "ハラスメントの基礎理解",
         },
         {
-          tag: "ケーススタディ",
-          title: "グレー事例の判断",
-          bullets: ["判断が分かれるグレー事例", "現在起こっている事例"],
+          title: "グレー事例のケーススタディ",
         },
         {
-          tag: "コミュニケーション",
-          title: "日常の予防行動",
-          bullets: ["ハラスメントを起こさないコミュニケーション", "感情が高ぶったときの対応"],
+          title: "日常で心がけるコミュニケーション",
         },
       ],
     },
     {
-      heading: "管理職者向け",
+      heading: "管理者向け",
       cards: [
         {
-          tag: "基礎理解",
-          title: "管理職の責任と判断軸",
-          bullets: ["法令と安全配慮の基本", "初期対応で避けること"],
+          title: "法令と安全配慮の基礎理解",
         },
         {
-          tag: "ケース対応",
-          title: "相談を受けたとき",
-          bullets: ["事実確認の進め方", "放置・軽視・独断処理を防ぐ"],
+          title: "判断軸のケーススタディ",
         },
         {
-          tag: "指導スキル",
-          title: "指導がハラスメントにならない伝え方",
-          bullets: ["注意・改善要求の言語化", "感情的にならない関わり"],
-        },
-        {
-          tag: "組織改善",
-          title: "再発防止と職場風土づくり",
-          bullets: ["相談導線の整備", "心理的安全性を高める対話"],
+          title: "心理的安全性を高める職場づくり",
         },
       ],
     },
   ],
-  worries: ["部下への注意や指導が、パワハラととられないか不安になる", "「昔は当たり前だった」が通用しなくなり、どう伝えるべきか迷っている", "強い言い方をしてしまい、後から後悔することがある", "相談を受けても、どこまで介入すべきか判断に困る"],
-  worryLead: "アテンドサロンRは、感情労働に特化したハラスメント研修で、現場と組織の“見えにくい負担”を根本から整えます",
-  worryParagraphs: ["介護・医療・接客・教育など、感情を扱うことが仕事の一部になっている職場では、無自覚な圧力や我慢の積み重ねがハラスメントの火種になることがあります。私たちは感情労働の構造を理解したうえで、現場に即した判断基準と実践的な対応力を育てる研修をご提供します。"],
+  worries: ["強い言い方をしてしまい、後から後悔することがある", "部下への注意や指導が、パワハラと受け取られないか不安になる", "「昔は当たり前だった」が通用しなくなり、どう伝えるべきか迷っている", "相談を受けても、どこまで介入すべきか判断に困る"],
+  worryLead: "アテンドサロンRは、感情労働に特化したハラスメント研修で、ケーススタディを取り入れながら分かりやすく進めていきます。",
   faqItems: harassmentFaqItems,
   trailingSections: [
     {
@@ -210,26 +192,23 @@ export const harassmentServicePageBody: ServicePageBodyData = {
       title: "ハラスメント研修の特徴",
       whiteBackground: true,
       intro: "感情を扱う現場を熟知した元CA管理職×国家資格者による、ハラスメントを起こさない、現場で本当に使える実践重視の組織づくり研修を提供しています。",
-      features: [
+      features: withFeatureSectionMedia([
         {
-          layout: "image-left",
           num: "01",
-          title: "事前・事後のアンケート",
+          title: "現場力",
           body: "客室乗務員経験40年以上、管理職経験10年以上、クレーム対応や感情コントロールの最前線で培った圧倒的現場力で、机上論ではなく実際の現場で起こるリアルな悩みをもとに、実情に即したハラスメント予防研修を提案します。",
         },
         {
-          layout: "image-right",
           num: "02",
           title: "組織構築経験",
           body: "日常相談スペースやセルフキャリアドックを立ち上げた実績を活かし、ハラスメントを未然に防ぐ仕組みづくりと相談しやすい組織風土の構築を支援します。",
         },
         {
-          layout: "image-left",
           num: "03",
           title: "国家資格×実務",
           body: "公認心理師、産業カウンセラー、1級キャリアコンサルティング技能士などの専門資格と、産業現場での実務経験をもとに、個人対応だけでなく組織全体の判断基準と対応力の向上にアプローチします。",
         },
-      ] satisfies ServiceFeatureItem[],
+      ]) satisfies ServiceFeatureItem[],
     },
     { key: "voice", label: "VOICE", title: "研修を受講した\nお客様の声", whiteBackground: false },
     {
@@ -254,51 +233,33 @@ export const angerManagementServicePageBody: ServicePageBodyData = {
       heading: "従業員向け",
       cards: [
         {
-          tag: "基礎理解",
           title: "怒りの正体を知る",
-          bullets: ["怒りは二次感情", "怒りが生まれるメカニズム"],
         },
         {
-          tag: "自己理解",
-          title: "自分の価値観・思い込みを知る",
-          bullets: ["自分の中にある価値観や思い込み", "べき思考の可視化"],
+          title: "自分の価値観（思い込み）を知る",
         },
         {
-          tag: "ケーススタディ",
-          title: "感情コントロール技法",
-          bullets: ["6秒ルール", "クールダウンの具体策"],
+          title: "感情と上手に付き合う",
         },
       ],
     },
     {
-      heading: "管理職者向け",
+      heading: "管理者向け",
       cards: [
         {
-          tag: "基礎理解",
-          title: "怒りが職場に与える影響",
-          bullets: ["対人トラブルの連鎖", "ハラスメントとの接続"],
+          title: "アンガーマネジメントの基礎理解",
         },
         {
-          tag: "指導スキル",
-          title: "怒りを「伝える力」に変える",
-          bullets: ["アサーティブコミュニケーション", "注意・指導の伝え方（NGワード集）", "ハラスメントとの接続をふまえたケーススタディ"],
+          title: "管理者の感情マネジメント",
         },
         {
-          tag: "対応力",
-          title: "クレーム・多忙時の初期対応",
-          bullets: ["現場の怒りを受け止める", "エスカレートを防ぐ判断"],
-        },
-        {
-          tag: "組織改善",
-          title: "安心して対話できる職場づくり",
-          bullets: ["怒りを抱え込まない仕組み", "周囲が関わるときのポイント"],
+          title: "育成につながる伝え方",
         },
       ],
     },
   ],
-  worries: ["感情的な言動でトラブルが起きている", "怒りを我慢して疲弊している職員が多い", "注意や指導がハラスメントにならないか不安", "クレームや忙しさでイライラが溜まりやすい"],
-  worryLead: "アテンドサロンRは、感情労働に特化したアンガーマネジメント研修を通じて、現場に広がる“怒りの連鎖”を構造から整えます。",
-  worryParagraphs: ["介護・医療・接客・教育など、常に対人対応が求められる職場では、抑え込まれた怒りや価値観の衝突が、対立やハラスメントの火種となることがあります。", "私たちは、感情労働の特性と現場のリアルを踏まえ、怒りを否定するのではなく、適切に扱い、伝える力を育てます。", "感情に振り回されない冷静な判断と、安心して対話できる職場環境を支援します。"],
+  worries: ["クレームや忙しさでイライラが溜まりやすい", "感情的な言動でトラブルが起きている", "怒りを我慢して疲弊している従業員が多い", "注意や指導がハラスメントにならないか不安"],
+  worryLead: "アテンドサロンRは、アンガーマネジメント研修を通して、現場に広がる怒りの連鎖を考えます。",
   faqItems: angerManagementFaqItems,
   trailingSections: [
     {
@@ -307,26 +268,23 @@ export const angerManagementServicePageBody: ServicePageBodyData = {
       title: "アンガーマネジメント研修の特徴",
       whiteBackground: true,
       intro: "感情を扱う現場を熟知した元CA管理職×国家資格者による、怒りに振り回されない、現場で本当に使える実践重視のアンガーマネジメント研修を提供しています。",
-      features: [
+      features: withFeatureSectionMedia([
         {
-          layout: "image-left",
           num: "01",
           title: "現場力",
           body: "客室乗務員経験40年以上、管理職経験10年以上、感情コントロールの最前線で培った現場力をもとに、対人トラブルや価値観の衝突が起きやすい場面を踏まえた実情に即した研修を提案します。",
         },
         {
-          layout: "image-right",
           num: "02",
           title: "組織構築経験",
           body: "日常相談スペースや組織支援の実績を活かし、怒りを抱え込まない仕組みづくりと、安心して対話できる職場環境の構築を支援します。",
         },
         {
-          layout: "image-left",
           num: "03",
           title: "国家資格×実務",
           body: "公認心理師、産業カウンセラー、1級キャリアコンサルティング技能士などの専門資格と産業現場での実務経験をもとに、個人の感情コントロール力と組織全体の対話力向上の双方にアプローチします。",
         },
-      ] satisfies ServiceFeatureItem[],
+      ]) satisfies ServiceFeatureItem[],
     },
     { key: "voice", label: "VOICE", title: "研修を受講したお客様の声", whiteBackground: false },
     {
@@ -351,51 +309,33 @@ export const mentalHealthServicePageBody: ServicePageBodyData = {
       heading: "従業員向け",
       cards: [
         {
-          tag: "基礎理解",
-          title: "メンタルヘルスの基礎",
-          bullets: ["ストレスの正体", "誰でも不調になる可能性はある"],
+          title: "メンタルヘルスの基礎理解",
         },
         {
-          tag: "セルフケア",
           title: "セルフケア",
-          bullets: ["ストレスサインに気づく", "日常でできること"],
         },
         {
-          tag: "相談",
           title: "相談する力",
-          bullets: ["相談は弱さではない", "相談先の使い方"],
         },
       ],
     },
     {
-      heading: "管理職者向け",
+      heading: "管理者向け",
       cards: [
         {
-          tag: "基礎理解",
-          title: "ラインケアの役割",
-          bullets: ["管理職ができること、できないこと"],
+          title: "知っておくべき管理者の役割",
         },
         {
-          tag: "気づき",
-          title: "部下の不調サイン",
-          bullets: ["言動、行動、業務面の変化とは"],
+          title: "ラインケア",
         },
         {
-          tag: "初期対応",
-          title: "声のかけ方",
-          bullets: ["NG対応（励まし過ぎ・説教）", "適切な初期対応とは"],
-        },
-        {
-          tag: "予防",
-          title: "無自覚な圧力がメンタル不調を招く（ハラスメントとの接続）",
-          bullets: ["心理的負荷につながる関わり方", "早めに相談へつなぐ導線づくり"],
+          title: "組織対応",
         },
       ],
     },
   ],
   worries: ["不調に気づいた時にはすでに限界を超えている", "部下への声かけや初期対応に迷ってしまう", "休職や離職が続いている", "相談しにくい職場風土になっている"],
   worryLead: "アテンドサロンRは、感情労働に特化したメンタルヘルス研修を通じて現場の“不調の芽”を早期に摘み取ります",
-  worryParagraphs: ["介護・医療・接客・教育など、感情を扱い続ける職場では、責任感の強さや我慢強さゆえに、不調が見えにくくなりがちです。私たちは、感情労働の特性と現場のリアルを踏まえ、セルフケアとラインケアの両面から「気づく力」と「支える力」を育てます。", "休職や離職を防ぎ、安心して働き続けられる組織づくりを支援します。"],
   faqItems: mentalHealthFaqItems,
   trailingSections: [
     {
@@ -404,26 +344,23 @@ export const mentalHealthServicePageBody: ServicePageBodyData = {
       title: "メンタルヘルス研修の特徴",
       whiteBackground: true,
       intro: "感情を扱う現場を熟知した元CA管理職×国家資格者による、感情疲労を起こさない、現場で本当に使える実践重視のメンタルヘルス研修を提供しています。",
-      features: [
+      features: withFeatureSectionMedia([
         {
-          layout: "image-left",
           num: "01",
           title: "現場力",
           body: "客室乗務員経験40年以上、管理職経験10年以上、感情労働の最前線で培った現場力をもとに、我慢や責任感の強さから生じる不調の兆しを踏まえた実情に即した研修を提案します。",
         },
         {
-          layout: "image-right",
           num: "02",
           title: "組織構築経験",
           body: "日常相談スペースやセルフキャリアドックの立ち上げ実績を活かし、セルフケアとラインケアの両面から、休職・離職を予防する組織づくりを支援します。",
         },
         {
-          layout: "image-left",
           num: "03",
           title: "国家資格×実務",
           body: "公認心理師、産業カウンセラー、1級キャリアコンサルティング技能士などの専門資格と産業現場での実務経験を武器に、個人の不調予防と組織全体の支援体制強化の双方にアプローチします。",
         },
-      ] satisfies ServiceFeatureItem[],
+      ]) satisfies ServiceFeatureItem[],
     },
     { key: "voice", label: "VOICE", title: "研修を受講したお客様の声", whiteBackground: false },
     {

@@ -4,9 +4,11 @@ export interface ServiceStepItem {
 }
 
 export interface ServiceSyllabusCard {
-  tag: string;
+  /** 省略時はタグ行を出さない */
+  tag?: string;
   title: string;
-  bullets: string[];
+  /** 省略時または空配列のときは箇条書きを出さない */
+  bullets?: string[];
 }
 
 export interface ServiceSyllabusGroup {
@@ -92,15 +94,15 @@ const syllabusPanelId = (index: number) => `${idPrefix}-syllabus-panel-${index +
               <div class="p-service-subheading-cards__syllabus">
                 {group.cards.map((card) => (
                   <article class="p-service-subheading-cards__card">
-                    <p class="p-service-subheading-cards__tag">{card.tag}</p>
-                    <div class="p-service-subheading-cards__card-body">
-                      <h5 class="p-service-subheading-cards__card-title">{card.title}</h5>
+                    {card.tag ? <p class="p-service-subheading-cards__tag">{card.tag}</p> : null}
+                    <h5 class="p-service-subheading-cards__card-title">{card.title}</h5>
+                    {card.bullets?.length ? (
                       <ul class="p-service-subheading-cards__bullets">
                         {card.bullets.map((bullet) => (
                           <li>{bullet}</li>
                         ))}
                       </ul>
-                    </div>
+                    ) : null}
                   </article>
                 ))}
               </div>
@@ -332,6 +334,7 @@ const syllabusPanelId = (index: number) => `${idPrefix}-syllabus-panel-${index +
 
   .p-service-subheading-cards__groups {
     display: block;
+    background: var(--color-bg-warm);
   }
 
   .p-service-subheading-cards__group {
@@ -339,7 +342,6 @@ const syllabusPanelId = (index: number) => `${idPrefix}-syllabus-panel-${index +
     margin: 0;
     border: 1px solid var(--color-border-soft);
     border-radius: 1rem;
-    background: linear-gradient(155deg, var(--color-surface-01) 0%, #fff 62%);
     padding: 1rem;
     overflow: clip;
   }
@@ -348,31 +350,6 @@ const syllabusPanelId = (index: number) => `${idPrefix}-syllabus-panel-${index +
     .p-service-subheading-cards__group {
       padding: 1.25rem;
     }
-  }
-
-  .p-service-subheading-cards__group::before,
-  .p-service-subheading-cards__group::after {
-    content: '';
-    position: absolute;
-    border-radius: var(--radius-full);
-    pointer-events: none;
-    opacity: 0.42;
-  }
-
-  .p-service-subheading-cards__group::before {
-    top: -1.75rem;
-    right: -1.5rem;
-    width: 7.5rem;
-    height: 7.5rem;
-    background: var(--color-surface-blue-soft);
-  }
-
-  .p-service-subheading-cards__group::after {
-    bottom: -2.25rem;
-    left: -2rem;
-    width: 6.25rem;
-    height: 6.25rem;
-    background: var(--color-pink-03);
   }
 
   .p-service-subheading-cards__group:focus-visible {
@@ -411,7 +388,6 @@ const syllabusPanelId = (index: number) => `${idPrefix}-syllabus-panel-${index +
 
   @media (--bp-md-up) {
     .p-service-subheading-cards__card {
-      min-height: 12.25rem;
       padding: 1rem 1.125rem 1.125rem;
     }
   }
@@ -436,23 +412,16 @@ const syllabusPanelId = (index: number) => `${idPrefix}-syllabus-panel-${index +
     }
   }
 
-  .p-service-subheading-cards__card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-    min-width: 0;
-    width: 100%;
-  }
-
   .p-service-subheading-cards__card-title {
     margin: 0;
+    min-width: 0;
+    width: 100%;
     color: var(--color-black-03);
     font-family: var(--font-family-base);
     font-size: 0.9875rem;
     font-weight: 700;
     line-height: 1.5;
-    text-align: left;
+    text-align: center;
   }
 
   .p-service-subheading-cards__bullets {

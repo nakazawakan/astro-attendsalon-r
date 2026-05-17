@@ -1,12 +1,14 @@
 ---
 import NoImagePlaceholder from '../NoImagePlaceholder.astro';
 import SectionHeading from '../SectionHeading.astro';
+import SectionMarkDecor from '../SectionMarkDecor.astro';
 
 export interface ServiceFeatureItem {
-  layout: 'image-left' | 'image-right';
   num: string;
   title: string;
   body: string;
+  imageSrc?: string;
+  imageAlt?: string;
 }
 
 interface Props {
@@ -21,30 +23,37 @@ const { id, label, title, intro, features } = Astro.props;
 ---
 
 <section id="features" class="l-section p-feature-section p-service-feature-section" data-reveal>
+  <div class="l-wave l-wave--top l-wave--pattern-gentle-a" aria-hidden="true"></div>
+  <SectionMarkDecor anchor="tl" variant="feature" />
   <div class="p-feature-section__bg-haze" aria-hidden="true"></div>
   <div class="l-container">
     <SectionHeading label={label} title={title} id={id} bottomMarginStyle="content">
       <p slot="intro">{intro}</p>
     </SectionHeading>
 
-    <div class="l-stack l-stack--wide p-feature-section__list">
+    <div class="p-feature-section__list">
       {
-        features.map(({ layout, num, title: itemTitle, body }) => (
-          <div
-            class:list={[
-              'p-feature-section__item',
-              layout === 'image-left' ? 'p-feature-section__item--image-left' : 'p-feature-section__item--image-right',
-            ]}
-          >
-            <div class="p-feature-section__media">
-              <NoImagePlaceholder />
-            </div>
+        features.map(({ num, title: itemTitle, body, imageSrc, imageAlt }) => (
+          <div class="p-feature-section__item">
+            <p class="p-feature-section__num" aria-hidden="true">
+              {num}
+            </p>
             <article class="p-feature-section__card">
-              <div class="p-feature-section__card-head">
-                <h3 class="p-feature-section__title">{itemTitle}</h3>
-                <p class="p-feature-section__num" aria-hidden="true">
-                  {num}
-                </p>
+              <h3 class="p-feature-section__title">
+                {itemTitle}
+              </h3>
+              <div class="p-feature-section__media">
+                {imageSrc ? (
+                  <img
+                    class="p-feature-section__image"
+                    src={imageSrc}
+                    alt={imageAlt ?? ''}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <NoImagePlaceholder />
+                )}
               </div>
               <p class="p-feature-section__body">{body}</p>
             </article>
@@ -53,15 +62,21 @@ const { id, label, title, intro, features } = Astro.props;
       }
     </div>
   </div>
+  <div class="l-wave l-wave--bottom l-wave--pattern-gentle-b" aria-hidden="true"></div>
 </section>
 
 <style>
   /* `FeatureSection.astro` と同一の見た目（研修サービス下位ページ用に props 化） */
   .p-service-feature-section.p-feature-section {
     --feature-media-aspect: 3 / 2;
+    --wave-height: 40px;
+    --wave-mask-gentle-a: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 14 C90 -2 180 -2 270 14 C360 30 450 30 540 14 C630 -2 720 -2 810 14 C844 20 878 20 912 14 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
+    --wave-mask-gentle-b: url("data:image/svg+xml,%3Csvg viewBox='0 0 912 62' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 16 C118 0 236 0 354 16 C442 31 530 31 618 16 C716 0 814 0 912 12 L912 62 L0 62 Z' fill='black'/%3E%3C/svg%3E");
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    padding-top: calc(var(--section-padding-block-start, var(--section-padding-block-start-default)) + var(--wave-height));
+    padding-bottom: calc(var(--section-padding-block-end, var(--section-padding-block-end-default)) + var(--wave-height));
     background:
       linear-gradient(
         180deg,
@@ -122,21 +137,33 @@ const { id, label, title, intro, features } = Astro.props;
     }
   }
 
-  .p-service-feature-section .p-feature-section__item {
+  .p-service-feature-section .p-feature-section__list {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--stack-gap-wide, 2.5rem);
+  }
+
+  .p-service-feature-section .p-feature-section__list > * {
+    min-width: 0;
+  }
+
+  .p-service-feature-section .p-feature-section__item {
+    position: relative;
+    min-width: 0;
+    overflow: visible;
   }
 
   .p-service-feature-section .p-feature-section__media {
     position: relative;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     flex-shrink: 0;
     aspect-ratio: var(--feature-media-aspect);
     overflow: hidden;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    background: var(--color-surface-02);
+    border-radius: var(--radius-md);
   }
 
   .p-service-feature-section .p-feature-section__media :global(.c-no-image-placeholder) {
@@ -149,47 +176,52 @@ const { id, label, title, intro, features } = Astro.props;
     border-radius: 0;
   }
 
+  .p-service-feature-section .p-feature-section__image {
+    box-sizing: border-box;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    object-position: center;
+  }
+
   .p-service-feature-section .p-feature-section__card {
-    flex: 1;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    min-width: 0;
+    height: 100%;
     padding: 1rem;
-    border-radius: 0 0 0.5rem 0.5rem;
+    border-radius: 0.5rem;
     background: #fff;
     box-shadow: var(--shadow-soft);
-  }
-
-  .p-service-feature-section .p-feature-section__card-head {
-    display: flex;
-    width: 100%;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: 1rem;
-    flex-direction: row-reverse;
-    text-align: left;
-    color: var(--color-pink-01);
   }
 
   .p-service-feature-section .p-feature-section__title {
     margin: 0;
     min-width: 0;
-    flex-shrink: 1;
     font-size: 1.25rem;
     line-height: 1.3;
     font-weight: 700;
-    text-align: left;
+    text-align: center;
   }
 
   .p-service-feature-section .p-feature-section__num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
     margin: 0;
-    flex-shrink: 0;
+    color: var(--color-pink-01);
     font-size: 2rem;
     line-height: 1;
     font-weight: 900;
     font-variant-numeric: tabular-nums;
     font-family: "Lato", sans-serif;
+    pointer-events: none;
+    transform: translate(-28%, -52%);
   }
 
   .p-service-feature-section .p-feature-section__body {
@@ -202,39 +234,23 @@ const { id, label, title, intro, features } = Astro.props;
   }
 
   @media (--bp-md-up) {
-    .p-service-feature-section .p-feature-section__item {
-      gap: 1.5rem;
-      align-items: stretch;
+    .p-service-feature-section.p-feature-section {
+      --wave-height: 62px;
     }
 
-    .p-service-feature-section .p-feature-section__item--image-left {
+    .p-service-feature-section .p-feature-section__list {
       flex-direction: row;
+      align-items: stretch;
+      gap: var(--stack-gap-wide-md, 3rem);
     }
 
-    .p-service-feature-section .p-feature-section__item--image-right {
-      flex-direction: row-reverse;
-    }
-
-    .p-service-feature-section .p-feature-section__media {
-      width: 420px;
-      max-width: 48%;
-      border-radius: var(--radius-lg);
+    .p-service-feature-section .p-feature-section__item {
+      flex: 1;
     }
 
     .p-service-feature-section .p-feature-section__card {
-      gap: 1.5rem;
-      padding: 2.5rem;
-      border-radius: 0.5rem;
-    }
-
-    .p-service-feature-section .p-feature-section__card-head {
-      flex-direction: row;
-      justify-content: space-between;
-      text-align: center;
-    }
-
-    .p-service-feature-section .p-feature-section__title {
-      font-size: 1.5rem;
+      gap: 0.5rem;
+      padding: 1.5rem;
     }
 
     .p-service-feature-section .p-feature-section__num {

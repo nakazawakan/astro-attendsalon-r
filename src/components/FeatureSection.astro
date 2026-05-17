@@ -2,16 +2,14 @@
 import NoImagePlaceholder from './NoImagePlaceholder.astro';
 import SectionHeading from './SectionHeading.astro';
 import SectionMarkDecor from './SectionMarkDecor.astro';
+import { withFeatureSectionMedia } from '../data/feature-section-media';
 
-const features = [
+const features = withFeatureSectionMedia([
   {
     layout: 'image-left' as const,
     num: '01',
     title: '現場力',
     body: '客室乗務員経験40年以上、管理職経験10年以上、クレーム対応、感情コントロールの最前線で培った圧倒的現場力で、実際の現場で起こる悩みをもとに実情に即した研修を提案します',
-    imageSrc: '/images/feature-01-professional-watercolor-transparent.png',
-    imageAlt:
-      '青いジャケットとスカーフの制服姿の人物の水彩風イラスト。胸に手を当てた丁寧な姿勢。',
   },
   {
     layout: 'image-right' as const,
@@ -24,11 +22,8 @@ const features = [
     num: '03',
     title: '国家資格×実務経験',
     body: '公認心理師、産業カウンセラー、1級キャリアコンサルティング技能士、キャリアコンサルタントなどの専門資格を有し、教育と産業の現場での実務経験を武器に、個人と組織支援の双方にアプローチします',
-    imageSrc: '/images/feature-03-national-qualification-transparent.png',
-    imageAlt:
-      '「国家資格」の文字と署名欄線、上部の金色の装飾、右下の金封印と薄い青色のリボンが描かれた、賞状風の水彩タッチのイラスト。',
   },
-];
+]);
 ---
 <section id="features" class="l-section p-feature-section" data-reveal>
   <div class="l-wave l-wave--top l-wave--pattern-gentle-a" aria-hidden="true"></div>
@@ -37,40 +32,28 @@ const features = [
   <div class="l-container">
     <SectionHeading label="FEATURE" title="アテンドサロンRの特徴" />
 
-    <div class="l-stack l-stack--wide p-feature-section__list">
-      {features.map(({ layout, num, title, body, imageSrc, imageAlt }) => (
-        <div
-          class:list={[
-            'p-feature-section__item',
-            layout === 'image-left' ? 'p-feature-section__item--image-left' : 'p-feature-section__item--image-right',
-          ]}
-        >
-          <div class="p-feature-section__media">
-            {imageSrc ? (
-              <img
-                class="p-feature-section__image"
-                src={imageSrc}
-                alt={imageAlt ?? ''}
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <NoImagePlaceholder />
-            )}
-          </div>
-          <article
-            class="p-feature-section__card"
-          >
-            <div class="p-feature-section__card-head">
-              <h3 class="p-feature-section__title">
-                {title}
-              </h3>
-              <p
-                class="p-feature-section__num"
-                aria-hidden="true"
-              >
-                {num}
-              </p>
+    <div class="p-feature-section__list">
+      {features.map(({ num, title, body, imageSrc, imageAlt }) => (
+        <div class="p-feature-section__item">
+          <p class="p-feature-section__num" aria-hidden="true">
+            {num}
+          </p>
+          <article class="p-feature-section__card">
+            <h3 class="p-feature-section__title">
+              {title}
+            </h3>
+            <div class="p-feature-section__media">
+              {imageSrc ? (
+                <img
+                  class="p-feature-section__image"
+                  src={imageSrc}
+                  alt={imageAlt ?? ''}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <NoImagePlaceholder />
+              )}
             </div>
             <p class="p-feature-section__body">
               {body}
@@ -155,20 +138,33 @@ const features = [
     }
   }
 
-  .p-feature-section__item {
+  .p-feature-section__list {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--stack-gap-wide, 2.5rem);
+  }
+
+  .p-feature-section__list > * {
+    min-width: 0;
+  }
+
+  .p-feature-section__item {
+    position: relative;
+    min-width: 0;
+    overflow: visible;
   }
 
   .p-feature-section__media {
     position: relative;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     flex-shrink: 0;
     aspect-ratio: var(--feature-media-aspect);
     overflow: hidden;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-radius: var(--radius-md);
   }
 
   .p-feature-section__media :global(.c-no-image-placeholder) {
@@ -182,57 +178,52 @@ const features = [
   }
 
   .p-feature-section__image {
-    position: absolute;
-    inset: 0;
     box-sizing: border-box;
     display: block;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    max-height: 80%;
     object-fit: contain;
     object-position: center;
   }
 
   .p-feature-section__card {
-    flex: 1;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    min-width: 0;
+    height: 100%;
     padding: 1rem;
-    border-radius: 0 0 0.5rem 0.5rem;
+    border-radius: 0.5rem;
     background: #fff;
     box-shadow: var(--shadow-soft);
-  }
-
-  .p-feature-section__card-head {
-    display: flex;
-    width: 100%;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: 1rem;
-    flex-direction: row-reverse;
-    text-align: left;
-    color: var(--color-pink-01);
   }
 
   .p-feature-section__title {
     margin: 0;
     min-width: 0;
-    flex-shrink: 1;
     font-size: 1.25rem;
     line-height: 1.3;
     font-weight: 700;
-    text-align: left;
+    text-align: center;
   }
 
   .p-feature-section__num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
     margin: 0;
-    flex-shrink: 0;
+    color: var(--color-pink-01);
     font-size: 2rem;
     line-height: 1;
     font-weight: 900;
     font-variant-numeric: tabular-nums;
     font-family: "Lato", sans-serif;
+    pointer-events: none;
+    /* 番号の左上を item 角に合わせ、自身の幅・高さの一部を外側にはみ出す */
+    transform: translate(-28%, -52%);
   }
 
   .p-feature-section__body {
@@ -249,44 +240,25 @@ const features = [
       --wave-height: 62px;
     }
 
-    .p-feature-section__item {
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    .p-feature-section__item--image-left {
+    .p-feature-section__list {
       flex-direction: row;
+      align-items: stretch;
+      gap: var(--stack-gap-wide-md, 3rem);
     }
 
-    .p-feature-section__item--image-right {
-      flex-direction: row-reverse;
-    }
-
-    .p-feature-section__media {
-      width: 420px;
-      max-width: 48%;
-      border-radius: var(--radius-lg);
+    .p-feature-section__item {
+      flex: 1;
     }
 
     .p-feature-section__card {
-      gap: 1.5rem;
-      padding: 2.5rem;
-      border-radius: 0.5rem;
-    }
-
-    .p-feature-section__card-head {
-      flex-direction: row;
-      justify-content: space-between;
-      text-align: center;
-    }
-
-    .p-feature-section__title {
-      font-size: 1.5rem;
+      gap: .5rem;
+      padding: 1.5rem;
     }
 
     .p-feature-section__num {
       font-size: 40px;
     }
+
 
     .p-feature-section__body {
       font-size: 0.9375rem;

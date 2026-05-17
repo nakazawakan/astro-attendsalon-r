@@ -1,6 +1,7 @@
 ---
 import ChevronPillCtaLink from './ChevronPillCtaLink.astro';
 import SectionHeading from './SectionHeading.astro';
+import SectionMarkDecor from './SectionMarkDecor.astro';
 import InstructorCardsRow from './InstructorCardsRow.astro';
 import { instructorsForCards } from '../data/instructors';
 
@@ -20,6 +21,7 @@ const instructors = instructorsForCards;
   {...(!embedded ? { 'data-reveal': true } : {})}
 >
   {!embedded && <div class="l-wave l-wave--top l-wave--pattern-gentle-a" aria-hidden="true"></div>}
+  {!embedded && <SectionMarkDecor anchor="br" variant="service" />}
   {
     embedded ? (
       <div class="p-instructor-section__embed">
@@ -64,6 +66,11 @@ const instructors = instructorsForCards;
   .p-instructor-section__embed {
     position: relative;
     z-index: var(--z-section-content, 3);
+  }
+
+  /* 右寄せは service バリアント、色は feature と同様に白 */
+  .p-instructor-section :global(.p-section-mark) {
+    --section-mark-color: #fff;
   }
 
   .p-instructor-section--embedded {

@@ -37,19 +37,29 @@ const faqGroups = FAQ_CATEGORY_ORDER.map((category) => ({
           <dl class="p-faq-subpage__list">
             {items.map(({ q, a, cta }) => (
               <div class="p-faq-subpage__item">
-                <dt class="p-faq-subpage__q">{q}</dt>
+                <dt class="p-faq-subpage__q">
+                  <span class="p-faq-subpage__mark p-faq-subpage__mark--q" aria-hidden="true"
+                    >Q</span
+                  >
+                  <span class="p-faq-subpage__q-text">{q}</span>
+                </dt>
                 <dd class="p-faq-subpage__a">
-                  {a}
-                  {cta && (
-                    <span class="p-faq-subpage__cta-line">
-                      <a
-                        href={cta.href}
-                        class="p-faq-subpage__cta-link"
-                      >
-                        {cta.label}
-                      </a>
-                    </span>
-                  )}
+                  <span class="p-faq-subpage__mark p-faq-subpage__mark--a" aria-hidden="true"
+                    >A</span
+                  >
+                  <div class="p-faq-subpage__a-body">
+                    {a}
+                    {cta && (
+                      <span class="p-faq-subpage__cta-line">
+                        <a
+                          href={cta.href}
+                          class="p-faq-subpage__cta-link"
+                        >
+                          {cta.label}
+                        </a>
+                      </span>
+                    )}
+                  </div>
                 </dd>
               </div>
             ))}
@@ -84,7 +94,7 @@ const faqGroups = FAQ_CATEGORY_ORDER.map((category) => ({
   .p-faq-subpage__list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: .7rem;
     margin: 0;
     font-family: var(--font-family-base);
   }
@@ -96,14 +106,46 @@ const faqGroups = FAQ_CATEGORY_ORDER.map((category) => ({
     background: #fff;
   }
 
+  .p-faq-subpage__q,
+  .p-faq-subpage__a {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 0;
+    min-width: 0;
+  }
+
   .p-faq-subpage__q {
-    margin: 0 0 0.5rem;
+    margin-bottom: 0.5rem;
     font-weight: 700;
     color: var(--color-black-03);
   }
 
+  .p-faq-subpage__mark {
+    flex-shrink: 0;
+    width: 1.5rem;
+    font-family: var(--font-family-base);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .p-faq-subpage__mark--q {
+    color: var(--color-pink-01);
+  }
+
+  .p-faq-subpage__mark--a {
+    color: var(--color-blue-01);
+  }
+
+  .p-faq-subpage__q-text,
+  .p-faq-subpage__a-body {
+    flex: 1;
+    min-width: 0;
+  }
+
   .p-faq-subpage__a {
-    margin: 0;
     font-size: 0.875rem;
     line-height: var(--line-height-base);
     color: var(--color-black-03);

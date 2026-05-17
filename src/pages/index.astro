@@ -1,6 +1,6 @@
 ---
 import SiteChrome from '../layouts/SiteChrome.astro';
-import HeroSection from '../components/HeroSection.astro';
+import TopHeroSection from '../components/TopHeroSection.astro';
 import AboutSection from '../components/AboutSection.astro';
 import ServiceSection from '../components/ServiceSection.astro';
 import FeatureSection from '../components/FeatureSection.astro';
@@ -21,7 +21,7 @@ const websiteJsonLd = buildWebSiteJsonLd({ site });
   canonicalPath="/"
   jsonLd={[organizationJsonLd, websiteJsonLd]}
 >
-  <HeroSection />
+  <TopHeroSection />
   <AboutSection />
   <ServiceSection />
   <FeatureSection />

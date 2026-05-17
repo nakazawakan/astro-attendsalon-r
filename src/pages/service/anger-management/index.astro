@@ -6,12 +6,19 @@ const title = 'アンガーマネジメント研修';
 const description =
   '東京エリアを中心に、アンガーマネジメントに関する研修のご案内ページです。';
 const heroLead =
-  '感情に振り回されず冷静に対処できる職場づくりを目指し、怒りの仕組みを理解して適切に扱う力を身につけることで、ハラスメント予防と組織力向上につなげる実践型アンガーマネジメント研修';
+  '感情に振り回されず冷静に対処できる職場づくりを目指し、怒りの仕組みを理解して適切に扱う力を身につけることで、ハラスメントを予防し組織力向上につなげる実践型アンガーマネジメント研修';
+const heroImage = {
+  src: '/images/service-anger-management-hero-transparent-02.png',
+  alt: '穏やかに対話する男女の水彩イラスト',
+  width: 1024,
+  height: 768,
+};
 ---
 <ServicePageLayout
   title={title}
   description={description}
   heroLead={heroLead}
+  heroImage={heroImage}
   canonicalPath="/service/anger-management/"
   Content={ServicePageContent}
 />

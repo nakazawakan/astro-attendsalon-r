@@ -51,7 +51,7 @@ const satoBase: InstructorCard = {
   nameJa: "佐藤 亮子",
   nameEn: "Sato Ryoko",
   tags: ["元航空会社客室乗務員（乗務管理職）", "EAPカウンセラー ※"],
-  tagFootnote: "※ Employee Assistant Program＝従業員支援プログラム",
+  tagFootnote: "※ Employee Assistance Program＝従業員支援プログラム",
   qualifications: ["1級キャリアコンサルティング技能士", "2級キャリアコンサルティング技能士", "キャリアコンサルタント", "公認心理師", "産業カウンセラー", "心理相談員"],
   image: "/images/instructor-sato.png",
   imageAlt: "佐藤亮子のポートレート",
@@ -86,7 +86,7 @@ export const instructorProfiles: InstructorProfile[] = [
     ...tatenoBase,
     slug: "tateno-rika",
     focusAreas: ["接客・対人支援の現場に即した研修設計", "マナー・印象づくりを含むコミュニケーション関連研修", "キャリアや生活設計にも踏み込んだ伴走型のファシリテーション"],
-    longBio: ["元航空会社客室乗務員として乗務管理職を経て、エデュケーションアシスタントとして接遇・育成の現場を支えてきました。", "WLBの視点から働きがいや自身の健康を大切にした女性活躍推進を支援します"],
+    longBio: ["元航空会社客室乗務員として乗務管理職を経て、エデュケーションアシスタントとして接遇・育成の現場を支えてきました。", "ワークライフバランスの視点から働きがいや自身の健康を大切にした女性活躍推進を支援します"],
     gallery: [
       {
         src: "/images/trainer/tateno-desk-01.jpg",

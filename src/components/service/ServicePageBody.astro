@@ -72,7 +72,6 @@ interface Props {
   aboutSyllabus: ServiceSyllabusGroup[];
   worries: string[];
   worryLead: string;
-  worryParagraphs: string[];
   /** WORRIES セクション背景（default / white / surface / gray / blueSoft） */
   worriesBackground?: ServiceSectionBackground;
   trailingSections: ServicePageTrailingSection[];
@@ -94,7 +93,6 @@ const {
   aboutSyllabus,
   worries,
   worryLead,
-  worryParagraphs,
   worriesBackground,
   trailingSections,
   aboutSteps = DEFAULT_ABOUT_STEPS,
@@ -123,7 +121,6 @@ const hasFlowSection = orderedTrailingSections.some((section) => section.key ===
   id={`${idPrefix}-worries-title`}
   worries={worries}
   lead={worryLead}
-  paragraphs={worryParagraphs}
   background={worriesBackground ?? 'blueSoft'}
 />
 
